@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import logout as django_logout
+from django.contrib.auth import logout
 from django.contrib.auth import authenticate, login
 from accounts.forms import RegistrationForm
 
@@ -22,9 +22,9 @@ def registration(request):
 	args = {'form': form}
 	return render(request, 'auth_form.html', args)
 
-def logout(request):
+def signout(request):
 	'''
-	Logout method
+	Sign out method
 	'''
-	django_logout(request)
+	logout(request)
 	return redirect('/')

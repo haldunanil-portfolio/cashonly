@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import logout
+from django.contrib import messages
 
 def is_member(user, group):
 	'''
@@ -34,5 +36,10 @@ def home(request):
 		# Check if user belongs to the "Businesses" group
 		elif is_member(request.user, 'Businesses'):
 			pass ## to be developed
+
+		# Handle situation where user belongs to none of the groups
+		else:
+			logout(request)
+			messages.info(request, 'ERROR: You do not belong to any group, please contact administrator.')
 
 	return render(request, 'anonymous-user.html')
