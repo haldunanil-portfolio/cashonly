@@ -25,7 +25,7 @@ _Updated: Monday, March 27, 2016._
 
 Please always ensure that you are using the most up-to-date stable version of git. As of the current date, the preferred version is git 2.10.1.
 
-Cash Only uses Atlassian Bitbucket as our online repository. All new branches should first be created from the current version of the develop branch and pushed back so that they may all be merged properly later on. Please follow the steps outlined below every time you’re starting a new project.
+Cash Only uses Github as our online repository. All new branches should first be created from the current version of the develop branch and pushed back so that they may all be merged properly later on. Please follow the steps outlined below every time you’re starting a new project.
 
 The following draws heavily from [this article](http://nvie.com/posts/a-successful-git-branching-model/), and it is recommended that you read that before you continue, as this is essentially a summary steps article with the commentary removed.
 
@@ -36,7 +36,7 @@ Before starting any development, __you MUST ensure that your local repo is up-to
 If you do __NOT__ currently have a clone of the repo, please navigate to the folder you want to install in (one level above the root directory; e.g. Desktop if you want your root to be Desktop/cashonly) and type:
 
 ```shell
-$ git clone -b develop https://bitbucket.org/cashonly/cashonly && cd cashonly
+$ git clone -b develop https://github.com/cash-only/cashonly && cd cashonly
 ```
 
 You may be prompted to enter username and password. Please enter to proceed. If you do not have one, contact [haldun@cashon.ly](mailto:haldun@cashon.ly) for assistance. If you do have a clone of the develop repo, update it via the following command (make sure you run this in the root directory):
@@ -102,11 +102,11 @@ $ git merge --no-ff myfeature
 $ git branch -d myfeature
 ```
 
-Once you’ve followed the steps above, you will have merged your feature into your local clone of the develop branch and deleted the `myfeature` branch-- which means you’re ready to Bitbucket.
+Once you’ve followed the steps above, you will have merged your feature into your local clone of the develop branch and deleted the `myfeature` branch-- which means you’re ready to Github.
 
-## Step 5: Push to Bitbucket repo ##
+## Step 5: Push to Github repo ##
 
-The last step is pushing your updates to the Bitbucket repo. Follow the steps below to do so:
+The last step is pushing your updates to the Github repo. Follow the steps below to do so:
 
 ```shell
 $ git push origin develop
