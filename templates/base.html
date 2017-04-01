@@ -1,0 +1,34 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<html>
+  <head>
+  	<title>{% block title %}{% endblock %} | Cash Only BETA</title>
+
+    {% load static from staticfiles %}
+
+  	<link rel="icon" href="{% static 'sitewide/images/favicon.png' %}">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  	<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  	<link rel="stylesheet" type="text/css" href="{% static 'nologin/css/styles.css' %}">
+
+    {% if user.is_authenticated %}
+  	  <link rel="stylesheet" type="text/css" href="{% static 'login/css/styles.css' %}">
+    {% endif %}
+
+  </head>
+
+  <body>
+  {% block nav %}{% endblock %}
+
+  {% block content %}{% endblock %}
+
+  {% block footer %}{% endblock %}
+
+  <script src="{% static 'sitewide/js/animations.js' %}"></script>
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+  <script src='http://sivan.github.io/codebar.js/dist/codebar.js'></script>
+
+
+  </body>
+</html>

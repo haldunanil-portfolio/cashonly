@@ -1,0 +1,4 @@
+Django
+django-storages
+django-phonenumber-field
+psycopg2
