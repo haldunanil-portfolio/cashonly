@@ -19,8 +19,10 @@ body {
 
 .cash-only-full-logo-white {
   position: relative;
-  top: 50.47px;
   left: 49.53px;
+  display: inline-block;
+  float: left;
+  margin-top: 50px;
 }
 
 .links-homepage-top {
@@ -83,7 +85,6 @@ body {
   margin: 0 auto;
   margin-top: 75px;
   margin-bottom: 128px;
-  position: relative;
 }
 
 .c-o-logo {
@@ -161,8 +162,16 @@ body {
 
 @media screen and (max-width: 700px) {
 
+  .homepage-nav {
+    padding-top: 50px;
+  }
+
+  .cash-only-full-logo-white {
+    margin-top: 0px;
+  }
+
   .links-homepage-top {
-    margin-top: 50.47px;
+    float: right;
   }
 
   .mobile-links {
