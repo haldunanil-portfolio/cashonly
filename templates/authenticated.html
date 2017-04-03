@@ -31,6 +31,9 @@
 {% endblock %}
 
 {% block content %}
+
+{{ referer }}
+
 <div class="transactions-container">
 	<h1>Transactions</h1>
 	<div class="balance-message">G’day {{ user.first_name|title }}, your balance is <a class="balance-amount">$250</a></div>
