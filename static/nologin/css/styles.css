@@ -80,10 +80,10 @@ body {
 .welcome-to-message-container {
   width: 100%;
   height: 476px;
-  top: 210px;
   margin: 0 auto;
   margin-top: 75px;
   margin-bottom: 128px;
+  position: relative;
 }
 
 .c-o-logo {
@@ -125,10 +125,10 @@ body {
 
 .homepage-footer {
   background: #282E33;
-  width: 100%;
   text-align: center;
   padding-top: 0px;
-  position: absolute;
+  bottom: 0;
+  left: 0;
   right: 0;
 }
 
