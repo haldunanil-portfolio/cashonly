@@ -1,6 +1,10 @@
 body {
+  position: relative;
+  min-height: 100%;
   margin: 0px;
   font-family: 'Raleway', sans-serif;
+
+  /*styles for background*/
   background: url(../images/atm.png);
   background-repeat: no-repeat;
   background-position: right top;
@@ -124,7 +128,8 @@ body {
   width: 100%;
   text-align: center;
   padding-top: 0px;
-  margin-top: 15%;
+  position: absolute;
+  right: 0;
 }
 
 .homepage-footer > ul {
