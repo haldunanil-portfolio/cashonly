@@ -1,6 +1,10 @@
 body {
+  position: relative;
+  min-height: 100%;
   margin: 0px;
   font-family: 'Raleway', sans-serif;
+
+  /*styles for background*/
   background: url(../images/atm.png);
   background-repeat: no-repeat;
   background-position: right top;
@@ -9,16 +13,16 @@ body {
 }
 
 .homepage-nav {
-  position: absolute;
-  z-index: +1;
   width: 100%;
   height: 112px;
 }
 
 .cash-only-full-logo-white {
-  position: absolute;
-  top: 50.47px;
+  position: relative;
   left: 49.53px;
+  display: inline-block;
+  float: left;
+  margin-top: 50px;
 }
 
 .links-homepage-top {
@@ -31,7 +35,8 @@ body {
 
 .signup-button {
   background: #64AC00;
-  font-family: Raleway-Bold;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 800;
   font-size: 16px;
   color: white;
   border: none;
@@ -62,7 +67,8 @@ body {
 .links-homepage-top > ul > li > a, .links-homepage {
   text-decoration: none;
   text-transform: uppercase;
-  font-family: Raleway-Bold;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 700;
   font-size: 16px;
   color: white;
   cursor: pointer;
@@ -73,22 +79,12 @@ body {
   color: #64AC00;
 }
 
-.atm-bg {
-  position: absolute;
-  z-index: -999;
-  padding: 0px;
-  width: 100%;
-  height: auto;
-  overflow: auto;
-}
-
 .welcome-to-message-container {
   width: 100%;
   height: 476px;
-  top: 210px;
   margin: 0 auto;
-  position: absolute;;
-  z-index: +1;
+  margin-top: 75px;
+  margin-bottom: 128px;
 }
 
 .c-o-logo {
@@ -98,11 +94,12 @@ body {
 }
 
 .welcome-to-container {
-font-family: Raleway-ExtraBold;
-font-size: 24px;
-color: white;
-text-align: center;
-text-transform: uppercase;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 800;
+  font-size: 24px;
+  color: white;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 .mini-div {
@@ -113,7 +110,8 @@ text-transform: uppercase;
 }
 
 .promotional-message {
-  font-family: Raleway-ExtraLight;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 200;
   font-size: 28px;
   color: white;
   text-align: center;
@@ -128,12 +126,12 @@ text-transform: uppercase;
 
 .homepage-footer {
   background: #282E33;
-  width: 100%;
   text-align: center;
-  display: inline-block;
   padding-top: 0px;
-  position: absolute;
-  bottom: 0px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem;
 }
 
 .homepage-footer > ul {
@@ -151,9 +149,10 @@ text-transform: uppercase;
   .desktop-links {
     width: auto;
     right: 0px;
-    position: absolute;
+    position: relative;
     padding-right: 50px;
     top: 50.47px;
+    float: right;
   }
 
   .homepage-footer > ul {
@@ -163,8 +162,16 @@ text-transform: uppercase;
 
 @media screen and (max-width: 700px) {
 
+  .homepage-nav {
+    padding-top: 50px;
+  }
+
+  .cash-only-full-logo-white {
+    margin-top: 0px;
+  }
+
   .links-homepage-top {
-    margin-top: 50.47px;
+    float: right;
   }
 
   .mobile-links {
@@ -258,4 +265,15 @@ input {
 *:before,
 *:after {
   box-sizing: border-box;
+}
+
+.messages {
+  background: #d84949;
+  width: 100%;
+  height: auto;
+  padding: 20px;
+  color: white;
+  margin-top: 0px;
+  list-style: none;
+  text-align: center;
 }
