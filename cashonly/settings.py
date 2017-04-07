@@ -30,6 +30,10 @@ ALLOWED_HOSTS = ['.elasticbeanstalk.com',
                  '127.0.0.1',
                  '.cashon.ly']
 
+INTERNAL_IPS = (
+    '0.0.0.0',
+    '127.0.0.1',
+)
 
 # Application definition
 

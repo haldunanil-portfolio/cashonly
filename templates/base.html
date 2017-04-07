@@ -19,8 +19,9 @@
 
   <body>
 
-  {% if messages %}
+  {% if messages or debug %}
     <ul class="messages">
+      {% if debug %}<li>WARNING: DEBUG MODE IS ON</li>{% endif %}
       {% for message in messages %}
       <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
       {% endfor %}
