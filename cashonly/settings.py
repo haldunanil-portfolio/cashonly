@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'accounts',
     'transactions',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -138,3 +139,12 @@ USE_TZ = True
 STATICFILES_DIRS = ( os.path.join('static'), )
 
 STATIC_URL = '/static/'
+
+# Security
+# https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
+
+CSRF_COOKIE_SECURE = True
+
+SESSION_COOKIE_SECURE = True
+
+X_FRAME_OPTIONS = 'DENY'
