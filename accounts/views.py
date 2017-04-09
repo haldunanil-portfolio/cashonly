@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout
 from django.contrib.auth import authenticate, login
-from accounts.forms import RegistrationForm, ProfileForm
 from django.contrib.auth.decorators import login_required
-from .decorators import referer_matches_re, not_loggedin_required
+from accounts.forms import RegistrationForm, ProfileForm
+from accounts.decorators import not_loggedin_required
 
 @not_loggedin_required
 def registration(request):
@@ -25,7 +25,6 @@ def registration(request):
 	return render(request, 'auth_form.html', {'form': form})
 
 @login_required(login_url='/sign-in/')
-@referer_matches_re('/sign-up/')
 def registration_next_steps(request):
 	'''
 	'''
@@ -37,10 +36,11 @@ def registration_next_steps(request):
 			form.save()
 			return redirect('/')
 
-	else:
+	elif 'sign-up' in request.META.get('HTTP_REFERER', ''):
 		form = ProfileForm()
+		return render(request, 'form-next-step.html', {'form': form})
 
-	return render(request, 'form-next-step.html', {'form': form})
+	return redirect('/')
 
 def signout(request):
 	'''
