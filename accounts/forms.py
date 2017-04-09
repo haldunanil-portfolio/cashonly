@@ -39,7 +39,5 @@ class ProfileForm(ModelForm):
         model = Profile
         fields = ('phone_number',)
 
-
-
 class LoginForm(AuthenticationForm):
     username = forms.CharField(max_length=150, label="Email")
