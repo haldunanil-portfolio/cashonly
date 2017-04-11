@@ -27,7 +27,9 @@ def registration(request):
 @login_required(login_url='/sign-in/')
 def registration_next_steps(request):
 	'''
+	Loads next steps page to complete user registration
 	'''
+	referer = request.META.get('HTTP_REFERER', '')
 	if request.method == 'POST':
 		form = ProfileForm(request.POST)
 		if form.is_valid():
@@ -36,7 +38,9 @@ def registration_next_steps(request):
 			form.save()
 			return redirect('/')
 
-	elif 'sign-up' in request.META.get('HTTP_REFERER', ''):
+	# redirect registration from the sign-up or sign-in page (to accommodate
+	# for social media sign up)
+	elif 'sign-up' in referer or 'sign-in' in referer:
 		form = ProfileForm()
 		return render(request, 'form-next-step.html', {'form': form})
 
