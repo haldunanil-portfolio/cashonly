@@ -125,6 +125,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Social authentication backend settings
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -156,6 +157,7 @@ LOGOUT_URL = 'sign-out'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
+# social auth Facebook params
 SOCIAL_AUTH_FACEBOOK_KEY = '1956887344534145'  # App ID
 SOCIAL_AUTH_FACEBOOK_SECRET = '2b6e54f57521524014fe38e8d89a3cbf'  # App Secret
 
@@ -166,8 +168,13 @@ SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
 SOCIAL_AUTH_FACEBOOK_AUTH_EXTRA_ARGUMENTS = {
     # 'auth_type': 'reauthenticate',
 }
-SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = True
 
+# social auth Google params
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '286698641076-bdfl2p9qfkl0bs8pl1o16dqnu873v9n3.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'VrdEHGJnmtI13DOdERV4jurP'
+
+# social auth generic params
+SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = True
 SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/sign-up/more-details/'
 
 # Internationalization

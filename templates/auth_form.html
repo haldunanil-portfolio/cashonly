@@ -28,6 +28,9 @@
         <img src="{% static 'sitewide/images/continue_with_facebook.png' %}">
       </a>
       <br>
+      <a href="{% url 'social:begin' 'google-oauth2' %}">
+        <img src="{% static 'sitewide/images/sign_in_with_google.png' %}">
+      </a>
       <p><strong>-- OR --</strong></p>
 
       <form class="form-label form-css-label" method="post"> 

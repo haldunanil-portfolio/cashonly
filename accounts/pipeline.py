@@ -31,9 +31,9 @@ def get_username(strategy, details, backend, user=None, *args, **kwargs):
 def add_to_group(strategy, details, backend, user=None, *args, **kwargs):
     '''
     Checks if user belongs to any groups. If not, adds user to 'Consumers'
-    group. 
+    group.
     '''
-    if backend.name == 'facebook':
+    if backend.name == 'facebook' or backend.name == 'google-oauth2':
         groups_list = user.groups.values_list('name',flat=True)
         if len(groups_list) == 0:
             # add this to the consumer group
