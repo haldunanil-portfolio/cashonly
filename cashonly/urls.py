@@ -20,6 +20,7 @@ from cashonly.views import home
 from accounts.views import registration, registration_next_steps, signout
 from accounts.forms import LoginForm
 from django.views.generic import TemplateView
+from cashonly.views import handler404 #### remove after testing
 
 urlpatterns = [
     url(r'^$', home),
@@ -35,4 +36,5 @@ urlpatterns = [
     url(r'^sign-out/$', signout, name='signout'),
     url(r'^sign-up/more-details/$', registration_next_steps,
         name='registration_next_steps'),
+    url(r'^404/$', handler404), #### remove after testing
 ]

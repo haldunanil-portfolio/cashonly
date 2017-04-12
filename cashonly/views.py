@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import logout
 from django.contrib import messages
+from django.template import RequestContext
 
 def is_member(user, group):
 	'''
@@ -43,3 +44,9 @@ def home(request):
 			messages.info(request, 'ERROR: You do not belong to any group, please contact administrator.')
 
 	return render(request, 'anonymous-user.html')
+
+def handler404(request):
+	'''
+	Page to display when user sent to URI that doesn't exist; 404 response
+	'''
+	return render(request, '404.html', status=404)
