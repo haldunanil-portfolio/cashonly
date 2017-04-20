@@ -12,6 +12,15 @@ body {
   background-size: cover;
 }
 
+.login-fail {
+  color: #fff;
+  margin: 0 auto;
+  width: 100%;
+  background: #d84949;
+  padding: 10px;
+  margin-bottom: 30px;
+}
+
 .homepage-nav {
   width: 100%;
   height: 112px;
@@ -33,6 +42,28 @@ body {
   list-style: none;
 }
 
+.login-container {
+  background: #282E33;
+  margin: 0 auto;
+  width: 390px;
+  /*padding: 80px 30px 50px 30px;*/
+}
+
+.signin-button {
+  background: #64AC00;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 800;
+  font-size: 16px;
+  color: white;
+  border: none;
+  width: 100%;
+  height: 37px;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-bottom: 60px;
+}
+
 .signup-button {
   background: #64AC00;
   font-family: 'Raleway', sans-serif;
@@ -46,7 +77,8 @@ body {
   cursor: pointer;
 }
 
-.signup-button:hover, .signup-button:active, .signup-button:focus {
+.signup-button:hover, .signup-button:active, .signup-button:focus,
+.signin-button:hover, .signin-button:active, .signin-button:focus {
   color: #64AC00;
   background: white;
   box-shadow: transparent;
@@ -215,6 +247,10 @@ input {
           appearance: none;
   -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
+}
+.form-label {
+  margin: 30px;
+  padding-top: 40px;
 }
 
 .form-label fieldset {
