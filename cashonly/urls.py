@@ -24,7 +24,6 @@ from django.views.generic import TemplateView
 urlpatterns = [
     url(r'^$', home),
     url(r'^admin/', admin.site.urls),
-    url(r'^/', include('django.contrib.flatpages.urls')),
     url(r'^robots.txt$', TemplateView.as_view(template_name="robots.txt",
                                               content_type="text/plain"),
                                               name="robots_file"),
@@ -36,4 +35,6 @@ urlpatterns = [
     url(r'^sign-out/$', signout, name='signout'),
     url(r'^sign-up/more-details/$', registration_next_steps,
         name='registration_next_steps'),
+    url(r'^tinymce/', include('tinymce.urls')),    
+    url(r'^', include('django.contrib.flatpages.urls')),
 ]

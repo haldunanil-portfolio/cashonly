@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'accounts',
     'transactions',
     'django_extensions',
+    'tinymce',
 ]
 
 MIDDLEWARE = [
@@ -156,6 +157,16 @@ X_FRAME_OPTIONS = 'DENY'
 
 # Enabling flatpages and TinyMCE
 # https://docs.djangoproject.com/en/1.10/ref/contrib/flatpages/
-# [url for tinymce setup here]
+# https://django-tinymce.readthedocs.io/en/latest/installation.html#configuration
 
 SITE_ID = 1
+
+TINYMCE_DEFAULT_CONFIG = {
+        'plugins': "table,spellchecker,paste,searchreplace",
+        'theme': "advanced",
+        'cleanup_on_startup': True,
+        'custom_undo_redo_levels': 10, }
+
+TINYMCE_SPELLCHECKER = True
+
+# TINYMCE_COMPRESSOR = True
