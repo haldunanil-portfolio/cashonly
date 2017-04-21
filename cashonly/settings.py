@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django.contrib.flatpages',
     'storages',
     'phonenumber_field',
     'accounts',
@@ -59,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 ]
 
 ROOT_URLCONF = 'cashonly.urls'
@@ -150,3 +153,9 @@ CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 
 X_FRAME_OPTIONS = 'DENY'
+
+# Enabling flatpages and TinyMCE
+# https://docs.djangoproject.com/en/1.10/ref/contrib/flatpages/
+# [url for tinymce setup here]
+
+SITE_ID = 1

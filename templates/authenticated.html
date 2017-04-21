@@ -127,6 +127,8 @@
 {% endblock %}
 
 {% block footer %}
+{% load flatpages %}
+{% get_flatpages as flatpages %}
 <footer class="app-footer">
 	<p class="app-footer-quote">“Sometimes I am two people. Johnny is the nice one. Cash causes all the trouble. They fight.”
 
@@ -139,26 +141,11 @@
 				<a class="links-app">Help</a>
 			</li>
 			<!-- <div class="footer-links-div"></div> -->
-			<li>
-				<a class="links-app">Products</a>
-			</li>
-			<li>
-				<a class="links-app">Business</a>
-			</li>
-			<li>
-				<a class="links-app">About</a>
-			</li>
-			<li>
-				<a class="links-app">Team</a>
-			</li>
-			<li>
-				<a class="links-app">Press</a>
-			</li>
-			<li>
-				<a class="links-app">News</a>
-			</li>
-			<li>
-				<a class="links-app">Swag</a>
-				</li>
+			{% for page in flatpages %}
+	    <li>
+	      <a class="links-homepage" href="{{ page.url }}">{{ page.title }}</a>
+	    </li>
+	    {% endfor %}
+		</ul>
 </footer>
 {% endblock %}

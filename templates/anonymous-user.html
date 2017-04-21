@@ -54,28 +54,15 @@
 {% endblock %}
 
 {% block footer %}
+{% load flatpages %}
+{% get_flatpages as flatpages %}
 <footer class="homepage-footer">
   <ul>
+    {% for page in flatpages %}
     <li>
-      <a class="links-homepage">Products</a>
+      <a class="links-homepage" href="{{ page.url }}">{{ page.title }}</a>
     </li>
-    <li>
-      <a class="links-homepage">Business</a>
-    </li>
-    <li>
-      <a class="links-homepage">About</a>
-    </li>
-    <li>
-      <a class="links-homepage">Team</a>
-    </li>
-    <li>
-      <a class="links-homepage">Press</a>
-    </li>
-    <li>
-      <a class="links-homepage">News</a>
-    </li>
-    <li>
-      <a class="links-homepage">Swag</a>
-    </li>
+    {% endfor %}
+  </ul>
 </footer>
 {% endblock %}
