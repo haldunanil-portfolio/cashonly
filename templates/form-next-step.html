@@ -31,11 +31,11 @@
 {% endblock %}
 
 {% block content %}
-<div class="transactions-container">
-	<h1>Sign Up (continued)</h1>
-	<div class="balance-message">Welcome {{ user.first_name|title }}, we just need a little more info from you!</div>
+<div>
+	<h1>Thank you for signing up, {{ user.first_name|title }}!</h1>
+	<div>We just need a little more info from you!</p>
 
-	<div class="transaction">
+	<div>
 		{% if form.errors %}
       <p>There is an error with your registration, please try again.</p>
     {% endif %}
