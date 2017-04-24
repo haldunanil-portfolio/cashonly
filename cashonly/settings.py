@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'accounts',
     'transactions',
     'django_extensions',
+    'django_countries',
 ]
 
 MIDDLEWARE = [
