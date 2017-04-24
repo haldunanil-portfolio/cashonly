@@ -13,7 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth.views import login
 from cashonly.views import home
@@ -40,4 +40,6 @@ urlpatterns = [
     url(r'^sign-up/more-details/$', registration_next_steps,
         name='registration_next_steps'),
     url(r'^business-sign-up/$', business_sign_up, name='business_sign_up')
+    url(r'^tinymce/', include('tinymce.urls')),
+    url(r'^', include('django.contrib.flatpages.urls')),
 ]
