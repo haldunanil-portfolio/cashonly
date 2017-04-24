@@ -68,7 +68,7 @@ def business_sign_up(request):
 			profile.business = business
 			profile.save()
 
-			messages.info(request, 'Thanks for signing up! Stay tuned for updates :)')
+			messages.info(request, 'Thanks for signing up as a business! Stay tuned for updates :)')
 			return redirect('/')
 
 	else:

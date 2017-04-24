@@ -96,6 +96,18 @@
   {% block content %}
     {% if user.is_authenticated %}
       <div class="transactions-container">
+        <h1>Thanks for signing up!</h1>
+        <div class="balance-message">
+          <p>We're happy to have you on board. We'll be launching our Beta in a few weeks, so keep an eye out on this page for updates in the meantime!</p>
+          <p>If you have any questions, feel free to drop us a line at <a style="font-style:italic;" href='mailto:info@cashon.ly'>info@cashon.ly</a>.</p>
+          <p>- With love, the Cash Only team <img class="dab-emoji" src="{% static 'nologin/images/dab-emoji.png' %}" alt="" height="" width="34px"></p>
+          <br>
+          <p style="font-size:14px; font-style:italic;">P.S.: Interested in participating in our limited Beta as a business partner? Click below to register!</p>
+        </div>
+        <a href="/business-sign-up/"><button class="transactions-reload-button">Register As a Business</button></a>
+      </div>
+      <!-- # implement transactions later
+      <div class="transactions-container">
       	<h1>Transactions</h1>
       	<div class="balance-message">G’day {{ user.first_name|title }}, your balance is <a class="balance-amount">$250</a></div>
       	<button class="transactions-reload-button">Reload</button>
@@ -106,7 +118,7 @@
       					Just a moment ago
       				</li>
       				<li class="transaction-location transaction-data">
-      					<a href="http://www.cafegitanenyc.com/" target="_blank">Cafe Gitane</a>
+      					<a href="http://www.lesenfantsdeboheme.com/" target="_blank">LES Enfants de Bohème</a>
       				</li>
       				<li class="transaction-amount transaction-data">
       					$25.00
@@ -120,7 +132,7 @@
       					30 minutes ago
       				</li>
       				<li class="transaction-location transaction-data">
-      					<a href="http://www.cafegitanenyc.com/" target="_blank">Cafe Gitane</a>
+      					<a href="http://www.lesenfantsdeboheme.com/" target="_blank">LES Enfants de Bohème</a>
       				</li>
       				<li class="transaction-amount transactione-data">
       					$25.00
@@ -134,7 +146,7 @@
       					1 day ago
       				</li>
       				<li class="transaction-location transaction-data">
-      					<a href="http://www.cafegitanenyc.com/" target="_blank">Cafe Gitane</a>
+      					<a href="http://www.lesenfantsdeboheme.com/" target="_blank">LES Enfants de Bohème</a>
       				</li>
       				<li class="transaction-amount transaction-data">
       					$25.00
@@ -148,7 +160,7 @@
       					1 week ago
       				</li>
       				<li class="transaction-location transaction-data">
-      					<a href="http://www.cafegitanenyc.com/" target="_blank">Cafe Gitane</a>
+      					<a href="http://www.lesenfantsdeboheme.com/" target="_blank">LES Enfants de Bohème</a>
       				</li>
       				<li class="transaction-amount transaction-data">
       					$25.00
@@ -162,7 +174,7 @@
       					1 month ago
       				</li>
       				<li class="transaction-location transaction-data">
-      					<a href="http://www.cafegitanenyc.com/" target="_blank">Cafe Gitane</a>
+      					<a href="http://www.lesenfantsdeboheme.com/" target="_blank">LES Enfants de Bohème</a>
       				</li>
       				<li class="transaction-amount transaction-data">
       					$25.00
@@ -176,7 +188,7 @@
       					Mar, 03 2017</br>17:35
       				</li>
       				<li class="transaction-location transaction-data">
-      					<a href="http://www.cafegitanenyc.com/" target="_blank">Cafe Gitane</a>
+      					<a href="http://www.lesenfantsdeboheme.com/" target="_blank">LES Enfants de Bohème</a>
       				</li>
       				<li class="transaction-amount transaction-data">
       					$25.00
@@ -185,6 +197,7 @@
       	</div>
       	</ul>
       </div>
+      -->
     {% else %}
       <div class="welcome-to-message-container">
         <div class="welcome-to-container">Welcome To</div>
@@ -195,6 +208,7 @@
         </div>
       </div>
     {% endif %}
+
   {% endblock %}
 
   {% block footer %}
