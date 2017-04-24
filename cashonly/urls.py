@@ -17,7 +17,7 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.auth.views import login
 from cashonly.views import home
-from accounts.views import registration, signout
+from accounts.views import registration, registration_next_steps, signout
 from accounts.forms import LoginForm
 from django.views.generic import TemplateView
 
@@ -32,5 +32,7 @@ urlpatterns = [
         'template_name': 'auth_form.html',
         'authentication_form': LoginForm
     }, name='login'),
-    url(r'^sign-out/$', signout, name='sign out'),
+    url(r'^sign-out/$', signout, name='signout'),
+    url(r'^sign-up/more-details/$', registration_next_steps,
+        name='registration_next_steps'),
 ]

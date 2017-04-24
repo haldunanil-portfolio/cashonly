@@ -30,6 +30,10 @@ ALLOWED_HOSTS = ['.elasticbeanstalk.com',
                  '127.0.0.1',
                  '.cashon.ly']
 
+INTERNAL_IPS = (
+    '0.0.0.0',
+    '127.0.0.1',
+)
 
 # Application definition
 
@@ -44,6 +48,7 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'accounts',
     'transactions',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -134,3 +139,12 @@ USE_TZ = True
 STATICFILES_DIRS = ( os.path.join('static'), )
 
 STATIC_URL = '/static/'
+
+# Security
+# https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
+
+CSRF_COOKIE_SECURE = True
+
+SESSION_COOKIE_SECURE = True
+
+X_FRAME_OPTIONS = 'DENY'

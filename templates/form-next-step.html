@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% load static from staticfiles %}
+
+{% block title %}{{ user.first_name|title }}'s Transactions{% endblock %}
+
+{% block nav %}
+<nav class="app-nav">
+	<a href="/">
+  	<img class="cash-only-full-logo-black" src="{% static 'sitewide/images/cash-only-full-logo-black.png' %}" alt="" height="" width="97px">
+	</a>
+  <div class="links-app-top desktop-links">
+    <ul>
+      <li>
+        <a class="mobile-links">Help</a>
+      </li>
+      <li>
+        <a class="mobile-links">Settings</a>
+      </li>
+			{% if user.is_staff %}
+			<li>
+        <a class="mobile-links" href='/admin/'>Admin</a>
+      </li>
+			{% endif %}
+      <li>
+        <a class="log-out-link" href="/sign-out/">Sign Out</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="transactions-container">
+	<h1>Sign Up (continued)</h1>
+	<div class="balance-message">Welcome {{ user.first_name|title }}, we just need a little more info from you!</div>
+
+	<div class="transaction">
+		{% if form.errors %}
+      <p>There is an error with your registration, please try again.</p>
+    {% endif %}
+
+    <div class="section">
+    <form class="form-label form-css-label" method="post"> 
+      {% csrf_token %}
+      {% for field in form %}
+        <fieldset>
+          {{ field }}
+          <label>{{ field.label }}</label>
+        </fieldset>
+      {% endfor %}
+
+      <button type="submit" value="Submit">
+      Submit
+      </button>
+
+    </form>
+	</div>
+
+</div>
+{% endblock %}
+
+{% block footer %}
+<footer class="app-footer">
+	<p class="app-footer-quote">“Sometimes I am two people. Johnny is the nice one. Cash causes all the trouble. They fight.”
+
+	</br></br>- Johnny Cash</p>
+		<ul>
+			<li>
+				<a class="links-app">Settings</a>
+			</li>
+			<li>
+				<a class="links-app">Help</a>
+			</li>
+			<li>
+				<a class="links-app">Products</a>
+			</li>
+			<li>
+				<a class="links-app">Business</a>
+			</li>
+			<li>
+				<a class="links-app">About</a>
+			</li>
+			<li>
+				<a class="links-app">Team</a>
+			</li>
+			<li>
+				<a class="links-app">Press</a>
+			</li>
+			<li>
+				<a class="links-app">News</a>
+			</li>
+			<li>
+				<a class="links-app">Swag</a>
+			</li>
+		</ul>
+</footer>
+{% endblock %}
