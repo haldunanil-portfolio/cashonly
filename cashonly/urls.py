@@ -41,5 +41,6 @@ urlpatterns = [
         name='registration_next_steps'),
     url(r'^business-sign-up/$', business_sign_up, name='business_sign_up')
     url(r'^tinymce/', include('tinymce.urls')),
+    url(r'^tinymce/', include('tinymce.urls')),
     url(r'^', include('django.contrib.flatpages.urls')),
 ]
