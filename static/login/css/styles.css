@@ -65,8 +65,7 @@ h1 {
 .links-app-top > ul > li > a, .links-app {
   text-decoration: none;
   text-transform: uppercase;
-  font-family: 'Raleway', sans-serif;
-  font-weight: 700;
+  font-family: Raleway-Bold;
   font-size: 16px;
   color: #282E33;
   cursor: pointer;
@@ -90,24 +89,21 @@ h1 {
 .balance-message {
   text-align: center;
   margin: 0 auto;
-  font-family: 'Raleway', sans-serif;
-  font-weight: 500;
+  font-family: Raleway-Medium;
   font-size: 20px;
   color: #282E33;
   margin-bottom: 9px;
 }
 
 .balance-amount {
-  font-family: 'Raleway', sans-serif;
-  font-weight: 800;
+  font-family: Raleway-ExtraBold;
   font-size: 20px;
   color: #FCBA04;
 }
 
 .transactions-reload-button {
   background: #64AC00;
-  font-family: 'Raleway', sans-serif;
-  font-weight: 800;
+  font-family: Raleway-ExtraBold;
   font-size: 16px;
   color: white;
   border: none;
@@ -177,9 +173,7 @@ h1 {
 }
 
 .app-footer-quote {
-  font-family: 'Raleway', sans-serif;
-  font-weight: 500;
-  font-style: italic;
+  font-family: Raleway-MediumItalic;
   font-size: 16px;
   color: #282E33;
   line-height: 29px;
