@@ -5,4 +5,5 @@ psycopg2
 django-extensions
 Werkzeug
 pyOpenSSL
+social-auth-app-django
 django-countries

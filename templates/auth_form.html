@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load static from staticfiles %}
+
 {% block title %}
   {% if 'sign-in' in request.path %}
     Sign In
@@ -27,25 +29,36 @@
 
   <div class="welcome-to-message-container">
     <div class="section">
-    <form class="form-label form-css-label" method="post"> 
-      {% csrf_token %}
-      {% for field in form %}
-        <fieldset>
-          {{ field }}
-          <label>{{ field.label }}</label>
-        </fieldset>
-      {% endfor %}
 
-      <button type="submit" value="Submit">
-      {% if 'sign-in' in request.path %}
-        Sign In
-      {% elif 'sign-up' in request.path %}
-        Sign Up
-      {% endif %}
-      </button>
+      <a href="{% url 'social:begin' 'facebook' %}">
+        <img src="{% static 'sitewide/images/continue_with_facebook.png' %}">
+      </a>
+      <br>
+      <a href="{% url 'social:begin' 'google-oauth2' %}">
+        <img src="{% static 'sitewide/images/sign_in_with_google.png' %}">
+      </a>
+      <p><strong>-- OR --</strong></p>
 
-    </form>
-  </div>
+      <form class="form-label form-css-label" method="post"> 
+        {% csrf_token %}
+        {% for field in form %}
+          <fieldset>
+            {{ field }}
+            <label>{{ field.label }}</label>
+          </fieldset>
+        {% endfor %}
+
+        <button type="submit" value="Submit">
+        {% if 'sign-in' in request.path %}
+          Sign In
+        {% elif 'sign-up' in request.path %}
+          Sign Up
+        {% endif %}
+        </button>
+
+      </form>
+
+    </div>
 
   </div>
 

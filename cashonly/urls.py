@@ -26,17 +26,18 @@ from accounts.forms import BusinessForm
 from django.views.generic import TemplateView
 
 urlpatterns = [
-    url(r'^$', home),
+    url(r'^$', home, name='home'),
     url(r'^admin/', admin.site.urls),
     url(r'^robots.txt$', TemplateView.as_view(template_name="robots.txt",
                                               content_type="text/plain"),
                                               name="robots_file"),
-    url(r'^sign-up/$', registration, name='registration'),
+    url(r'^oauth/', include('social_django.urls', namespace='social')),
+    url(r'^sign-up/$', registration, name='sign-up'),
     url(r'^sign-in/$', login, {
         'template_name': 'auth_form.html',
         'authentication_form': LoginForm
-    }, name='login'),
-    url(r'^sign-out/$', signout, name='signout'),
+    }, name='sign-in'),
+    url(r'^sign-out/$', signout, name='sign-out'),
     url(r'^sign-up/more-details/$', registration_next_steps,
         name='registration_next_steps'),
     url(r'^business-sign-up/$', business_sign_up, name='business_sign_up'),
