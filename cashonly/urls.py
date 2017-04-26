@@ -24,6 +24,7 @@ from accounts.views import business_sign_up
 from accounts.forms import LoginForm
 from accounts.forms import BusinessForm
 from django.views.generic import TemplateView
+from cashonly.views import handler404 #### remove after testing
 
 urlpatterns = [
     url(r'^$', home, name='home'),
@@ -40,8 +41,8 @@ urlpatterns = [
     url(r'^sign-out/$', signout, name='sign-out'),
     url(r'^sign-up/more-details/$', registration_next_steps,
         name='registration_next_steps'),
+    url(r'^404/$', handler404), #### remove after testing
     url(r'^business-sign-up/$', business_sign_up, name='business_sign_up'),
-    url(r'^tinymce/', include('tinymce.urls')),
     url(r'^tinymce/', include('tinymce.urls')),
     url(r'^', include('django.contrib.flatpages.urls')),
 ]
