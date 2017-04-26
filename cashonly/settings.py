@@ -44,12 +44,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django.contrib.flatpages',
     'storages',
     'phonenumber_field',
     'accounts',
     'transactions',
     'django_extensions',
     'social_django',
+    'django_countries',
+    'tinymce',
 ]
 
 MIDDLEWARE = [
@@ -61,6 +65,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 ]
 
 ROOT_URLCONF = 'cashonly.urls'
@@ -194,7 +199,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
-STATICFILES_DIRS = ( os.path.join('static'), )
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+STATICFILES_DIRS = ( os.path.join('assets'), )
 
 STATIC_URL = '/static/'
 
@@ -206,3 +213,19 @@ CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 
 X_FRAME_OPTIONS = 'DENY'
+
+# Enabling flatpages and TinyMCE
+# https://docs.djangoproject.com/en/1.10/ref/contrib/flatpages/
+# https://django-tinymce.readthedocs.io/en/latest/installation.html#configuration
+
+SITE_ID = 1
+
+TINYMCE_DEFAULT_CONFIG = {
+        'plugins': "table,spellchecker,paste,searchreplace",
+        'theme': "advanced",
+        'cleanup_on_startup': True,
+        'custom_undo_redo_levels': 10, }
+
+TINYMCE_SPELLCHECKER = True
+
+# TINYMCE_COMPRESSOR = True

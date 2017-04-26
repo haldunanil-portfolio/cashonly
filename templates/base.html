@@ -2,40 +2,254 @@
 
 <html>
   <head>
-  	<title>{% block title %}{% endblock %} | Cash Only BETA</title>
+  	<title>{% block title %}Home{% endblock %} | Cash Only BETA</title>
 
     {% load static from staticfiles %}
 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
   	<link rel="icon" href="{% static 'sitewide/images/favicon.png' %}">
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,700,800" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel="stylesheet" href="{% static 'sitewide/css/normalize.min.css' %}">
   	<link rel="stylesheet" type="text/css" href="{% static 'nologin/css/styles.css' %}">
 
     {% if user.is_authenticated %}
   	  <link rel="stylesheet" type="text/css" href="{% static 'login/css/styles.css' %}">
     {% endif %}
 
+    {% block head %}{% endblock %}
   </head>
   <body>
-
   {% if messages or debug %}
     <ul class="messages">
       {% if debug %}<li>WARNING: DEBUG MODE IS ON</li>{% endif %}
       {% for message in messages %}
       <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
       {% endfor %}
+      {% block messages %}{% endblock %}
     </ul>
   {% endif %}
 
-  {% block nav %}{% endblock %}
+  {% block nav %}
 
-  {% block content %}{% endblock %}
+    {% if user.is_authenticated %}
+      <nav class="app-nav">
+      	<a href="/">
+        	<img class="cash-only-full-logo-black" src="{% static 'sitewide/images/cash-only-full-logo-black.png' %}" alt="" height="" width="97px">
+      	</a>
+        <div class="links-app-top desktop-links">
+          <ul>
+            <li>
+              <a class="mobile-links">Help</a>
+            </li>
+            <li>
+              <a class="mobile-links">Settings</a>
+            </li>
+      			{% if user.is_staff %}
+      			<li>
+              <a class="mobile-links" href='/admin/'>Admin</a>
+            </li>
+      			{% endif %}
+            <li>
+              <a class="log-out-link" href="/sign-out/">Sign Out</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    {% else %}
+      <nav class="homepage-nav">
+        <a href="/">
+      		<img class="cash-only-full-logo-white" src="{% static 'sitewide/images/cash-only-full-logo-white.png' %}" alt="" height="" width="97px">
+      	</a>
+        <div class="links-homepage-top desktop-links">
+          <ul>
+            <li>
+              <a class="mobile-links">Products</a>
+            </li>
+            <li>
+              <a class="mobile-links">Business</a>
+            </li>
+            {% if user.is_staff %}
+            <li>
+              <a class="mobile-links" href='/admin/'>Admin</a>
+            </li>
+            {% endif %}
+      			{% if user.is_authenticated %}
+      			<li>
+              <a href='/logout/'>Sign Out</a>
+            </li>
+      			{% else %}
+            <li>
+              <a href="/sign-in/">Sign In</a>
+            </li>
+            <a href="/sign-up/">
+            <button class="signup-button">
+                Sign Up
+            </button>
+      			{% endif %}
+            </a>
+          </ul>
+        </div>
+      </nav>
+    {% endif %}
+  {% endblock %}
 
-  {% block footer %}{% endblock %}
+  {% block content %}
+    {% if user.is_authenticated %}
+      <div class="transactions-container">
+        <h1>Thanks for signing up!</h1>
+        <div class="balance-message">
+          <p>We're happy to have you on board. We'll be launching our Beta in a few weeks, so keep an eye out on this page for updates in the meantime!</p>
+          <p>If you have any questions, feel free to drop us a line at <a style="font-style:italic;" href='mailto:info@cashon.ly'>info@cashon.ly</a>.</p>
+          <p>- With love, the Cash Only team <img class="dab-emoji" src="{% static 'nologin/images/dab-emoji.png' %}" alt="" height="" width="34px"></p>
+          <br>
+          <p style="font-size:14px; font-style:italic;">P.S.: Interested in participating in our limited Beta as a business partner? Click below to register!</p>
+        </div>
+        <a href="/business-sign-up/"><button class="transactions-reload-button">Register As a Business</button></a>
+      </div>
+      <!-- # implement transactions later
+      <div class="transactions-container">
+      	<h1>Transactions</h1>
+      	<div class="balance-message">G’day {{ user.first_name|title }}, your balance is <a class="balance-amount">$250</a></div>
+      	<button class="transactions-reload-button">Reload</button>
 
-  <script src="{% static 'sitewide/js/animations.js' %}"></script>
+      	<div class="transaction">
+      		<ul class="transactions-item-detail">
+      				<li class="transaction-date transaction-data">
+      					Just a moment ago
+      				</li>
+      				<li class="transaction-location transaction-data">
+      					<a href="http://www.lesenfantsdeboheme.com/" target="_blank">LES Enfants de Bohème</a>
+      				</li>
+      				<li class="transaction-amount transaction-data">
+      					$25.00
+      				</li>
+      		</ul>
+      	</div>
+
+      	<div class="transaction">
+      		<ul class="transactions-item-detail">
+      				<li class="transaction-date transaction-data">
+      					30 minutes ago
+      				</li>
+      				<li class="transaction-location transaction-data">
+      					<a href="http://www.lesenfantsdeboheme.com/" target="_blank">LES Enfants de Bohème</a>
+      				</li>
+      				<li class="transaction-amount transactione-data">
+      					$25.00
+      				</li>
+      		</ul>
+      	</div>
+
+      	<div class="transaction">
+      		<ul class="transactions-item-detail">
+      				<li class="transaction-date transaction-data">
+      					1 day ago
+      				</li>
+      				<li class="transaction-location transaction-data">
+      					<a href="http://www.lesenfantsdeboheme.com/" target="_blank">LES Enfants de Bohème</a>
+      				</li>
+      				<li class="transaction-amount transaction-data">
+      					$25.00
+      				</li>
+      		</ul>
+      	</div>
+
+      	<div class="transaction">
+      		<ul class="transactions-item-detail">
+      				<li class="transaction-date transaction-data">
+      					1 week ago
+      				</li>
+      				<li class="transaction-location transaction-data">
+      					<a href="http://www.lesenfantsdeboheme.com/" target="_blank">LES Enfants de Bohème</a>
+      				</li>
+      				<li class="transaction-amount transaction-data">
+      					$25.00
+      				</li>
+      		</ul>
+      	</div>
+
+      	<div class="transaction">
+      		<ul class="transactions-item-detail">
+      				<li class="transaction-date transaction-data">
+      					1 month ago
+      				</li>
+      				<li class="transaction-location transaction-data">
+      					<a href="http://www.lesenfantsdeboheme.com/" target="_blank">LES Enfants de Bohème</a>
+      				</li>
+      				<li class="transaction-amount transaction-data">
+      					$25.00
+      				</li>
+      		</ul>
+      	</div>
+
+      	<div class="transaction">
+      		<ul class="transactions-item-detail">
+      				<li class="transaction-date transaction-data">
+      					Mar, 03 2017</br>17:35
+      				</li>
+      				<li class="transaction-location transaction-data">
+      					<a href="http://www.lesenfantsdeboheme.com/" target="_blank">LES Enfants de Bohème</a>
+      				</li>
+      				<li class="transaction-amount transaction-data">
+      					$25.00
+      				</li>
+      		</ul>
+      	</div>
+      	</ul>
+      </div>
+      -->
+    {% else %}
+      <div class="welcome-to-message-container">
+        <div class="welcome-to-container">Welcome To</div>
+        <svg class="mini-div" width="48" height="7" viewBox="360 56 48 7"><path d="M361.9 59.7L406 59.7" style="fill:none;stroke:#979797"/></svg>
+        <img class="c-o-logo" src="{% static 'sitewide/images/c-o-logo.png' %}" alt="" height="" width="181px">
+        <div class="promotional-message">Boldly going where no credit card has gone before.
+      	<img class="dab-emoji" src="{% static 'nologin/images/dab-emoji.png' %}" alt="" height="" width="34px">
+        </div>
+      </div>
+    {% endif %}
+
+  {% endblock %}
+
+  {% block footer %}
+    {% load flatpages %}
+    {% get_flatpages as flatpages %}
+    {% if user.is_authenticated %}
+      <footer class="app-footer">
+      	<p class="app-footer-quote">“Sometimes I am two people. Johnny is the nice one. Cash causes all the trouble. They fight.”
+
+      	</br></br>- Johnny Cash</p>
+      		<ul>
+      			<li>
+      				<a class="links-app">Settings</a>
+      			</li>
+      			<li>
+      				<a class="links-app">Help</a>
+      			</li>
+      			<!-- <div class="footer-links-div"></div> -->
+      			{% for page in flatpages %}
+      	    <li>
+      	      <a class="links-homepage" href="{{ page.url }}">{{ page.title }}</a>
+      	    </li>
+      	    {% endfor %}
+      		</ul>
+      </footer>
+    {% else %}
+      <footer class="homepage-footer">
+        <ul>
+          {% for page in flatpages %}
+          <li>
+            <a class="links-homepage" href="{{ page.url }}">{{ page.title }}</a>
+          </li>
+          {% endfor %}
+        </ul>
+      </footer>
+    {% endif %}
+  {% endblock %}
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src='http://sivan.github.io/codebar.js/dist/codebar.js'></script>
+  <script src="{% static 'sitewide/js/animations.js' %}"></script>
+  <script src="{% static 'sitewide/js/codebar.js' %}"></script>
 
   </body>
 </html>

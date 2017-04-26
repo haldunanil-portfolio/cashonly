@@ -17,8 +17,12 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth.views import login
 from cashonly.views import home
-from accounts.views import registration, registration_next_steps, signout
+from accounts.views import registration
+from accounts.views import registration_next_steps
+from accounts.views import signout
+from accounts.views import business_sign_up
 from accounts.forms import LoginForm
+from accounts.forms import BusinessForm
 from django.views.generic import TemplateView
 
 urlpatterns = [
@@ -36,4 +40,8 @@ urlpatterns = [
     url(r'^sign-out/$', signout, name='sign-out'),
     url(r'^sign-up/more-details/$', registration_next_steps,
         name='registration_next_steps'),
+    url(r'^business-sign-up/$', business_sign_up, name='business_sign_up'),
+    url(r'^tinymce/', include('tinymce.urls')),
+    url(r'^tinymce/', include('tinymce.urls')),
+    url(r'^', include('django.contrib.flatpages.urls')),
 ]

@@ -2,8 +2,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import logout
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from accounts.forms import RegistrationForm, ProfileForm
+from accounts.forms import RegistrationForm
+from accounts.forms import ProfileForm
+from accounts.forms import BusinessForm
 from accounts.decorators import not_loggedin_required
+from django.contrib import messages
 
 @not_loggedin_required
 def registration(request):
@@ -52,3 +55,27 @@ def signout(request):
 	'''
 	logout(request)
 	return redirect('/')
+
+@login_required(login_url='/sign-in/')
+def business_sign_up(request):
+	"""
+	Sign up form for businesses
+	"""
+	if request.method == 'POST':
+		form = BusinessForm(request.POST)
+		if form.is_valid():
+			profile = request.user.profile
+			business = form.save(commit=False)
+			business.country = 'US'
+			form.save()
+
+			profile.business = business
+			profile.save()
+
+			messages.info(request, 'Thanks for signing up as a business! Stay tuned for updates :)')
+			return redirect('/')
+
+	else:
+		form = BusinessForm()
+
+	return render(request, 'business-sign-up.html', {'form': form})

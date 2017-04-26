@@ -1,4 +1,4 @@
-{% extends 'anonymous-user.html' %}
+{% extends 'base.html' %}
 
 {% load static from staticfiles %}
 
@@ -10,18 +10,24 @@
   {% endif %}
 {% endblock %}
 
+{% block messages %}
+  {% if form.errors %}
+    {% if 'sign-in' in request.path %}
+      <li>Your username and password didn't match. Please try again.</li>
+    {% elif 'sign-up' in request.path %}
+      <li>There is an error with your registration, please try again.</li>
+    {% endif %}
+    {% for field in form %}
+      {% for error in field.errors %}
+        <li>{{ error }}</li>
+      {% endfor %}
+    {% endfor %}
+  {% endif %}
+{% endblock %}
+
 {% block content %}
 
   <div class="welcome-to-message-container">
-
-    {% if form.errors %}
-      {% if 'sign-in' in request.path %}
-        <p>Your username and password didn't match. Please try again.</p>
-      {% elif 'sign-up' in request.path %}
-        <p>There is an error with your registration, please try again.</p>
-      {% endif %}
-    {% endif %}
-
     <div class="section">
 
       <a href="{% url 'social:begin' 'facebook' %}">

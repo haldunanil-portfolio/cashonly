@@ -1,5 +1,8 @@
+{% if request.META.HTTP_HOST == 'staging.cashon.ly' %}
+# disallow crawlers for staging environment
 User-agent: *
-Disallow:
+Disallow: /
+{% endif %}
 
 # too many repeated hits, too quick
 User-agent: litefinder
