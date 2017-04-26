@@ -32,7 +32,7 @@ def home(request):
 
 		# Check if user belongs to the "Consumers" group
 		elif is_member(request.user, 'Consumers'):
-			return render(request, 'authenticated.html')
+			return render(request, 'base.html')
 
 		# Check if user belongs to the "Businesses" group
 		elif is_member(request.user, 'Businesses'):
@@ -43,8 +43,8 @@ def home(request):
 			logout(request)
 			messages.info(request, 'ERROR: You do not belong to any group, please contact administrator.')
 
-	return render(request, 'anonymous-user.html')
-
+	return render(request, 'base.html')      
+      
 def handler404(request):
 	'''
 	Page to display when user sent to URI that doesn't exist; 404 response
