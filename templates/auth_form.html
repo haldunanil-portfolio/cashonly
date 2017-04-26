@@ -11,36 +11,36 @@
 {% block content %}
 
   <div class="welcome-to-message-container">
-      <div class="login-container">
-      {% if form.errors %}
-        {% if 'sign-in' in request.path %}
-          <p class="login-fail">Your username and password didn't match. Please try again.</p>
-        {% elif 'sign-up' in request.path %}
-          <p class="login-fail">There is an error with your registration, please try again.</p>
-        {% endif %}
+
+    {% if form.errors %}
+      {% if 'sign-in' in request.path %}
+        <p>Your username and password didn't match. Please try again.</p>
+      {% elif 'sign-up' in request.path %}
+        <p>There is an error with your registration, please try again.</p>
       {% endif %}
+    {% endif %}
 
-      <div class="section">
-        <form class="form-label form-css-label" method="post"> 
-          {% csrf_token %}
-          {% for field in form %}
-            <fieldset>
-              {{ field }}
-              <label>{{ field.label }}</label>
-            </fieldset>
-          {% endfor %}
+    <div class="section">
+    <form class="form-label form-css-label" method="post"> 
+      {% csrf_token %}
+      {% for field in form %}
+        <fieldset>
+          {{ field }}
+          <label>{{ field.label }}</label>
+        </fieldset>
+      {% endfor %}
 
-          <button class="signin-button" type="submit" value="Submit">
-          {% if 'sign-in' in request.path %}
-            Sign In
-          {% elif 'sign-up' in request.path %}
-            Sign Up
-          {% endif %}
-          </button>
+      <button type="submit" value="Submit">
+      {% if 'sign-in' in request.path %}
+        Sign In
+      {% elif 'sign-up' in request.path %}
+        Sign Up
+      {% endif %}
+      </button>
 
-        </form>
-      </div>
-    </div>
+    </form>
+  </div>
+
   </div>
 
 {% endblock %}
