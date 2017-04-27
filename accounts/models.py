@@ -2,6 +2,10 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Businesses(models.Model):
+    """
+    Contains information for individual businesses registered with
+    Cash Only
+    """
     name = models.CharField(max_length=100)
     website = models.URLField(blank=True,
                               null=True)
@@ -19,8 +23,11 @@ class Businesses(models.Model):
         return u'%s' % (self.name)
 
 class Profile(models.Model):
+    """
+    Contains additional profile information on users beyond the standard
+    Django User class
+    """
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     phone_number = models.CharField(max_length=15, blank=True, null=True)
     business = models.ForeignKey(Businesses, blank=True, null=True)
-    account_balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    stripe_customer_id = models.CharField(max_length=30, blank=True, null=True)
+    stripe_id = models.CharField(max_length=30, blank=True, null=True)
