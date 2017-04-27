@@ -3,9 +3,10 @@
 {% block title %}Next Steps{% endblock %}
 
 {% block content %}
-<div>
+<div class="thanks-for-signup-container">
 	<h1>Thank you for signing up, {{ user.first_name|title }}!</h1>
-	<div>We just need a little more info from you!</p>
+	We just need a little more info from you!
+</div>
 
 	<div>
 		{% if form.errors %}
@@ -13,7 +14,7 @@
     {% endif %}
 
     <div class="section">
-    <form class="form-label form-css-label" method="post"> 
+    <form class="phone-number form-label form-css-label" method="post"> 
       {% csrf_token %}
       {% for field in form %}
         <fieldset>
@@ -22,7 +23,7 @@
         </fieldset>
       {% endfor %}
 
-      <button type="submit" value="Submit">
+      <button class="submit-button" type="submit" value="Submit">
       Submit
       </button>
 
