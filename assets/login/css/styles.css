@@ -177,6 +177,7 @@ h1 {
   font-size: 16px;
   color: #282E33;
   line-height: 29px;
+  padding: 20px;
 }
 
 .app-footer > ul {
@@ -210,4 +211,21 @@ h1 {
     margin-right: 40px;
     float: right;
   }
+}
+
+/*404 message*/
+.fourzerfour-message {
+  width: 100%;
+  text-align: center;
+  padding: 20px;
+  line-height: 29px;
+  font-size: 18px;
+}
+
+.fourzerfour-gif {
+    width: 100%;
+}
+
+.giphy-attribution {
+  font-size: 10px !important;
 }
