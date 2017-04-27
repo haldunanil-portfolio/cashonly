@@ -3,7 +3,7 @@ from django.forms import ModelForm
 from django.forms.models import model_to_dict, fields_for_model
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .models import Profile
+from .models import Profile, Businesses
 
 class RegistrationForm(UserCreationForm):
     username = forms.EmailField(required=True, max_length=150, label='Email')
@@ -41,3 +41,11 @@ class ProfileForm(ModelForm):
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(max_length=150, label="Email")
+
+class BusinessForm(ModelForm):
+    class Meta:
+        model = Businesses
+        exclude = (
+            'country',
+            'tax_number',
+        )
