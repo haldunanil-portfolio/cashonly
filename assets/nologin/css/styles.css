@@ -277,3 +277,93 @@ input {
   list-style: none;
   text-align: center;
 }
+
+.facebook-button {
+  background: #4990E2;
+  font-family: 'Raleway', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  font-style: italic;
+  color: #FFFFFF;
+  width: 280px;
+  height: 50px;
+  margin: 0 auto;
+  display: block;
+  text-align: center;
+  box-shadow: transparent;
+  outline: none;
+  border: none;
+  text-decoration: none;
+}
+
+.facebook-button-logo {
+  vertical-align: sub;
+  width: 27px;
+}
+
+.facebook-button-link {
+  text-decoration: none;
+}
+
+.google-button {
+  background: #D62D20;
+  font-family: 'Raleway', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  font-style: italic;
+  color: #FFFFFF;
+  width: 280px;
+  height: 50px;
+  margin: 0 auto;
+  display: block;
+  text-align: center;
+  box-shadow: transparent;
+  outline: none;
+  border: none;
+  text-decoration: none;
+}
+
+.google-button-logo {
+  vertical-align: sub;
+  width: 27px;
+}
+
+.google-button-link {
+  text-decoration: none;
+}
+
+.page-break-between-signup-options {
+  color: #fff;
+  text-align: center;
+  display: block;
+}
+
+.sign-up-form, .phone-number {
+  padding: 0px 20px 20px 20px;
+}
+
+#id_phone_number {
+  border: solid 1px #64AC00;
+}
+
+.form-sign-up-button {
+  background: #64AC00;
+  font-family: Raleway-ExtraBold;
+  font-size: 16px;
+  color: white;
+  border: none;
+  width: 280px;
+  height: 37px;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-bottom: 25px;
+  margin-top: 20px;
+}
+
+.form-sign-up-button:hover, .form-sign-up-button:active, .form-sign-up-button:focus {
+  color: white;
+  background: #596869;
+  box-shadow: transparent;
+  outline: none;
+  border: none;
+}
