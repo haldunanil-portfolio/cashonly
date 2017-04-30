@@ -188,6 +188,8 @@ h1 {
 
 .app-footer > ul > li {
   padding: 20px;
+  display: inline-block;
+
 }
 
 @media screen and (min-width: 701px) {
