@@ -234,7 +234,7 @@ h1 {
   font-size: 10px !important;
 }
 
-.thanks-for-signup-container {
+.thanks-for-signup-container, .signup-as-biz-container {
   text-align: center;
   margin: 20px;
 }
