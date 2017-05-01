@@ -3,7 +3,7 @@ html, body {
 }
 
 .navbar-toggle {
-  float: left;
+  float: right;
   margin-left: 15px;
 }
 
@@ -16,8 +16,8 @@ html, body {
   left: 0;
   z-index: 2;
   min-height: 100%;
-  padding: 50px 0 0 0;
-  background: #fff;
+  padding: 0px 0 0 0;
+  background: url(../images/atm-illustration.png);
 }
 
 @media (min-width: 0) {

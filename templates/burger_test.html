@@ -49,7 +49,7 @@
 
   {% block nav %}
 
-    <div class="navmenu navmenu-default navmenu-fixed-left">
+    <div class="navmenu navmenu-default navmenu-fixed-right">
 
     <!-- commented out because it doesn't display correctly,
          ensure that it properly displays on the top in desktop mode ONLY
@@ -151,6 +151,7 @@
     {% block content %}
       {% if user.is_authenticated %}
         <div class="transactions-container">
+          <img class="cash-only" src="/static/sitewide/images/cash-only-full-logo-black.png" alt="" height="" width="97px">
           <h1>Thanks for signing up!</h1>
           <div class="balance-message">
             <p>We're happy to have you on board. We'll be launching our Beta in a few weeks, so keep an eye out on this page for updates in the meantime!</p>
