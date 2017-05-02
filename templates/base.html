@@ -11,13 +11,14 @@
     <link rel="icon" href="{% static 'sitewide/images/favicon.png' %}">
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,700,800" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'sitewide/css/normalize.min.css' %}">
-  	<link rel="stylesheet" type="text/css" href="{% static 'nologin/css/styles.css' %}">
 
     <title>{% block title %}Home{% endblock %} | Cash Only BETA</title>
 
     <!-- CSS stylesheet for logged in users -->
     {% if user.is_authenticated %}
-  	  <link rel="stylesheet" type="text/css" href="{% static 'login/css/styles.css' %}">
+  	<link rel="stylesheet" type="text/css" href="{% static 'login/css/styles.css' %}">
+    {% else %}
+    <link rel="stylesheet" type="text/css" href="{% static 'nologin/css/styles.css' %}">
     {% endif %}
 
     <!-- Bootstrap core CSS -->
@@ -32,94 +33,10 @@
 
   <body>
 
-  <!-- commented out because it breaks the page,
-       please fix CSS and uncomment
-
-  {% if messages or debug %}
-    <ul class="messages">
-      {% if debug %}<li>WARNING: DEBUG MODE IS ON</li>{% endif %}
-      {% for message in messages %}
-      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-      {% endfor %}
-      {% block messages %}{% endblock %}
-    </ul>
-  {% endif %}
-
-  -->
-
   {% block nav %}
 
     <div class="navmenu navmenu-default navmenu-fixed-right">
-
-    <!-- commented out because it doesn't display correctly,
-         ensure that it properly displays on the top in desktop mode ONLY
-         and uncomment
-
-    {% if user.is_authenticated %}
-      <nav class="app-nav">
-      	<a href="/">
-        	<img class="cash-only-full-logo-black" src="{% static 'sitewide/images/cash-only-full-logo-black.png' %}" alt="" height="" width="97px">
-      	</a>
-        <div class="links-app-top desktop-links">
-          <ul>
-            <li>
-              <a class="mobile-links">Help</a>
-            </li>
-            <li>
-              <a class="mobile-links">Settings</a>
-            </li>
-      			{% if user.is_staff %}
-      			<li>
-              <a class="mobile-links" href='/admin/'>Admin</a>
-            </li>
-      			{% endif %}
-            <li>
-              <a class="log-out-link" href="/sign-out/">Sign Out</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-    {% else %}
-      <nav class="homepage-nav">
-        <a href="/">
-      		<img class="cash-only-full-logo-white" src="{% static 'sitewide/images/cash-only-full-logo-white.png' %}" alt="" height="" width="97px">
-      	</a>
-        <div class="links-homepage-top desktop-links">
-          <ul>
-            <li>
-              <a class="mobile-links">Products</a>
-            </li>
-            <li>
-              <a class="mobile-links">Business</a>
-            </li>
-            {% if user.is_staff %}
-            <li>
-              <a class="mobile-links" href='/admin/'>Admin</a>
-            </li>
-            {% endif %}
-      			{% if user.is_authenticated %}
-      			<li>
-              <a href='/logout/'>Sign Out</a>
-            </li>
-      			{% else %}
-            <li>
-              <a href="/sign-in/">Sign In</a>
-            </li>
-            <a href="/sign-up/">
-            <button class="signup-button">
-                Sign Up
-            </button>
-      			{% endif %}
-            </a>
-          </ul>
-        </div>
-      </nav>
-    {% endif %}
-
-    -->
-
       <a class="navmenu-brand" href="#">
-        <img class="cash-only" src="{% static 'sitewide/images/cash-only-full-logo-black.png' %}" alt="" height="" width="97px">
       </a>
       <ul class="nav navmenu-nav">
         {% if user.is_authenticated %}
@@ -151,19 +68,144 @@
     {% block content %}
       {% if user.is_authenticated %}
         <div class="transactions-container">
-          <img class="cash-only" src="/static/sitewide/images/cash-only-full-logo-black.png" alt="" height="" width="97px">
-          <h1>Thanks for signing up!</h1>
-          <div class="balance-message">
-            <p>We're happy to have you on board. We'll be launching our Beta in a few weeks, so keep an eye out on this page for updates in the meantime!</p>
-            <p>If you have any questions, feel free to drop us a line at <a style="font-style:italic;" href='mailto:info@cashon.ly'>info@cashon.ly</a>.</p>
-            <p>- With love, the Cash Only team <img class="dab-emoji" src="{% static 'nologin/images/dab-emoji.png' %}" alt="" height="" width="34px"></p>
-            <br>
-            <p style="font-size:14px; font-style:italic;">P.S.: Interested in participating in our limited Beta as a business partner? Click below to register!</p>
+          {% if user.is_authenticated %}
+          <img class="cash-only-full-logo-black" src="/static/sitewide/images/cash-only-full-logo-black.png" alt="" height="" width="97px">
+            <nav class="desktop-app-nav">
+            	<a href="/">
+              	<img class="cash-only-full-logo-black" src="{% static 'sitewide/images/cash-only-full-logo-black.png' %}" alt="" height="" width="97px">
+            	</a>
+              <div class="links-app-top desktop-links">
+                <ul>
+                  <li>
+                    <a class="mobile-links">Help</a>
+                  </li>
+                  <li>
+                    <a class="mobile-links">Settings</a>
+                  </li>
+            			{% if user.is_staff %}
+            			<li>
+                    <a class="mobile-links" href='/admin/'>Admin</a>
+                  </li>
+            			{% endif %}
+                  <li>
+                    <a class="log-out-link" href="/sign-out/">Sign Out</a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+          {% else %}
+            <nav class="desktop-homepage-nav">
+              <a href="/">
+            		<img class="cash-only-full-logo-white" src="{% static 'sitewide/images/cash-only-full-logo-white.png' %}" alt="" height="" width="97px">
+            	</a>
+              <div class="links-homepage-top desktop-links">
+                <ul>
+                  <li>
+                    <a class="mobile-links">Products</a>
+                  </li>
+                  <li>
+                    <a class="mobile-links">Business</a>
+                  </li>
+                  {% if user.is_staff %}
+                  <li>
+                    <a class="mobile-links" href='/admin/'>Admin</a>
+                  </li>
+                  {% endif %}
+            			{% if user.is_authenticated %}
+            			<li>
+                    <a href='/logout/'>Sign Out</a>
+                  </li>
+            			{% else %}
+                  <li>
+                    <a href="/sign-in/">Sign In</a>
+                  </li>
+                  <a href="/sign-up/">
+                  <button class="signup-button">
+                      Sign Up
+                  </button>
+            			{% endif %}
+                  </a>
+                </ul>
+              </div>
+            </nav>
+          {% endif %}
+          <div class="welcome-to-message-container">
+            <h1>Thanks for signing up!</h1>
+            <div class="balance-message">
+              <p>We're happy to have you on board. We'll be launching our Beta in a few weeks, so keep an eye out on this page for updates in the meantime!</p>
+              <p>If you have any questions, feel free to drop us a line at <a style="font-style:italic;" href='mailto:info@cashon.ly'>info@cashon.ly</a>.</p>
+              <p>- With love, the Cash Only team <img class="dab-emoji" src="{% static 'nologin/images/dab-emoji.png' %}" alt="" height="" width="34px"></p>
+              <br>
+              <p style="font-size:14px; font-style:italic;">P.S.: Interested in participating in our limited Beta as a business partner? Click below to register!</p>
+            </div>
+            <a href="/business-sign-up/"><button class="transactions-reload-button">Register As a Business</button></a>
           </div>
-          <a href="/business-sign-up/"><button class="transactions-reload-button">Register As a Business</button></a>
-        </div>
       {% else %}
+
         <div class="welcome-to-message-container">
+          <img class="cash-only-mobile-logo" src="{% static 'sitewide/images/cash-only-full-logo-white.png' %}" alt="" height="" width="97px">
+
+          {% if user.is_authenticated %}
+            <nav class="desktop-app-nav">
+            	<a href="/">
+              	<img class="cash-only-full-logo-black" src="{% static 'sitewide/images/cash-only-full-logo-black.png' %}" alt="" height="" width="97px">
+            	</a>
+              <div class="links-app-top desktop-links">
+                <ul>
+                  <li>
+                    <a class="mobile-links">Help</a>
+                  </li>
+                  <li>
+                    <a class="mobile-links">Settings</a>
+                  </li>
+            			{% if user.is_staff %}
+            			<li>
+                    <a class="mobile-links" href='/admin/'>Admin</a>
+                  </li>
+            			{% endif %}
+                  <li>
+                    <a class="log-out-link" href="/sign-out/">Sign Out</a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+          {% else %}
+            <nav class="desktop-homepage-nav">
+              <a href="/">
+            		<img class="cash-only-full-logo-white" src="{% static 'sitewide/images/cash-only-full-logo-white.png' %}" alt="" height="" width="97px">
+            	</a>
+              <div class="links-homepage-top desktop-links">
+                <ul>
+                  <li>
+                    <a class="mobile-links">Products</a>
+                  </li>
+                  <li>
+                    <a class="mobile-links">Business</a>
+                  </li>
+                  {% if user.is_staff %}
+                  <li>
+                    <a class="mobile-links" href='/admin/'>Admin</a>
+                  </li>
+                  {% endif %}
+            			{% if user.is_authenticated %}
+            			<li>
+                    <a href='/logout/'>Sign Out</a>
+                  </li>
+            			{% else %}
+                  <li>
+                    <a href="/sign-in/">Sign In</a>
+                  </li>
+                  <a href="/sign-up/">
+                  <button class="signup-button">
+                      Sign Up
+                  </button>
+            			{% endif %}
+                  </a>
+                </ul>
+              </div>
+            </nav>
+          {% endif %}
+
           <div class="welcome-to-container">Welcome To</div>
           <svg class="mini-div" width="48" height="7" viewBox="360 56 48 7"><path d="M361.9 59.7L406 59.7" style="fill:none;stroke:#979797"/></svg>
           <img class="c-o-logo" src="{% static 'sitewide/images/c-o-logo.png' %}" alt="" height="" width="181px">
@@ -174,6 +216,16 @@
       {% endif %}
 
     {% endblock %}
+
+    {% if messages or debug %}
+      <ul class="messages">
+        {% if debug %}<li>WARNING: DEBUG MODE IS ON</li>{% endif %}
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+        {% block messages %}{% endblock %}
+      </ul>
+    {% endif %}
 
     <!-- Bootstrap core JavaScript
     ================================================== -->

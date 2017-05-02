@@ -44,5 +44,4 @@ urlpatterns = [
     url(r'^404/$', handler404), #### remove after testing
     url(r'^business-sign-up/$', business_sign_up, name='business_sign_up'),
     url(r'^tinymce/', include('tinymce.urls')),
-    url(r'^burger-test/$', burger_test),
 ]
