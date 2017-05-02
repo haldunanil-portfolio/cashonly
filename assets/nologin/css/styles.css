@@ -328,6 +328,10 @@ input {
     background-color: #fff;
 }
 
+.navmenu-nav>li>a {
+  font-size: 20px;
+}
+
 .navmenu-nav>li>a:hover {
   color: #64AC00 !important;
   font-weight: 700;
