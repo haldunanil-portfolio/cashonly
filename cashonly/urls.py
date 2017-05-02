@@ -25,7 +25,6 @@ from accounts.forms import LoginForm
 from accounts.forms import BusinessForm
 from django.views.generic import TemplateView
 from cashonly.views import handler404 #### remove after testing
-from cashonly.views import burger_test
 
 urlpatterns = [
     url(r'^$', home, name='home'),
