@@ -1,8 +1,14 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import logout as django_logout
+from django.contrib.auth import logout
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from accounts.forms import RegistrationForm
+from accounts.forms import ProfileForm
+from accounts.forms import BusinessForm
+from accounts.decorators import not_loggedin_required
+from django.contrib import messages
 
+@not_loggedin_required
 def registration(request):
 	'''
 	Registration method
@@ -14,17 +20,62 @@ def registration(request):
 			new_user = authenticate(username=form.cleaned_data['username'],
 									password=form.cleaned_data['password1'])
 			login(request, new_user)
-			return redirect('/')
+			return redirect('/sign-up/more-details/')
 
 	else:
 		form = RegistrationForm()
 
-	args = {'form': form}
-	return render(request, 'auth_form.html', args)
+	return render(request, 'auth_form.html', {'form': form})
 
-def logout(request):
+@login_required(login_url='/sign-in/')
+def registration_next_steps(request):
 	'''
-	Logout method
+	Loads next steps page to complete user registration
 	'''
-	django_logout(request)
+	referer = request.META.get('HTTP_REFERER', '')
+	if request.method == 'POST':
+		form = ProfileForm(request.POST)
+		if form.is_valid():
+			next_step = form.save(commit=False)
+			next_step.user = request.user
+			form.save()
+			return redirect('/')
+
+	# redirect registration from the sign-up or sign-in page (to accommodate
+	# for social media sign up)
+	elif 'sign-up' in referer or 'sign-in' in referer:
+		form = ProfileForm()
+		return render(request, 'form-next-step.html', {'form': form})
+
 	return redirect('/')
+
+def signout(request):
+	'''
+	Sign out method
+	'''
+	logout(request)
+	return redirect('/')
+
+@login_required(login_url='/sign-in/')
+def business_sign_up(request):
+	"""
+	Sign up form for businesses
+	"""
+	if request.method == 'POST':
+		form = BusinessForm(request.POST)
+		if form.is_valid():
+			profile = request.user.profile
+			business = form.save(commit=False)
+			business.country = 'US'
+			form.save()
+
+			profile.business = business
+			profile.save()
+
+			messages.info(request, 'Thanks for signing up as a business! Stay tuned for updates :)')
+			return redirect('/')
+
+	else:
+		form = BusinessForm()
+
+	return render(request, 'business-sign-up.html', {'form': form})

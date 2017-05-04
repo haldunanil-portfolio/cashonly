@@ -13,24 +13,35 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth.views import login
 from cashonly.views import home
-from accounts.views import registration, logout
+from accounts.views import registration
+from accounts.views import registration_next_steps
+from accounts.views import signout
+from accounts.views import business_sign_up
 from accounts.forms import LoginForm
+from accounts.forms import BusinessForm
 from django.views.generic import TemplateView
+from cashonly.views import handler404 #### remove after testing
 
 urlpatterns = [
-    url(r'^$', home),
+    url(r'^$', home, name='home'),
     url(r'^admin/', admin.site.urls),
     url(r'^robots.txt$', TemplateView.as_view(template_name="robots.txt",
                                               content_type="text/plain"),
                                               name="robots_file"),
-    url(r'^sign-up/$', registration, name='registration'),
+    url(r'^oauth/', include('social_django.urls', namespace='social')),
+    url(r'^sign-up/$', registration, name='sign-up'),
     url(r'^sign-in/$', login, {
         'template_name': 'auth_form.html',
         'authentication_form': LoginForm
-    }, name='login'),
-    url(r'^logout/$', logout, name='logout'),
+    }, name='sign-in'),
+    url(r'^sign-out/$', signout, name='sign-out'),
+    url(r'^sign-up/more-details/$', registration_next_steps,
+        name='registration_next_steps'),
+    url(r'^404/$', handler404), #### remove after testing
+    url(r'^business-sign-up/$', business_sign_up, name='business_sign_up'),
+    url(r'^tinymce/', include('tinymce.urls')),
 ]

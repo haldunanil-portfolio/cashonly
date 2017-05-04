@@ -1,7 +1,9 @@
 from django import forms
+from django.forms import ModelForm
+from django.forms.models import model_to_dict, fields_for_model
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-#from accounts.models import ConsumerProfile
+from .models import Profile, Businesses
 
 class RegistrationForm(UserCreationForm):
     username = forms.EmailField(required=True, max_length=150, label='Email')
@@ -15,7 +17,7 @@ class RegistrationForm(UserCreationForm):
             'first_name',
             'last_name',
             'password1',
-            'password2'
+            'password2',
         )
 
     def save(self, commit=True):
@@ -32,5 +34,18 @@ class RegistrationForm(UserCreationForm):
 
         return user
 
+class ProfileForm(ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('phone_number',)
+
 class LoginForm(AuthenticationForm):
     username = forms.CharField(max_length=150, label="Email")
+
+class BusinessForm(ModelForm):
+    class Meta:
+        model = Businesses
+        exclude = (
+            'country',
+            'tax_number',
+        )
