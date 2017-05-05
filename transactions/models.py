@@ -18,6 +18,10 @@ class CustomerBalance(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     comments = models.CharField(max_length=255, blank=True, null=True)
 
+    class Meta:
+        verbose_name = 'Customer Balance'
+        verbose_name_plural = 'Customer Balances'
+
     def __str__(self):
         return u'%s had a balance of %s on %s.' % (
             self.customer, self.account_balance, self.timestamp

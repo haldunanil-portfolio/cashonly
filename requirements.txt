@@ -7,3 +7,4 @@ Werkzeug
 pyOpenSSL
 social-auth-app-django
 django-countries
+django-simple-history

@@ -4,8 +4,7 @@ from django_countries.fields import CountryField
 
 class Businesses(models.Model):
     """
-    Contains information for individual businesses registered with
-    Cash Only
+    Contain information for individual businesses registered with Cash Only
     """
     name = models.CharField(max_length=100)
     website = models.URLField(blank=True,

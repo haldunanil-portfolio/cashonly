@@ -60,6 +60,8 @@ INSTALLED_APPS = [
     'social_django',
     'django_countries',
     'tinymce',
+    'appconfig',
+    'simple_history',
 ]
 
 MIDDLEWARE = [
@@ -72,6 +74,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+    'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
 ROOT_URLCONF = 'cashonly.urls'
