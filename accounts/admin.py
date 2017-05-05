@@ -7,6 +7,8 @@ from django.contrib import admin
 from django import forms
 from django.contrib.flatpages.models import FlatPage
 from tinymce.widgets import TinyMCE
+from transactions.models import CustomerBalance
+
 
 ## extending base user class
 class ProfileInline(admin.StackedInline):
@@ -14,8 +16,13 @@ class ProfileInline(admin.StackedInline):
     can_delete = False
     verbose_name_plural = 'profile'
 
+class CustomerBalanceInline(admin.StackedInline):
+    model = CustomerBalance
+    can_delete = False
+    verbose_name_plural = 'customer balances'
+
 class UserAdmin(BaseUserAdmin):
-    inlines = (ProfileInline,)
+    inlines = (ProfileInline, CustomerBalanceInline,)
 
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
