@@ -36,6 +36,7 @@
   <!-- body section goes here -->
   <body>
 
+    <!-- navigation is here -->
     {% block nav %}
 
     <div class="navmenu navmenu-default navmenu-fixed-right">
@@ -109,8 +110,9 @@
 
     {% endblock %}
 
+    <!-- end nav block here -->
 
-
+    <!-- begin main content block here -->
     {% block content %}
 
     {% if user.is_authenticated %}
@@ -140,8 +142,10 @@
     {% endif %}
 
     {% endblock %}
+    <!-- end main content block here -->
 
     {% if messages or debug %}
+    <!-- begin message block here -->
       <ul class="messages">
         {% if debug %}<li>WARNING: DEBUG MODE IS ON</li>{% endif %}
         {% for message in messages %}
