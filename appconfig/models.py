@@ -4,6 +4,7 @@ Created by haldunanil on 5/5/2017 per issue #7.
 from django.db import models
 from simple_history.models import HistoricalRecords
 
+
 class Config(models.Model):
     """
     A key:value style model to store global variables
