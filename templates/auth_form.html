@@ -30,16 +30,19 @@
   <div class="welcome-to-message-container">
     <div class="section">
 
-      <a href="{% url 'social:begin' 'facebook' %}">
-        <img src="{% static 'sitewide/images/continue_with_facebook.png' %}">
+      <a class="facebook-button-link" href="{% url 'social:begin' 'facebook' %}">
+        <button class="facebook-button"><img class="facebook-button-logo" src="{% static 'nologin/images/facebook-icon.png' %}">
+Continue with Facebook</button>
       </a>
       <br>
-      <a href="{% url 'social:begin' 'google-oauth2' %}">
-        <img src="{% static 'sitewide/images/sign_in_with_google.png' %}">
+      <a class="google-button-link" href="{% url 'social:begin' 'google-oauth2' %}">
+        <button class="google-button"><img class="google-button-logo" src="{% static 'nologin/images/google-icon.png' %}">
+Continue with Google</button>
       </a>
-      <p><strong>-- OR --</strong></p>
+    </br>
+      <span class="page-break-between-signup-options">OR</span>
 
-      <form class="form-label form-css-label" method="post"> 
+      <form class="sign-up-form form-label form-css-label" method="post"> 
         {% csrf_token %}
         {% for field in form %}
           <fieldset>
@@ -48,7 +51,7 @@
           </fieldset>
         {% endfor %}
 
-        <button type="submit" value="Submit">
+        <button class="form-sign-up-button" type="submit" value="Submit">
         {% if 'sign-in' in request.path %}
           Sign In
         {% elif 'sign-up' in request.path %}

@@ -115,7 +115,7 @@ h1 {
   font-size: 16px;
   color: white;
   border: none;
-  width: 323px;
+  width: 280px;
   height: 37px;
   text-transform: uppercase;
   cursor: pointer;
@@ -185,6 +185,7 @@ h1 {
   font-size: 16px;
   color: #282E33;
   line-height: 29px;
+  padding: 20px;
 }
 
 .app-footer > ul {
@@ -193,6 +194,8 @@ h1 {
 
 .app-footer > ul > li {
   padding: 20px;
+  display: inline-block;
+
 }
 
 @media screen and (min-width: 701px) {
@@ -296,4 +299,47 @@ h1 {
 
 .navmenu-default, .navbar-default .navbar-offcanvas {
       background-color: #596869;
+  
+/*404 message*/
+.fourzerfour-message {
+  width: 100%;
+  text-align: center;
+  padding: 20px;
+  line-height: 29px;
+  font-size: 18px;
+}
+
+.fourzerfour-gif {
+    width: 100%;
+}
+
+.giphy-attribution {
+  font-size: 10px !important;
+}
+
+.thanks-for-signup-container, .signup-as-biz-container {
+  text-align: center;
+  margin: 20px;
+}
+
+.submit-button {
+  background: #64AC00;
+  font-family: Raleway-ExtraBold;
+  font-size: 16px;
+  color: white;
+  border: none;
+  width: 280px;
+  height: 37px;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-bottom: 25px;
+  margin-top: 20px;
+}
+
+.submit-button:hover, .submit-button:active, .submit-button:focus {
+  color: white;
+  background: #596869;
+  box-shadow: transparent;
+  outline: none;
+  border: none;
 }
