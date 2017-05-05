@@ -10,6 +10,7 @@ class Config(models.Model):
     A key:value style model to store global variables
     """
     key = models.CharField(max_length=100, primary_key=True, db_index=True)
+    comments = models.TextField(null=True, blank=True)
     value = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
     history = HistoricalRecords()
