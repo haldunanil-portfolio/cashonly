@@ -6,7 +6,13 @@ from accounts.forms import RegistrationForm
 from accounts.forms import ProfileForm
 from accounts.forms import BusinessForm
 from accounts.decorators import not_loggedin_required
+from accounts.decorators import profile_does_not_exist
 from django.contrib import messages
+from accounts.stripe import create_managed_stripe_account
+from accounts.stripe import create_customer_stripe_account
+from django.contrib.auth.models import Group
+from transactions.models import CustomerBalance
+
 
 @not_loggedin_required
 def registration(request):
@@ -27,6 +33,8 @@ def registration(request):
 
 	return render(request, 'auth_form.html', {'form': form})
 
+
+@profile_does_not_exist
 @login_required(login_url='/sign-in/')
 def registration_next_steps(request):
 	'''
@@ -36,18 +44,29 @@ def registration_next_steps(request):
 	if request.method == 'POST':
 		form = ProfileForm(request.POST)
 		if form.is_valid():
+			# associate profile with user object
 			next_step = form.save(commit=False)
 			next_step.user = request.user
-			form.save()
+
+			# create a Stripe customer instance
+			customer = create_customer_stripe_account(
+				request.user, commit=False
+			)
+			next_step.stripe_id = customer.id
+
+			# create a customer balance object of 0
+			cbal = CustomerBalance.objects.create(customer=request.user)
+			cbal.save()
+
+			# save and redirect to home page
+			next_step.save()
 			return redirect('/')
 
-	# redirect registration from the sign-up or sign-in page (to accommodate
-	# for social media sign up)
-	elif 'sign-up' in referer or 'sign-in' in referer:
+	else:
 		form = ProfileForm()
-		return render(request, 'form-next-step.html', {'form': form})
 
-	return redirect('/')
+	return render(request, 'form-next-step.html', {'form': form})
+
 
 def signout(request):
 	'''
@@ -55,6 +74,7 @@ def signout(request):
 	'''
 	logout(request)
 	return redirect('/')
+
 
 @login_required(login_url='/sign-in/')
 def business_sign_up(request):
@@ -64,15 +84,27 @@ def business_sign_up(request):
 	if request.method == 'POST':
 		form = BusinessForm(request.POST)
 		if form.is_valid():
+			# get existing info
+			user = request.user
 			profile = request.user.profile
+
+			# associate user with business
 			business = form.save(commit=False)
 			business.country = 'US'
+			business.rev_share_perc = 0.5
 			form.save()
-
 			profile.business = business
 			profile.save()
 
-			messages.info(request, 'Thanks for signing up as a business! Stay tuned for updates :)')
+			# add user to business owners group
+			g = Group.objects.get(name='Business Owners')
+			g.user_set.add(user)
+
+			# create managed stripe account
+			account = create_managed_stripe_account(user, business)
+
+			# return message on the next page
+			messages.info(request, 'Thanks for signing up as a business! Check your email for updates :)')
 			return redirect('/')
 
 	else:

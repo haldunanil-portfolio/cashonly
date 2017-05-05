@@ -108,6 +108,28 @@ class RegistrationTests(TestCase):
         self.assertEqual(response.status_code, 200)
 
 
+class ProfileCreationTests(TestCase):
+    """
+    Must successfully create a profile after sign up regardless of method
+    """
+    def test_manual_sign_up(self):
+        """
+
+        """
+        pass
+
+    def test_facebook_sign_up(self):
+        """
+
+        """
+        pass
+
+    def test_google_sign_up(self):
+        """
+
+        """
+        pass
+
 class SignOutTests(TestCase):
 
     def test_sign_out_successfully(self):

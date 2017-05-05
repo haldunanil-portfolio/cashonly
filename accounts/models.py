@@ -17,8 +17,11 @@ class Businesses(models.Model):
     state_province = models.CharField(max_length=30,
                                       verbose_name='State',
                                       null=True)
+    zipcode = models.CharField(max_length=5)
     country = CountryField()
-    tax_number = models.IntegerField(blank=True, null=True)
+    rev_share_perc = models.DecimalField(max_digits=10, decimal_places=2,
+                                         verbose_name='Revenue Share %')
+    stripe_id = models.CharField(max_length=30, blank=True, null=True)
 
     def __str__(self):
         return u'%s' % (self.name)
@@ -30,5 +33,6 @@ class Profile(models.Model):
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     phone_number = models.CharField(max_length=15, blank=True, null=True)
-    business = models.ForeignKey(Businesses, blank=True, null=True)
+    business = models.ForeignKey(Businesses, on_delete=models.SET_NULL,
+                                 blank=True, null=True)
     stripe_id = models.CharField(max_length=30, blank=True, null=True)

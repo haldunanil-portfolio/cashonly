@@ -25,15 +25,21 @@ SECRET_KEY = '+mr!12odk72qsa&=$ydx5^@c(hz_=*qai@s3fu_sdv!o^(7jzd'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.elasticbeanstalk.com',
-                 'localhost',
-                 '127.0.0.1',
-                 '.cashon.ly']
+ALLOWED_HOSTS = [
+    '.elasticbeanstalk.com',
+    'localhost',
+    '127.0.0.1',
+    '.cashon.ly'
+]
 
 INTERNAL_IPS = (
     '0.0.0.0',
     '127.0.0.1',
 )
+
+ADMINS = [
+    ('Haldun Anil', 'haldun@cashon.ly')
+]
 
 # Application definition
 
@@ -195,7 +201,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
@@ -229,3 +234,11 @@ TINYMCE_DEFAULT_CONFIG = {
 TINYMCE_SPELLCHECKER = True
 
 # TINYMCE_COMPRESSOR = True
+
+# Stripe
+# https://dashboard.stripe.com/account/apikeys
+STRIPE_API_SECRET = 'sk_test_iLOI0zuwgnqGncXfEq0SKNNp'
+STRIPE_API_PUBLIC = 'pk_test_ntvPJgeDpYjjf0OUmmL3RY75'
+
+STRIPE_VAR_FEE_PERC = 0.029
+STRIPE_FIXED_FEE_DOLLAR = 300
