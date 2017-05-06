@@ -242,6 +242,3 @@ TINYMCE_SPELLCHECKER = True
 # https://dashboard.stripe.com/account/apikeys
 STRIPE_API_SECRET = 'sk_test_iLOI0zuwgnqGncXfEq0SKNNp'
 STRIPE_API_PUBLIC = 'pk_test_ntvPJgeDpYjjf0OUmmL3RY75'
-
-STRIPE_VAR_FEE_PERC = 0.029
-STRIPE_FIXED_FEE_DOLLAR = 300
