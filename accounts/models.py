@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
+from appconfig.functions import get_value
+
 
 class Businesses(models.Model):
     """
@@ -18,8 +20,10 @@ class Businesses(models.Model):
                                       null=True)
     zipcode = models.CharField(max_length=5)
     country = CountryField()
-    rev_share_perc = models.DecimalField(max_digits=10, decimal_places=2,
-                                         verbose_name='Revenue Share %')
+    rev_share_perc = models.DecimalField(
+        max_digits=10, decimal_places=2, verbose_name='Revenue Share %',
+        default=get_value("DEFAULT_REV_SHARE")
+    )
     stripe_id = models.CharField(max_length=30, blank=True, null=True)
 
     def __str__(self):
@@ -32,6 +36,6 @@ class Profile(models.Model):
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     phone_number = models.CharField(max_length=15, blank=True, null=True)
+    stripe_id = models.CharField(max_length=30, blank=True, null=True)
     business = models.ForeignKey(Businesses, on_delete=models.SET_NULL,
                                  blank=True, null=True)
-    stripe_id = models.CharField(max_length=30, blank=True, null=True)

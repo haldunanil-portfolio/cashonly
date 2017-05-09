@@ -12,7 +12,7 @@ def create_customer_stripe_account(user, commit=True, *args, **kwargs):
     Create a stripe Customer account for a user.
 
     Inputs:
-    - user = User object from django.contrib.auth.models
+    - user = User instance from django.contrib.auth.models
 
     Returns: created Stripe Customer object
     """

@@ -6,6 +6,6 @@ from appconfig.models import Config
 from simple_history.admin import SimpleHistoryAdmin
 
 class ConfigAdmin(SimpleHistoryAdmin):
-    list_display = ('key', 'value', 'timestamp')
+    list_display = ('key', 'comments', 'value',)
 
 admin.site.register(Config, ConfigAdmin)
