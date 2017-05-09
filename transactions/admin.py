@@ -10,11 +10,14 @@ from simple_history.admin import SimpleHistoryAdmin
 
 class CustomerBalanceAdmin(SimpleHistoryAdmin):
     list_display = ('customer', 'account_balance', 'timestamp')
+    list_filter = ('timestamp',)
 
 
 class BillAdmin(admin.ModelAdmin):
     list_display = ('business', 'customer', 'amount',
                     'timestamp', 'comments')
+    list_filter = ('timestamp', )
+    search_fields = ('business__name',)
 
 
 class BillInline(admin.StackedInline):
@@ -26,6 +29,7 @@ class BillInline(admin.StackedInline):
 
 class ChargeAdmin(admin.ModelAdmin):
     list_display = ('customer', 'amount', 'timestamp', 'comments')
+    list_filter = ('timestamp', )
     inlines = (BillInline,)
 
 

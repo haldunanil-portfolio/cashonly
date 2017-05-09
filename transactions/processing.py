@@ -344,16 +344,16 @@ bill2 = Bill.objects.get(id=9)
 # y0 = a._create_stripe_transfer()
 # y1 = b._create_stripe_transfer()
 
-a = AddToBalance(user=user, amount=5000)
-a.process(source='card_1AHOmRCX7PkkAZyTdl0Pdz2C')
-b = PurchaseFromBalance(bill=bill1)
-b.process()
-c = PurchaseFromBalance(bill=bill2)
-try:
-    c.process()
-except Exception as e:
-    print(e)
-d = PayAsYouGo(bill=bill2)
-d.process(source='card_1AHOmRCX7PkkAZyTdl0Pdz2C')
+# a = AddToBalance(user=user, amount=5000)
+# a.process(source='card_1AHOmRCX7PkkAZyTdl0Pdz2C')
+# b = PurchaseFromBalance(bill=bill1)
+# b.process()
+# c = PurchaseFromBalance(bill=bill2)
+# try:
+#     c.process()
+# except Exception as e:
+#     print(e)
+# d = PayAsYouGo(bill=bill2)
+# d.process(source='card_1AHOmRCX7PkkAZyTdl0Pdz2C')
 
 #####
