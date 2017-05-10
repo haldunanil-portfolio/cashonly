@@ -18,7 +18,8 @@ class SimpleTransaction(object):
         Kwargs MUST either contain user AND amount OR a Bill instance.
 
         A Bill instance is the preferred approach, as it contains a more
-        complete set of data. 
+        complete set of data and facilitates association. Indeed, a Bill
+        instance MUST be supplied when the transaction is PayAsYouGo type.
 
         Required inputs:
         - user = User instance from django.contrib.auth.models
@@ -49,8 +50,7 @@ class SimpleTransaction(object):
 
         # get variable fee to charge
         try:
-            # check that the value is a float between [0, 1]
-            assert type(kwargs['cash_only_var_fee']) == float, "cash_only_var_fee must be a float; you provided %s" % kwargs['cash_only_var_fee']
+            # check that the value is a value between [0, 1]
             assert kwargs['cash_only_var_fee'] <= 1.0, "cash_only_var_fee must be <= 1.0; you provided %s" % kwargs['cash_only_var_fee']
             assert kwargs['cash_only_var_fee'] > 0.0, "cash_only_var_fee must be > 0.0; you provided %s" % kwargs['cash_only_var_fee']
 

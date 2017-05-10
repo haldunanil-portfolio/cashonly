@@ -100,13 +100,16 @@ class RegistrationTests(TestCase):
         user_li = get_user(self.client)
         self.assertTrue(user_li.is_authenticated())
 
-        # attempt to visit page while logged in
+        # attempt to visit sign up page while logged in
         response_li = self.client.get('/sign-up/')
-        self.assertRedirects(response_li, '/')
+        self.assertRedirects(response_li, '/', target_status_code=302)
+
+        # next sign out
+        self.client.get('/sign-out/', )
 
         # last, attempt to revisit sign up page after logout
         response_lo = self.client.get('/sign-up/')
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response_lo.status_code, 200)
 
 
 class ProfileCreationTests(TestCase):
