@@ -3,6 +3,7 @@ from django.contrib.auth import get_user
 from django.contrib.auth.models import User, Group
 from accounts.forms import RegistrationForm, ProfileForm
 
+
 class RegistrationTests(TestCase):
 
     def test_registration_form_valid(self):
@@ -129,6 +130,7 @@ class ProfileCreationTests(TestCase):
 
         """
         pass
+
 
 class SignOutTests(TestCase):
 

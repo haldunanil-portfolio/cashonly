@@ -4,6 +4,7 @@ Created by haldunanil on 5/1/2017 per issue #7.
 from appconfig.functions import get_value
 from django.conf import settings
 from django.contrib.auth.models import Group
+from accounts.models import Businesses
 from transactions.models import CustomerBalance
 from transactions.models import Bill
 from transactions.models import Charge
@@ -15,6 +16,9 @@ class SimpleTransaction(object):
     def __init__(self, *args, **kwargs):
         """
         Kwargs MUST either contain user AND amount OR a Bill instance.
+
+        A Bill instance is the preferred approach, as it contains a more
+        complete set of data. 
 
         Required inputs:
         - user = User instance from django.contrib.auth.models
@@ -45,27 +49,45 @@ class SimpleTransaction(object):
 
         # get variable fee to charge
         try:
+            # check that the value is a float between [0, 1]
+            assert type(kwargs['cash_only_var_fee']) == float, "cash_only_var_fee must be a float; you provided %s" % kwargs['cash_only_var_fee']
+            assert kwargs['cash_only_var_fee'] <= 1.0, "cash_only_var_fee must be <= 1.0; you provided %s" % kwargs['cash_only_var_fee']
+            assert kwargs['cash_only_var_fee'] > 0.0, "cash_only_var_fee must be > 0.0; you provided %s" % kwargs['cash_only_var_fee']
+
+            # if checks passed, assign value
             self.cash_only_var_fee = kwargs['cash_only_var_fee']
         except KeyError:
             self.cash_only_var_fee = get_value("CASH_ONLY_VAR_FEE")
 
         # get fixed fee to charge
         try:
+            # check that value is a positive integer or float
+            assert kwargs['cash_only_fixed_fee'] > 0.0, "cash_only_fixed_fee must be > 0.0; you provided %s" % kwargs['cash_only_fixed_fee']
+
+            # if checks passed, assign value
             self.cash_only_fixed_fee = kwargs['cash_only_fixed_fee']
         except KeyError:
             self.cash_only_fixed_fee = get_value("CASH_ONLY_FIXED_FEE")
 
         # determine whether transaction is a pay-as-you-go transactions
         try:
+            # check that value is a boolean
+            assert type(kwargs['pay_as_you_go']) == bool, "pay_as_you_go must be boolean; you provided %s" % kwargs['pay_as_you_go']
+
+            # if checks passed, assign value
             self.pay_as_you_go = kwargs['pay_as_you_go']
         except KeyError:
             self.pay_as_you_go = False
 
         # set business if provided in kwargs
         try:
+            # check that param is a accounts.models.Business instance
+            assert isinstance(kwargs['business'], Businesses), "business must be an accounts.models.Businesses object; you provided %s" % type(kwargs['business'])
+
+            #if checks passed, assign value
             self.business = kwargs['business']
-        except Exception:
-            pass
+        except KeyError:
+            print("CAUTION: No business provided.")
 
     def __str__(self):
         return u'%s has a trx worth $%s' % (self.user, self.amount / 100)
@@ -330,13 +352,13 @@ class PurchaseFromBalance(SimpleTransaction):
 
 
 ##### FOR TESTING PURPOSES, DELETE AFTERWARDS
-from django.contrib.auth.models import User
-from accounts.models import Businesses
-
-user = User.objects.get(username="haldunanil")
-biz = Businesses.objects.get(name="Test")
-bill1 = Bill.objects.get(id=8)
-bill2 = Bill.objects.get(id=9)
+# from django.contrib.auth.models import User
+# from accounts.models import Businesses
+#
+# user = User.objects.get(username="haldunanil")
+# biz = Businesses.objects.get(name="Test")
+# bill1 = Bill.objects.get(id=8)
+# bill2 = Bill.objects.get(id=9)
 # a = SimpleTransaction(user=user, amount=3000, bill=bill)
 # b = SimpleTransaction(user=user, amount=3000, business=biz, bill=bill, pay_as_you_go=True)
 # x0 = a._create_stripe_charge(source='card_1AHOmRCX7PkkAZyTdl0Pdz2C')
