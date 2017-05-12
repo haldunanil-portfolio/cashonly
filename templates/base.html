@@ -24,24 +24,32 @@
     {% endif %}
 
     <!-- Bootstrap core CSS -->
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{% static 'sitewide/css/jasny-bootstrap.min.css' %}" rel="stylesheet">
+    <!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"> -->
+    <!-- <link href="{% static 'sitewide/css/jasny-bootstrap.min.css' %}" rel="stylesheet"> -->
 
     <!-- Custom styles for this nav menu template -->
-    <link href="{% static 'sitewide/css/navmenu-reveal.css' %}" rel="stylesheet">
+    <!-- <link href="{% static 'sitewide/css/navmenu-reveal.css' %}" rel="stylesheet"> -->
 
     {% block head %}{% endblock %}
   </head>
 
   <!-- body section goes here -->
   <body>
-
     <!-- navigation is here -->
     {% block nav %}
+    <div class="mobile-menu-toggle toggle-nav">
+      <div class="mobile-menu-line mobile-menu-line-1"></div>
+      <div class="mobile-menu-line mobile-menu-line-2"></div>
+      <div class="mobile-menu-line mobile-menu-line-3"></div>
+      <div class="mobile-menu-line mobile-menu-line-4"></div>
+    </div>
 
-    <div class="navmenu navmenu-default navmenu-fixed-right">
-      <a class="navmenu-brand" href="#"></a>
-      <ul class="nav navmenu-nav">
+    <div class="navmenu navmenu-default">
+      <div class="close-nav toggle-nav">
+        <div class="right-line"></div>
+        <div class="left-line"></div>
+      </div>
+      <ul class="nav-options">
 
         {% if user.is_authenticated %}
         <li><a href="/sign-out/">Sign Out</a></li>
@@ -56,16 +64,6 @@
         <li><a href="{{ page.url }}">{{ page.title }}</a></li>
         {% endfor %}
       </ul>
-    </div>
-
-    <div class="canvas">
-      <div class="navbar navbar-default navbar-fixed-top">
-        <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-recalc="false" data-target=".navmenu" data-canvas=".canvas">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-      </div>
     </div>
 
     {% if user.is_authenticated %}
@@ -148,8 +146,6 @@
     {% block footer %}
 
 
-
-
     {% endblock %}
     <!-- end footer block here -->
 
@@ -169,8 +165,13 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <script src="{% static 'sitewide/js/jasny-bootstrap.min.js' %}"></script>
+    <!-- <script src="{% static 'sitewide/js/jasny-bootstrap.min.js' %}"></script> -->
     <script src="{% static 'sitewide/js/animations.js' %}"></script>
-    <script src="{% static 'sitewide/js/codebar.js' %}"></script>
+    <script src="{% static 'sitewide/js/mobile-menu.js' %}"></script>
+
+    <!-- <script src="{% static 'sitewide/js/codebar.js' %}"></script> -->
+
+    <!-- <script src="cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
+    <!-- <script src="cdnjs.cloudflare.com/ajax/libs/wow/0.1.12/wow.min.js"></script> -->
   </body>
 </html>
