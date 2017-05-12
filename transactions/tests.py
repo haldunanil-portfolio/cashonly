@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
+from accounts.models import Profile
 from transactions.processing import SimpleTransaction
 from transactions.processing import PayAsYouGo
 from transactions.processing import AddToBalance
@@ -211,8 +212,247 @@ class SimpleTransactionInitTests(TestCase):
         with self.assertRaisesMessage(AssertionError, "business must be an accounts.models.Businesses object"):
             result1 = SimpleTransaction(bill=self.bill, business='self.biz')
 
-    
-
+#
+# class SimpleTransactionBalanceChargeTests(TestCase):
+#
+#     def setUp(self):
+#         # create a user
+#         username = 'test%s@example.com' % int(random() * 10000)
+#         pw = 'test1234'
+#         self.user = User.objects.create_user(username, password=pw)
+#         self.user.save()
+#
+#         profile = Profile.objects.create(user=self.user)
+#         profile.save()
+#
+#         # create a business
+#         self.biz = Businesses.objects.create(
+#             name='Test, Inc.', address_1='123 Main Street', city='New York',
+#             state_province='NY', zipcode='10028', country='US'
+#         )
+#         self.biz.save()
+#
+#         # create a self.bill and associate with the above business
+#         self.bill = Bill.objects.create(
+#             business=self.biz, amount=1000
+#         )
+#         self.bill.save()
+#
+#         # create the requisite configs
+#         config1 = Config.objects.create(
+#             key="CASH_ONLY_VAR_FEE",
+#             value=0.05
+#         )
+#         config1.save()
+#
+#         config2 = Config.objects.create(
+#             key="CASH_ONLY_FIXED_FEE",
+#             value=1
+#         )
+#         config2.save()
+#
+#         config3 = Config.objects.create(
+#             key="STRIPE_VAR_FEE_PERC",
+#             value=0.029
+#         )
+#         config3.save()
+#
+#         config4 = Config.objects.create(
+#             key="STRIPE_FIXED_FEE_DOLLAR",
+#             value=0.3
+#         )
+#         config4.save()
+#
+#         config5 = Config.objects.create(
+#             key="DEFAULT_REV_SHARE",
+#             value=0.5
+#         )
+#         config5.save()
+#
+#     # def test_new_charge_created(self):
+#     #     """
+#     #
+#     #     """
+#     #     raise NotImplementedError
+#     #
+#     # def test_stripe_successful(self):
+#     #     """
+#     #
+#     #     """
+#     #     raise NotImplementedError
+#     #
+#     # def test_internal_stripe_ids_match(self):
+#     #     """
+#     #
+#     #     """
+#     #     raise NotImplementedError
+#     #
+#     # def test_stripe_charge_has_correct_transfer_group(self):
+#     #     """
+#     #
+#     #     """
+#     #     raise NotImplementedError
+#     #
+#     # def test_internal_stripe_values_match(self):
+#     #     """
+#     #
+#     #     """
+#     #     raise NotImplementedError
+#
+#
+# class SimpleTransactionPayAsYouGoChargeTests(TestCase):
+#
+#     def setUp(self):
+#         from django.conf import settings
+#         import stripe
+#         from accounts.stripe import create_customer_stripe_account
+#         from accounts.stripe import create_managed_stripe_account
+#
+#         stripe.api_key = settings.STRIPE_API_SECRET
+#
+#         # create a user
+#         username = 'test%s@example.com' % int(random() * 10000)
+#         pw = 'test1234'
+#         self.user = User.objects.create_user(username, password=pw)
+#         self.user.save()
+#
+#         profile = Profile.objects.create(user=self.user)
+#         profile.save()
+#
+#         create_customer_stripe_account(self.user)
+#
+#         # create a business
+#         self.biz = Businesses.objects.create(
+#             name='Test, Inc.', address_1='123 Main Street', city='New York',
+#             state_province='NY', zipcode='10028', country='US'
+#         )
+#         self.biz.save()
+#
+#         create_managed_stripe_account(self.user, self.biz)
+#
+#         # create a self.bill and associate with the above business
+#         self.bill = Bill.objects.create(
+#             business=self.biz, amount=1000, customer=self.user
+#         )
+#         self.bill.save()
+#
+#         # create the requisite configs
+#         config1 = Config.objects.create(
+#             key="CASH_ONLY_VAR_FEE",
+#             value=0.05
+#         )
+#         config1.save()
+#
+#         config2 = Config.objects.create(
+#             key="CASH_ONLY_FIXED_FEE",
+#             value=1
+#         )
+#         config2.save()
+#
+#         config3 = Config.objects.create(
+#             key="STRIPE_VAR_FEE_PERC",
+#             value=0.029
+#         )
+#         config3.save()
+#
+#         config4 = Config.objects.create(
+#             key="STRIPE_FIXED_FEE_DOLLAR",
+#             value=0.3
+#         )
+#         config4.save()
+#
+#         config5 = Config.objects.create(
+#             key="DEFAULT_REV_SHARE",
+#             value=0.5
+#         )
+#         config5.save()
+#
+#     def test_new_charge_created(self):
+#         """
+#         Test if a new charge element was properly created
+#
+#         NOTE: If getting invalid token error, check to make
+#         sure a valid token is being used in the code.
+#         """
+#         result = SimpleTransaction(
+#             bill=self.bill, pay_as_you_go=True
+#         )
+#         # create charge
+#         charge = result._create_stripe_charge(
+#             source="card_1AHOmRCX7PkkAZyTdl0Pdz2C"
+#         )
+#
+#         # count if the number of charge objects increased
+#         count = Charge.objects.count()
+#         self.assertEqual(count, 1)
+#
+#         # roll back
+#         charge.delete()
+#
+#     def test_stripe_successful(self):
+#         """
+#         Test that the stripe charge correctly created
+#
+#         NOTE: If getting invalid token error, check to make
+#         sure a valid token is being used in the code.
+#         """
+#         result = SimpleTransaction(
+#             bill=self.bill, pay_as_you_go=True
+#         )
+#         # create charge
+#         charge = result._create_stripe_charge(
+#             source="card_1AHOmRCX7PkkAZyTdl0Pdz2C"
+#         )
+#
+#         self.assertIsInstance(
+#             charge, stripe.Charge
+#         )
+#
+#         # roll back
+#         charge.delete()
+#
+#     def test_internal_stripe_match(self):
+#         """
+#         Test that stripe and internal charge details match
+#
+#         NOTE: If getting invalid token error, check to make
+#         sure a valid token is being used in the code.
+#         """
+#         result = SimpleTransaction(
+#             bill=self.bill, pay_as_you_go=True
+#         )
+#         # create charge
+#         charge_stripe = result._create_stripe_charge(
+#             source="card_1AHOmRCX7PkkAZyTdl0Pdz2C"
+#         )
+#
+#         charge_int = Charge.objects.get(id=3)
+#
+#         # assert that ids are equal
+#         self.assertEqual(
+#             charge_stripe.id, charge_int.stripe_id
+#         )
+#
+#         # assert that the amount is equal
+#         self.assertEqual(
+#             charge_stripe.amount, charge_int.amount
+#         )
+#
+#         # assert that charge is recorded as successful
+#         self.assertFalse(charge_int.fail)
+#
+#         # roll back
+#         charge_stripe.delete()
+#
+#
+# class SimpleTransactionBalanceTransferTests(TestCase):
+#     pass
+#
+#
+# class SimpleTransactionPayAsYouGoTransferTests(TestCase):
+#     pass
+#
+# 
 # class PayAsYouGoTests(TestCase):
 #     pass
 #
