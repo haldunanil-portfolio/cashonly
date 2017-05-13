@@ -29,11 +29,35 @@ h1 {
 }
 
 /*app specific styles*/
-.app-nav {
-  width: 100%;
-  height: 112px;
-  top: 0px;
-  position: relative;
+@media screen and (max-width: 768px) {
+  .mobile-menu-toggle {
+    padding-top: 10px;
+    width: 30px;
+    height: 60.5px;
+    background: transparent;
+    float: right;
+    position: relative;
+    cursor: pointer;
+    top: 58px;
+    right: 50px;
+    display: block;
+  }
+  .hide-mobile-menu-toggle {
+    display: none;
+  }
+  .desktop-app-nav{
+    display: none;
+  }
+}
+
+@media screen and (min-width: 767px) {
+  .mobile-menu-toggle {
+    display: none;
+  }
+  .desktop-app-nav{
+    width: 100%;
+    height: 112px;
+  }
 }
 
 .cash-only-full-logo-black {
@@ -80,12 +104,12 @@ h1 {
 
 .transactions-container {
   margin: 0 auto;
-  margin-top: 50px;
-  margin-bottom: 50px;
+  margin-top: 0px;
+  margin-bottom: 0px;
   text-align: center;
-  min-height: 648px;
-  top: 162px;
-  padding: 0px 20px 0px 20px;
+  min-height: 1500px;
+  padding: 50px 20px 0px 20px;
+  background: url(../images/atm-illustration.png);
 }
 
 .balance-message {
@@ -188,6 +212,8 @@ h1 {
 
 .app-footer > ul > li {
   padding: 20px;
+  display: inline-block;
+
 }
 
 @media screen and (min-width: 701px) {
@@ -215,6 +241,81 @@ h1 {
   }
 }
 
+.messages {
+  background: #d84949;
+  width: 100%;
+  height: auto;
+  padding: 20px;
+  color: white;
+  margin: 0px;
+  list-style: none;
+  text-align: center;
+  bottom: 0;
+  position: fixed;
+  left: 0;
+  position: fixed;
+}
+
+.icon-bar {
+  border-color: #596869;
+  background: #596869 !important;
+  height: 3px !important;
+  width: 26px !important;
+}
+
+.navbar-toggle {
+  border: 0px solid transparent !important;
+  background-color: transparent !important;
+}
+
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+    background-color: #fff;
+}
+
+@media screen and (max-width: 768px) {
+  .desktop-homepage-nav{
+    display: none;
+  }
+  .desktop-app-nav {
+    display: none;
+  }
+  .welcome-to-message-container {
+    padding: 115px 50px 0px 50px;
+  }
+  .welcome-to-container {
+    margin-top: 80px;
+  }
+}
+
+@media screen and (min-width: 767px) {
+  .desktop-homepage-nav {
+    width: 100%;
+    height: 112px;
+    margin-bottom: 75px;
+  }
+  .desktop-app-nav {
+    width: 100%;
+    height: 112px;
+    margin-bottom: 0px;
+    display: block;
+  }
+  .welcome-to-message-container {
+    padding: 0px;
+  }
+}
+
+.navmenu-nav>li>a {
+  color: #fff !important;
+  font-size: 20px;
+  margin: 0 auto;
+}
+
+.navmenu-nav>li>a:hover {
+  color: #64AC00 !important;
+  font-weight: 700;
+  background: #fff !important;
+}
+
 /*404 message*/
 .fourzerfour-message {
   width: 100%;
@@ -232,7 +333,7 @@ h1 {
   font-size: 10px !important;
 }
 
-.thanks-for-signup-container {
+.thanks-for-signup-container, .signup-as-biz-container {
   text-align: center;
   margin: 20px;
 }
@@ -258,3 +359,83 @@ h1 {
   outline: none;
   border: none;
 }
+
+/*new mobile nav - start*/
+.navmenu-default {
+  background-color: rgba(89, 104, 105, 0.96);
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: +999;
+  display: none;
+}
+
+.show-nav {
+  display: block;
+}
+
+.nav-options {
+  padding: 0px;
+  font-size: 34px;
+  margin-top: 50%;
+}
+
+.nav-options > li, .nav-options > li > a, .nav-options > li > a:visited {
+  margin: 0 auto;
+  padding-top: 12px;
+  width: 100%;
+  height: 60px;
+  text-align: center;
+  list-style: none;
+  text-decoration: none;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.nav-options > li:hover, .nav-options > li:hover {
+  background: #64ac00;
+}
+
+.close-nav {
+  width: 50px;
+  height: 80px;
+  background: transparent;
+  position: relative;
+  top: 40px;
+  right: 40px;
+  float: right;
+  cursor: pointer;
+}
+
+.right-line {
+  background: #fff;
+  width: 100%;
+  height: 2px;
+  -ms-transform: rotate(45deg); /* IE 9 */
+  -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
+  transform: rotate(45deg);
+  position: relative;
+  top: 41px;
+  border-radius: 10px;
+}
+
+.left-line {
+  background: #fff;
+  width: 100%;
+  height: 2px;
+  -ms-transform: rotate(-45deg); /* IE 9 */
+  -webkit-transform: rotate(-45deg); /* Chrome, Safari, Opera */
+  transform: rotate(-45deg);
+  position: relative;
+  top: 39px;
+  border-radius: 10px;
+}
+
+.mobile-menu-line {
+  height: 3px;
+  width: 100%;
+  background: #282e33;
+  margin-bottom: 5px;
+}
+/*new mobile nav - end*/

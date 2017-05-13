@@ -10,24 +10,10 @@
   {% endif %}
 {% endblock %}
 
-{% block messages %}
-  {% if form.errors %}
-    {% if 'sign-in' in request.path %}
-      <li>Your username and password didn't match. Please try again.</li>
-    {% elif 'sign-up' in request.path %}
-      <li>There is an error with your registration, please try again.</li>
-    {% endif %}
-    {% for field in form %}
-      {% for error in field.errors %}
-        <li>{{ error }}</li>
-      {% endfor %}
-    {% endfor %}
-  {% endif %}
-{% endblock %}
-
 {% block content %}
 
   <div class="welcome-to-message-container">
+    <img class="cash-only-mobile-logo" src="{% static 'sitewide/images/cash-only-full-logo-white.png' %}" alt="" height="" width="97px">
     <div class="section">
 
       <a class="facebook-button-link" href="{% url 'social:begin' 'facebook' %}">
@@ -65,4 +51,19 @@ Continue with Google</button>
 
   </div>
 
+{% endblock %}
+
+{% block messages %}
+  {% if form.errors %}
+    {% if 'sign-in' in request.path %}
+      <li>Your username and password didn't match. Please try again.</li>
+    {% elif 'sign-up' in request.path %}
+      <li>There is an error with your registration, please try again.</li>
+    {% endif %}
+    {% for field in form %}
+      {% for error in field.errors %}
+        <li>{{ error }}</li>
+      {% endfor %}
+    {% endfor %}
+  {% endif %}
 {% endblock %}

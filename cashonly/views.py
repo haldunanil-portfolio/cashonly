@@ -53,7 +53,6 @@ def home(request):
 
 	return render(request, 'base.html')
 
-
 def handler404(request):
 	'''
 	Page to display when user sent to URI that doesn't exist; 404 response
