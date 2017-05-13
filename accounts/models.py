@@ -22,7 +22,7 @@ class Businesses(models.Model):
     country = CountryField()
     rev_share_perc = models.DecimalField(
         max_digits=10, decimal_places=2, verbose_name='Revenue Share %',
-        default=get_value("DEFAULT_REV_SHARE")
+        default=0.5
     )
     stripe_id = models.CharField(max_length=30, blank=True, null=True)
 
