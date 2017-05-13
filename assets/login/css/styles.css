@@ -30,12 +30,30 @@ h1 {
 
 /*app specific styles*/
 @media screen and (max-width: 768px) {
+  .mobile-menu-toggle {
+    padding-top: 10px;
+    width: 30px;
+    height: 60.5px;
+    background: transparent;
+    float: right;
+    position: relative;
+    cursor: pointer;
+    top: 58px;
+    right: 50px;
+    display: block;
+  }
+  .hide-mobile-menu-toggle {
+    display: none;
+  }
   .desktop-app-nav{
     display: none;
   }
 }
 
 @media screen and (min-width: 767px) {
+  .mobile-menu-toggle {
+    display: none;
+  }
   .desktop-app-nav{
     width: 100%;
     height: 112px;
@@ -289,6 +307,7 @@ h1 {
 .navmenu-nav>li>a {
   color: #fff !important;
   font-size: 20px;
+  margin: 0 auto;
 }
 
 .navmenu-nav>li>a:hover {
@@ -297,9 +316,6 @@ h1 {
   background: #fff !important;
 }
 
-.navmenu-default, .navbar-default .navbar-offcanvas {
-      background-color: #596869;
-  
 /*404 message*/
 .fourzerfour-message {
   width: 100%;
@@ -343,3 +359,83 @@ h1 {
   outline: none;
   border: none;
 }
+
+/*new mobile nav - start*/
+.navmenu-default {
+  background-color: rgba(89, 104, 105, 0.96);
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: +999;
+  display: none;
+}
+
+.show-nav {
+  display: block;
+}
+
+.nav-options {
+  padding: 0px;
+  font-size: 34px;
+  margin-top: 50%;
+}
+
+.nav-options > li, .nav-options > li > a, .nav-options > li > a:visited {
+  margin: 0 auto;
+  padding-top: 12px;
+  width: 100%;
+  height: 60px;
+  text-align: center;
+  list-style: none;
+  text-decoration: none;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.nav-options > li:hover, .nav-options > li:hover {
+  background: #64ac00;
+}
+
+.close-nav {
+  width: 50px;
+  height: 80px;
+  background: transparent;
+  position: relative;
+  top: 40px;
+  right: 40px;
+  float: right;
+  cursor: pointer;
+}
+
+.right-line {
+  background: #fff;
+  width: 100%;
+  height: 2px;
+  -ms-transform: rotate(45deg); /* IE 9 */
+  -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
+  transform: rotate(45deg);
+  position: relative;
+  top: 41px;
+  border-radius: 10px;
+}
+
+.left-line {
+  background: #fff;
+  width: 100%;
+  height: 2px;
+  -ms-transform: rotate(-45deg); /* IE 9 */
+  -webkit-transform: rotate(-45deg); /* Chrome, Safari, Opera */
+  transform: rotate(-45deg);
+  position: relative;
+  top: 39px;
+  border-radius: 10px;
+}
+
+.mobile-menu-line {
+  height: 3px;
+  width: 100%;
+  background: #282e33;
+  margin-bottom: 5px;
+}
+/*new mobile nav - end*/

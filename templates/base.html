@@ -3,6 +3,8 @@
 {% load static from staticfiles %}
 
 <html lang="en">
+
+  <!-- Head section goes here-->
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,23 +24,33 @@
     {% endif %}
 
     <!-- Bootstrap core CSS -->
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{% static 'sitewide/css/jasny-bootstrap.min.css' %}" rel="stylesheet">
+    <!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"> -->
+    <!-- <link href="{% static 'sitewide/css/jasny-bootstrap.min.css' %}" rel="stylesheet"> -->
 
-    <!-- Custom styles for this template -->
-    <link href="{% static 'sitewide/css/navmenu-reveal.css' %}" rel="stylesheet">
+    <!-- Custom styles for this nav menu template -->
+    <!-- <link href="{% static 'sitewide/css/navmenu-reveal.css' %}" rel="stylesheet"> -->
 
     {% block head %}{% endblock %}
   </head>
 
+  <!-- body section goes here -->
   <body>
+    <!-- navigation is here -->
+    {% block nav %}
+    <div class="mobile-menu-toggle toggle-nav">
+      <div class="mobile-menu-line mobile-menu-line-1"></div>
+      <div class="mobile-menu-line mobile-menu-line-2"></div>
+      <div class="mobile-menu-line mobile-menu-line-3"></div>
+      <div class="mobile-menu-line mobile-menu-line-4"></div>
+    </div>
 
-  {% block nav %}
+    <div class="navmenu navmenu-default">
+      <div class="close-nav toggle-nav">
+        <div class="right-line"></div>
+        <div class="left-line"></div>
+      </div>
+      <ul class="nav-options">
 
-    <div class="navmenu navmenu-default navmenu-fixed-right">
-      <a class="navmenu-brand" href="#">
-      </a>
-      <ul class="nav navmenu-nav">
         {% if user.is_authenticated %}
         <li><a href="/sign-out/">Sign Out</a></li>
         {% else %}
@@ -54,170 +66,91 @@
       </ul>
     </div>
 
-    <div class="canvas">
-      <div class="navbar navbar-default navbar-fixed-top">
-        <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-recalc="false" data-target=".navmenu" data-canvas=".canvas">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
+    {% if user.is_authenticated %}
+    <img class="cash-only-full-logo-black" src="/static/sitewide/images/cash-only-full-logo-black.png" alt="" height="" width="97px">
+    <nav class="desktop-app-nav">
+    	<a href="/"><img class="cash-only-full-logo-black" src="{% static 'sitewide/images/cash-only-full-logo-black.png' %}" alt="" height="" width="97px"></a>
+      <div class="links-app-top desktop-links">
+        <ul>
+          <li><a class="mobile-links">Help</a></li>
+          <li><a class="mobile-links">Settings</a></li>
+
+    			{% if user.is_staff %}
+    			<li><a class="mobile-links" href='/admin/'>Admin</a></li>
+    			{% endif %}
+
+          <li><a class="log-out-link" href="/sign-out/">Sign Out</a></li>
+        </ul>
       </div>
+    </nav>
+    {% else %}
+    <nav class="desktop-homepage-nav">
+      <a href="/"><img class="cash-only-full-logo-white" src="{% static 'sitewide/images/cash-only-full-logo-white.png' %}" alt="" height="" width="97px"></a>
+      <div class="links-homepage-top desktop-links">
+        <ul>
+          <li><a class="mobile-links">Products</a></li>
+          <li><a class="mobile-links">Business</a></li>
+
+          {% if user.is_staff %}
+          <li><a class="mobile-links" href='/admin/'>Admin</a></li>
+          {% endif %}
+
+    			{% if user.is_authenticated %}
+    			<li><a href='/logout/'>Sign Out</a></li>
+    			{% else %}
+          <li><a href="/sign-in/">Sign In</a></li>
+          <a href="/sign-up/"><button class="signup-button">Sign Up</button></a>
+    			{% endif %}
+        </ul>
+      </div>
+    </nav>
+    {% endif %}
 
     {% endblock %}
 
+    <!-- end nav block here -->
+
+    <!-- begin main content block here -->
     {% block content %}
-      {% if user.is_authenticated %}
-        <div class="transactions-container">
-          {% if user.is_authenticated %}
-          <img class="cash-only-full-logo-black" src="/static/sitewide/images/cash-only-full-logo-black.png" alt="" height="" width="97px">
-            <nav class="desktop-app-nav">
-            	<a href="/">
-              	<img class="cash-only-full-logo-black" src="{% static 'sitewide/images/cash-only-full-logo-black.png' %}" alt="" height="" width="97px">
-            	</a>
-              <div class="links-app-top desktop-links">
-                <ul>
-                  <li>
-                    <a class="mobile-links">Help</a>
-                  </li>
-                  <li>
-                    <a class="mobile-links">Settings</a>
-                  </li>
-            			{% if user.is_staff %}
-            			<li>
-                    <a class="mobile-links" href='/admin/'>Admin</a>
-                  </li>
-            			{% endif %}
-                  <li>
-                    <a class="log-out-link" href="/sign-out/">Sign Out</a>
-                  </li>
-                </ul>
-              </div>
-            </nav>
-          {% else %}
-            <nav class="desktop-homepage-nav">
-              <a href="/">
-            		<img class="cash-only-full-logo-white" src="{% static 'sitewide/images/cash-only-full-logo-white.png' %}" alt="" height="" width="97px">
-            	</a>
-              <div class="links-homepage-top desktop-links">
-                <ul>
-                  <li>
-                    <a class="mobile-links">Products</a>
-                  </li>
-                  <li>
-                    <a class="mobile-links">Business</a>
-                  </li>
-                  {% if user.is_staff %}
-                  <li>
-                    <a class="mobile-links" href='/admin/'>Admin</a>
-                  </li>
-                  {% endif %}
-            			{% if user.is_authenticated %}
-            			<li>
-                    <a href='/logout/'>Sign Out</a>
-                  </li>
-            			{% else %}
-                  <li>
-                    <a href="/sign-in/">Sign In</a>
-                  </li>
-                  <a href="/sign-up/">
-                  <button class="signup-button">
-                      Sign Up
-                  </button>
-            			{% endif %}
-                  </a>
-                </ul>
-              </div>
-            </nav>
-          {% endif %}
-          <div class="welcome-to-message-container">
-            <h1>Thanks for signing up!</h1>
-            <div class="balance-message">
-              <p>We're happy to have you on board. We'll be launching our Beta in a few weeks, so keep an eye out on this page for updates in the meantime!</p>
-              <p>If you have any questions, feel free to drop us a line at <a style="font-style:italic;" href='mailto:info@cashon.ly'>info@cashon.ly</a>.</p>
-              <p>- With love, the Cash Only team <img class="dab-emoji" src="{% static 'nologin/images/dab-emoji.png' %}" alt="" height="" width="34px"></p>
-              <br>
-              <p style="font-size:14px; font-style:italic;">P.S.: Interested in participating in our limited Beta as a business partner? Click below to register!</p>
-            </div>
-            <a href="/business-sign-up/"><button class="transactions-reload-button">Register As a Business</button></a>
-          </div>
-      {% else %}
 
-        <div class="welcome-to-message-container">
-          <img class="cash-only-mobile-logo" src="{% static 'sitewide/images/cash-only-full-logo-white.png' %}" alt="" height="" width="97px">
-
-          {% if user.is_authenticated %}
-            <nav class="desktop-app-nav">
-            	<a href="/">
-              	<img class="cash-only-full-logo-black" src="{% static 'sitewide/images/cash-only-full-logo-black.png' %}" alt="" height="" width="97px">
-            	</a>
-              <div class="links-app-top desktop-links">
-                <ul>
-                  <li>
-                    <a class="mobile-links">Help</a>
-                  </li>
-                  <li>
-                    <a class="mobile-links">Settings</a>
-                  </li>
-            			{% if user.is_staff %}
-            			<li>
-                    <a class="mobile-links" href='/admin/'>Admin</a>
-                  </li>
-            			{% endif %}
-                  <li>
-                    <a class="log-out-link" href="/sign-out/">Sign Out</a>
-                  </li>
-                </ul>
-              </div>
-            </nav>
-          {% else %}
-            <nav class="desktop-homepage-nav">
-              <a href="/">
-            		<img class="cash-only-full-logo-white" src="{% static 'sitewide/images/cash-only-full-logo-white.png' %}" alt="" height="" width="97px">
-            	</a>
-              <div class="links-homepage-top desktop-links">
-                <ul>
-                  <li>
-                    <a class="mobile-links">Products</a>
-                  </li>
-                  <li>
-                    <a class="mobile-links">Business</a>
-                  </li>
-                  {% if user.is_staff %}
-                  <li>
-                    <a class="mobile-links" href='/admin/'>Admin</a>
-                  </li>
-                  {% endif %}
-            			{% if user.is_authenticated %}
-            			<li>
-                    <a href='/logout/'>Sign Out</a>
-                  </li>
-            			{% else %}
-                  <li>
-                    <a href="/sign-in/">Sign In</a>
-                  </li>
-                  <a href="/sign-up/">
-                  <button class="signup-button">
-                      Sign Up
-                  </button>
-            			{% endif %}
-                  </a>
-                </ul>
-              </div>
-            </nav>
-          {% endif %}
-
-          <div class="welcome-to-container">Welcome To</div>
-          <svg class="mini-div" width="48" height="7" viewBox="360 56 48 7"><path d="M361.9 59.7L406 59.7" style="fill:none;stroke:#979797"/></svg>
-          <img class="c-o-logo" src="{% static 'sitewide/images/c-o-logo.png' %}" alt="" height="" width="181px">
-          <div class="promotional-message">Boldly going where no credit card has gone before.
-        	<img class="dab-emoji" src="{% static 'nologin/images/dab-emoji.png' %}" alt="" height="" width="34px">
-          </div>
+    {% if user.is_authenticated %}
+    <div class="transactions-container">
+      <div class="welcome-to-message-container">
+        <h1>Thanks for signing up!</h1>
+        <div class="balance-message">
+          <p>We're happy to have you on board. We'll be launching our Beta in a few weeks, so keep an eye out on this page for updates in the meantime!</p>
+          <p>If you have any questions, feel free to drop us a line at <a style="font-style:italic;" href='mailto:info@cashon.ly'>info@cashon.ly</a>.</p>
+          <p>- With love, the Cash Only team <img class="dab-emoji" src="{% static 'nologin/images/dab-emoji.png' %}" alt="" height="" width="34px"></p>
+          <br>
+          <p style="font-size:14px; font-style:italic;">P.S.: Interested in participating in our limited Beta as a business partner? Click below to register!</p>
         </div>
-      {% endif %}
+        <a href="/business-sign-up/"><button class="transactions-reload-button">Register As a Business</button></a>
+      </div>
+    </div>
+    {% else %}
+    <div class="welcome-to-message-container">
+      <img class="cash-only-mobile-logo" src="{% static 'sitewide/images/cash-only-full-logo-white.png' %}" alt="" height="" width="97px">
+      <div class="welcome-to-container">Welcome To</div>
+        <svg class="mini-div" width="48" height="7" viewBox="360 56 48 7"><path d="M361.9 59.7L406 59.7" style="fill:none;stroke:#979797"/></svg>
+        <img class="c-o-logo" src="{% static 'sitewide/images/cash-only-full-logo-white.png' %}" alt="" height="" width="300px">
+        <div class="promotional-message">Boldly going where no credit card has gone before.
+      	   <img class="dab-emoji" src="{% static 'nologin/images/dab-emoji.png' %}" alt="" height="" width="34px">
+        </div>
+    </div>
+    {% endif %}
 
     {% endblock %}
+    <!-- end main content block here -->
+
+    <!-- begin footer block here -->
+    {% block footer %}
+
+
+    {% endblock %}
+    <!-- end footer block here -->
 
     {% if messages or debug %}
+    <!-- begin message block here -->
       <ul class="messages">
         {% if debug %}<li>WARNING: DEBUG MODE IS ON</li>{% endif %}
         {% for message in messages %}
@@ -232,8 +165,13 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <script src="{% static 'sitewide/js/jasny-bootstrap.min.js' %}"></script>
+    <!-- <script src="{% static 'sitewide/js/jasny-bootstrap.min.js' %}"></script> -->
     <script src="{% static 'sitewide/js/animations.js' %}"></script>
-    <script src="{% static 'sitewide/js/codebar.js' %}"></script>
+    <script src="{% static 'sitewide/js/mobile-menu.js' %}"></script>
+
+    <!-- <script src="{% static 'sitewide/js/codebar.js' %}"></script> -->
+
+    <!-- <script src="cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
+    <!-- <script src="cdnjs.cloudflare.com/ajax/libs/wow/0.1.12/wow.min.js"></script> -->
   </body>
 </html>
