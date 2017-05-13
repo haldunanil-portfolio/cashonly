@@ -25,6 +25,8 @@ from accounts.forms import LoginForm
 from accounts.forms import BusinessForm
 from django.views.generic import TemplateView
 from cashonly.views import handler404 #### remove after testing
+from accounts.decorators import not_loggedin_required
+
 
 urlpatterns = [
     url(r'^$', home, name='home'),
@@ -33,8 +35,8 @@ urlpatterns = [
                                               content_type="text/plain"),
                                               name="robots_file"),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
-    url(r'^sign-up/$', registration, name='sign-up'),
-    url(r'^sign-in/$', login, {
+    url(r'^sign-up/$', not_loggedin_required(registration), name='sign-up'),
+    url(r'^sign-in/$', not_loggedin_required(login), {
         'template_name': 'auth_form.html',
         'authentication_form': LoginForm
     }, name='sign-in'),

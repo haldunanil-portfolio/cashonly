@@ -166,6 +166,8 @@ SOCIAL_AUTH_PIPELINE = (
     'accounts.pipeline.add_to_group',
 )
 
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
+
 LOGIN_URL = 'sign-in'
 LOGOUT_URL = 'sign-out'
 LOGIN_REDIRECT_URL = 'home'
