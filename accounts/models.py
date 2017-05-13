@@ -24,5 +24,5 @@ class Profile(models.Model):
     phone_number = models.CharField(max_length=15, blank=True, null=True)
     business = models.ForeignKey(Businesses, blank=True, null=True,
                                  on_delete=models.SET_NULL)
-    account_balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    account_balance = models.IntegerField(default=0)
     stripe_customer_id = models.CharField(max_length=30, blank=True, null=True)
