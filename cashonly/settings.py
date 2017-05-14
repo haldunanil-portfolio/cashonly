@@ -242,5 +242,8 @@ TINYMCE_SPELLCHECKER = True
 
 # Stripe
 # https://dashboard.stripe.com/account/apikeys
-STRIPE_API_SECRET = 'sk_test_iLOI0zuwgnqGncXfEq0SKNNp'
-STRIPE_API_PUBLIC = 'pk_test_ntvPJgeDpYjjf0OUmmL3RY75'
+STRIPE_API_TEST_SECRET = 'sk_test_iLOI0zuwgnqGncXfEq0SKNNp'
+STRIPE_API_TEST_PUBLIC = 'pk_test_ntvPJgeDpYjjf0OUmmL3RY75'
+
+STRIPE_API_PROD_SECRET = ''
+STRIPE_API_PROD_PUBLIC = ''

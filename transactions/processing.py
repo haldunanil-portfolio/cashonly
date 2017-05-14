@@ -163,7 +163,7 @@ class SimpleTransaction(object):
         internal_charge.save()
 
         # give stripe our API key
-        stripe.api_key = settings.STRIPE_API_SECRET
+        stripe.api_key = settings.STRIPE_API_TEST_SECRET
 
         # initialize common charge info
         basic_info = {
@@ -219,7 +219,7 @@ class SimpleTransaction(object):
             raise ValueError("Insufficient balance.")
 
         # give stripe our API key
-        stripe.api_key = settings.STRIPE_API_SECRET
+        stripe.api_key = settings.STRIPE_API_TEST_SECRET
 
         # get most recent charge element
         recent_charge = Charge.objects.filter(customer=self.user).latest()
