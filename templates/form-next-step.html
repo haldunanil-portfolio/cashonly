@@ -3,11 +3,11 @@
 {% block title %}Next Steps{% endblock %}
 
 {% block content %}
-<div class="transactions-container">
+<div class="main-container">
 	<h1>Thank you for signing up, {{ user.first_name|title }}!</h1>
 	<p>We just need a little more info from you!</p>
 
-	<div class="welcome-to-message-container">
+	<div class="center-container">
 		{% if form.errors %}
     <p>There is an error with your registration, please try again.</p>
     {% endif %}

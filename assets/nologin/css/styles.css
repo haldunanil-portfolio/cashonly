@@ -28,16 +28,16 @@ body {
   .hide-mobile-menu-toggle {
     display: none;
   }
-  .desktop-homepage-nav{
+  .desktop-nav{
     display: none;
   }
-  .desktop-app-nav {
+  .desktop-nav {
     display: none;
   }
-  .cash-only-mobile-logo {
+  .mobile-logo {
     display: block;
   }
-  .welcome-to-message-container {
+  .center-container {
     padding: 50px 50px 0px 50px;
   }
   .welcome-to-container {
@@ -49,21 +49,21 @@ body {
   .mobile-menu-toggle {
     display: none;
   }
-  .desktop-homepage-nav {
+  .desktop-nav {
     width: 100%;
     height: 112px;
     margin-bottom: 75px;
   }
-  .desktop-app-nav {
+  .desktop-nav {
     width: 100%;
     height: 112px;
     margin-bottom: 75px;
     display: block;
   }
-  .cash-only-mobile-logo {
+  .mobile-logo {
     display: none;
   }
-  .welcome-to-message-container {
+  .center-container {
     padding: 0px;
   }
 }
@@ -130,7 +130,7 @@ body {
   color: #64AC00;
 }
 
-.welcome-to-message-container {
+.center-container {
   width: 100%;
   margin: 0 auto;
   margin-bottom: 128px;
