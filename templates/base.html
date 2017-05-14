@@ -151,8 +151,12 @@
 
     <!-- begin footer block here -->
     {% block footer %}
+    {% load flatpages %}
+    {% get_flatpages as flatpages %}
     <footer>
-
+      {% for page in flatpages %}
+      <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+      {% endfor %}
     </footer>
     {% endblock %}
     <!-- end footer block here -->
