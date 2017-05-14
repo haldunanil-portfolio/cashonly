@@ -39,7 +39,6 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('phone_number', models.CharField(blank=True, max_length=15, null=True)),
                 ('stripe_id', models.CharField(blank=True, max_length=30, null=True)),
-                ('account_balance', models.IntegerField(default=0)),
                 ('business', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='accounts.Businesses')),
                 ('user', models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],

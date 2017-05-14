@@ -16,9 +16,9 @@ from transactions.models import CustomerBalance
 
 @not_loggedin_required
 def registration(request):
-	'''
+	"""
 	Registration method
-	'''
+	"""
 	if request.method == 'POST':
 		form = RegistrationForm(request.POST)
 		if form.is_valid():
@@ -37,9 +37,9 @@ def registration(request):
 @profile_does_not_exist
 @login_required(login_url='/sign-in/')
 def registration_next_steps(request):
-	'''
+	"""
 	Loads next steps page to complete user registration
-	'''
+	"""
 	referer = request.META.get('HTTP_REFERER', '')
 	if request.method == 'POST':
 		form = ProfileForm(request.POST)
@@ -69,9 +69,9 @@ def registration_next_steps(request):
 
 
 def signout(request):
-	'''
+	"""
 	Sign out method
-	'''
+	"""
 	logout(request)
 	return redirect('/')
 

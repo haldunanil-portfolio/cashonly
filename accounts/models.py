@@ -39,4 +39,3 @@ class Profile(models.Model):
     stripe_id = models.CharField(max_length=30, blank=True, null=True)
     business = models.ForeignKey(Businesses, on_delete=models.SET_NULL,
                                  blank=True, null=True)
-    account_balance = models.IntegerField(default=0)

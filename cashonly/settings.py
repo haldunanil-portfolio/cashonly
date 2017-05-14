@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'tinymce',
     'appconfig',
     'simple_history',
+    'mathfilters',
 ]
 
 MIDDLEWARE = [

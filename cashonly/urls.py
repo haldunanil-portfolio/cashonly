@@ -26,6 +26,7 @@ from accounts.forms import BusinessForm
 from django.views.generic import TemplateView
 from cashonly.views import handler404 #### remove after testing
 from accounts.decorators import not_loggedin_required
+from transactions.views import select_bill
 
 
 urlpatterns = [
@@ -45,5 +46,6 @@ urlpatterns = [
         name='registration_next_steps'),
     url(r'^404/$', handler404), #### remove after testing
     url(r'^business-sign-up/$', business_sign_up, name='business_sign_up'),
+    url(r'^select-bill/$', select_bill, name='select_bill'),
     url(r'^tinymce/', include('tinymce.urls')),
 ]
