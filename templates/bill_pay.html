@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% load mathfilters %}
+
+{% block title %}Enter Tip{% endblock %}
+
+{% block content %}
+
+<h1>{{ bill.business.name }}</h1>
+
+<div>
+  Your total is <span class="balance-amount">${{ bill.amount|add:bill.tip|div:100|floatformat:2 }}</span> (including a ${{ bill.tip|div:100|floatformat:2 }} tip).
+</div>
+
+{% if bill.tip > 0 %}
+<div>
+  Note: You may revise your tip amount using the options below.
+</div>
+{% endif %}
+
+<form class="sign-up-form form-label form-css-label" method="post">
+  {% csrf_token %}
+  {% for field in form %}
+  <fieldset>
+    {{ field }}
+  </fieldset>
+  {% endfor %}
+
+  <button class="submit-button" type="submit" value="Submit">Pay</button>
+</form>
+
+
+{% endblock %}

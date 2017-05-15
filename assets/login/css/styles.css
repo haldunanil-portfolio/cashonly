@@ -127,7 +127,7 @@ h1 {
   color: #FCBA04;
 }
 
-.transactions-reload-button {
+.submit-button {
   background: #64AC00;
   font-family: Raleway-ExtraBold;
   font-size: 16px;
@@ -140,7 +140,7 @@ h1 {
   margin-bottom: 25px;
 }
 
-.transactions-reload-button:hover, .transactions-reload-button:active, .transactions-reload-button:focus {
+.submit-button:hover, .submit-button:active, .submit-button:focus {
   color: white;
   background: #596869;
   box-shadow: transparent;

@@ -27,7 +27,11 @@ from django.views.generic import TemplateView
 from cashonly.views import handler404 #### remove after testing
 from accounts.decorators import not_loggedin_required
 from transactions.views import select_bill
-
+from transactions.views import view_bill
+from transactions.views import confirm_bill
+from transactions.views import tip_bill
+from transactions.views import pay_bill
+from transactions.views import bill_success
 
 urlpatterns = [
     url(r'^$', home, name='home'),
@@ -47,5 +51,10 @@ urlpatterns = [
     url(r'^404/$', handler404), #### remove after testing
     url(r'^business-sign-up/$', business_sign_up, name='business_sign_up'),
     url(r'^select-bill/$', select_bill, name='select_bill'),
+    url(r'^select-bill/(\d+)/$', view_bill, name='view_bill'),
+    url(r'^select-bill/(\d+)/confirm/$', confirm_bill, name='confirm_bill'),
+    url(r'^select-bill/(\d+)/tip/$', tip_bill, name='tip_bill'),
+    url(r'^select-bill/(\d+)/pay/$', pay_bill, name='pay_bill'),
+    url(r'^select-bill/(\d+)/success/$', bill_success, name='bill_success'),
     url(r'^tinymce/', include('tinymce.urls')),
 ]
