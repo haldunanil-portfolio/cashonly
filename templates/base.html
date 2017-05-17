@@ -17,6 +17,7 @@
     <title>{% block title %}Home{% endblock %} | Cash Only BETA</title>
 
     <!-- Differentiate CSS stylesheet for logged in/out users -->
+    <link rel="stylesheet" type="text/css" href="{% static 'common/css/styles.css' %}">
     {% if user.is_authenticated %}
   	<link rel="stylesheet" type="text/css" href="{% static 'login/css/styles.css' %}">
     {% else %}
@@ -67,63 +68,46 @@
       </ul>
     </div>
 
-    {% if user.is_authenticated %}
     <nav class="desktop-nav">
-    	<a href="/"><img class="mobile-logo" src="{% static 'sitewide/images/cash-only-full-logo-black.png' %}" alt="" height="" width="97px"></a>
+      <a href="/">
+        {% if user.is_authenticated %}
+        <img class="cash-only-full-logo-white" src="{% static 'sitewide/images/cash-only-full-logo-white.png' %}" alt="" height="" width="97px">
+        {% else %}
+        <img class="cash-only-full-logo-black" src="{% static 'sitewide/images/cash-only-full-logo-white.png' %}" alt="" height="" width="97px">
+        {% endif %}
+      </a>
+
       <div class="links-app-top desktop-links">
         <ul>
+          {% if user.is_authenticated %}
           <li><a class="mobile-links">Help</a></li>
           <li><a class="mobile-links">Settings</a></li>
+          {% else %}
+          <li><a class="mobile-links">Products</a></li>
+          <li><a class="mobile-links">Business</a></li>
+          {% endif %}
 
     			{% if user.is_staff %}
     			<li><a class="mobile-links" href='/admin/'>Admin</a></li>
     			{% endif %}
 
-          <li><a class="log-out-link" href="/sign-out/">Sign Out</a></li>
-        </ul>
-      </div>
-    </nav>
-    {% else %}
-    <nav class="desktop-nav">
-      <a href="/"><img class="cash-only-full-logo-white" src="{% static 'sitewide/images/cash-only-full-logo-white.png' %}" alt="" height="" width="97px"></a>
-      <div class="links-homepage-top desktop-links">
-        <ul>
-          <li><a class="mobile-links">Products</a></li>
-          <li><a class="mobile-links">Business</a></li>
-
-          {% if user.is_staff %}
-          <li><a class="mobile-links" href='/admin/'>Admin</a></li>
-          {% endif %}
-
-    			{% if user.is_authenticated %}
-    			<li><a href='/logout/'>Sign Out</a></li>
-    			{% else %}
+          {% if user.is_authenticated %}
+          <li><a href='/logout/'>Sign Out</a></li>
+          {% else %}
           <li><a href="/sign-in/">Sign In</a></li>
           <a href="/sign-up/"><button class="signup-button">Sign Up</button></a>
-    			{% endif %}
+          {% endif %}
         </ul>
       </div>
     </nav>
-    {% endif %}
-
     {% endblock %}
 
     <!-- end nav block here -->
 
     <!-- begin main content block here -->
+    {% block content %}
     <div class="main-container">
       <div class="center-container">
-
-        <a href="/">
-        {% if user.is_authenticated %}
-        <img class="mobile-logo" src="{% static 'sitewide/images/cash-only-full-logo-black.png' %}" alt="" height="" width="97px">
-        {% else %}
-        <img class="mobile-logo" src="{% static 'sitewide/images/cash-only-full-logo-white.png' %}" alt="" height="" width="97px">
-        {% endif %}
-        </a>
-
-        {% block content %}
-
         {% if user.is_authenticated %}
         <h1>Thanks for signing up!</h1>
         <div class="balance-message">

@@ -13,16 +13,15 @@
 {% block content %}
 
   <div class="center-container">
-    <img class="mobile-logo" src="{% static 'sitewide/images/cash-only-full-logo-white.png' %}" alt="" height="" width="97px">
     <div class="section">
 
       <a class="facebook-button-link" href="{% url 'social:begin' 'facebook' %}">
-        <button class="facebook-button"><img class="facebook-button-logo" src="{% static 'nologin/images/facebook-icon.png' %}">
+        <button class="facebook-button social-login-buttons"><img class="facebook-button-logo" src="{% static 'nologin/images/facebook-icon.png' %}">
 Continue with Facebook</button>
       </a>
       <br>
       <a class="google-button-link" href="{% url 'social:begin' 'google-oauth2' %}">
-        <button class="google-button"><img class="google-button-logo" src="{% static 'nologin/images/google-icon.png' %}">
+        <button class="google-button social-login-buttons"><img class="google-button-logo" src="{% static 'nologin/images/google-icon.png' %}">
 Continue with Google</button>
       </a>
     </br>
