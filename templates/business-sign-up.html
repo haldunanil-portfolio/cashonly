@@ -3,27 +3,25 @@
 {% block title %}Business Sign-Up{% endblock %}
 
 {% block content %}
-<div class="main-container">
-	<h1>Request Access to the Cash Only Beta</h1>
-	<p>Thanks for your interest in registering your business with Cash Only, {{ user.first_name|title }}! Please fill out the following form and we'll get back to you as soon as possible!</p>
+<h1>Request Access to the Cash Only Beta</h1>
+<p>Thanks for your interest in registering your business with Cash Only, {{ user.first_name|title }}! Please fill out the following form and we'll get back to you as soon as possible!</p>
 
-	<div class="center-container">
-    <div class="section">
-	    <form class="form-label form-css-label" method="post"> 
-	      {% csrf_token %}
-	      {% for field in form %}
-	        <fieldset>
-	          {{ field }}
-	          <label>{{ field.label }}</label>
-	        </fieldset>
-	      {% endfor %}
+<div class="center-container">
+  <div class="section">
+    <form class="form-label form-css-label" method="post"> 
+      {% csrf_token %}
+      {% for field in form %}
+        <fieldset>
+          {{ field }}
+          <label>{{ field.label }}</label>
+        </fieldset>
+      {% endfor %}
 
-	      <button class="submit-button" type="submit" value="Submit">
-	      Submit
-	      </button>
+      <button class="submit-button" type="submit" value="Submit">
+      Submit
+      </button>
 
-	    </form>
-		</div>
+    </form>
 	</div>
 </div>
 {% endblock %}

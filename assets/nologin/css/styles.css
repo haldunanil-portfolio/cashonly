@@ -17,3 +17,11 @@ a:hover {
   color: #64AC00;
   cursor: pointer;
 }
+
+.mobile-links {
+  color: #fff !important;
+}
+
+.mobile-menu-line {
+    background: #fff;
+}

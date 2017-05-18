@@ -1,6 +1,47 @@
+/*move to sitewide CSS folder*/
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
 body {
   margin: 0px;
   font-family: 'Raleway', sans-serif;
+  position: relative;
+  min-height: 100%;
+  padding-bottom: 6rem;
+}
+
+/*footer - start*/
+footer {
+  position: absolute;
+  width: 100%;
+  height: auto;
+  padding: 20px;
+  background: #596869;
+  color: #fff;
+  text-align: center;
+  bottom: 0;
+}
+
+footer > ul {
+  list-style: none;
+}
+
+footer > ul > li > a {
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+/*footer - end*/
+
+input {
+  background: transparent;
+}
+
+.everything-below-messages-bar {
+  height: 100vh;
+}
+
+.sign-out {
+  color: #64AC00 !important;
 }
 
   .thanks-for-signup-container, .signup-as-biz-container {
@@ -10,7 +51,8 @@ body {
 
 .submit-button {
   background: #64AC00;
-  font-family: Raleway-ExtraBold;
+  font-family: 'Raleway', sans-serif;;
+  font-weight: 800;
   font-size: 16px;
   color: white;
   border: none;
@@ -95,10 +137,6 @@ body {
   top: 50.47px;
 }
 
-.links-app-top > ul, .app-footer > ul {
-  list-style: none;
-}
-
 .links-app-top > ul > li {
   display: inline-block;
   margin-right: 40px;
@@ -116,7 +154,8 @@ body {
 .links-app-top > ul > li > a, .links-app {
   text-decoration: none;
   text-transform: uppercase;
-  font-family: Raleway-Bold;
+  font-family: 'Raleway', sans-serif;;
+  font-weight: 700;
   font-size: 16px;
   color: #282E33;
   cursor: pointer;
@@ -128,6 +167,8 @@ body {
 }
 
 .main-container {
+  width: 100%;
+  position: relative;
   text-align: center;
   padding: 50px 20px 0px 20px;
 }
@@ -135,21 +176,24 @@ body {
 .balance-message {
   text-align: center;
   margin: 0 auto;
-  font-family: Raleway-Medium;
+  font-family: 'Raleway', sans-serif;;
+  font-weight: 500;
   font-size: 20px;
   color: #282E33;
   margin-bottom: 9px;
 }
 
 .balance-amount {
-  font-family: Raleway-ExtraBold;
+  font-family: 'Raleway', sans-serif;;
+  font-weight: 800;
   font-size: 20px;
   color: #FCBA04;
 }
 
 .transactions-reload-button {
   background: #64AC00;
-  font-family: Raleway-ExtraBold;
+  font-family: 'Raleway', sans-serif;;
+  font-weight: 800;
   font-size: 16px;
   color: white;
   border: none;
@@ -202,45 +246,11 @@ body {
   text-align: left;
 }
 
-.footer-links-div {
-  border-top: solid #596869;
-  border-width: thin;
-  width: 300px;
-  margin: 0 auto;
-}
-
-.app-footer {
-  background: white;
-  width: 100%;
-  text-align: center;
-  display: inline-block;
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
-
-.app-footer-quote {
-  font-family: Raleway-MediumItalic;
-  font-size: 16px;
-  color: #282E33;
-  line-height: 29px;
-  padding: 20px;
-}
-
-.app-footer > ul {
-  padding: 0px;
-}
-
-.app-footer > ul > li {
-  padding: 20px;
-  display: inline-block;
-
-}
-
 @media screen and (min-width: 701px) {
   .desktop-links {
     width: auto;
     right: 0px;
-    position: absolute;
+    position: relative;
     padding-right: 50px;
     top: 56.47px;
   }
@@ -259,19 +269,10 @@ body {
     margin-right: 40px;
     float: right;
   }
-}
 
-.messages {
-  background: #d84949;
-  width: 100%;
-  height: auto;
-  padding: 20px;
-  color: white;
-  margin: 0px;
-  list-style: none;
-  text-align: center;
-  bottom: 0;
-  position: fixed;
+  .c-o-logo {
+    width: 50%;
+  }
 }
 
 h1 {
@@ -287,7 +288,7 @@ h1 {
     height: 60.5px;
     background: transparent;
     float: right;
-    position: absolute;;
+    position: relative;
     cursor: pointer;
     top: 61px;
     right: 50px;
@@ -297,9 +298,6 @@ h1 {
   }
   .desktop-links {
     display: none;
-  }
-  .welcome-to-container {
-    margin-top: 80px;
   }
 }
 
@@ -314,8 +312,8 @@ h1 {
   }
 }
 
-.cash-only-full-logo-white {
-  position: absolute;;
+.cash-only-full-logo-white, .cash-only-full-logo-black {
+  position: relative;
   left: 49.53px;
   float: left;
   top: 50px;
@@ -359,8 +357,6 @@ h1 {
 
 .center-container {
   margin: 0 auto;
-  top: 100px;
-  position: absolute;;
   width: 100%;
   margin-bottom: 50px;
 }
@@ -387,39 +383,15 @@ h1 {
   display: inline-block;
 }
 
-.homepage-footer {
-  background: #282E33;
-  text-align: center;
-  padding-top: 0px;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 1rem;
-}
-
-.homepage-footer > ul {
-  padding: 0px;
-  margin-top: 50px;
-  margin-bottom: 50px;
-}
-
-.homepage-footer > ul > li {
-  padding: 20px;
-}
-
 @media screen and (min-width: 701px) {
 
   .desktop-links {
     width: auto;
     right: 0px;
-    position: absolute;;
+    position: relative;
     padding-right: 50px;
     top: 43px;
     float: right;
-  }
-
-  .homepage-footer > ul {
-    display: inline-flex;
   }
 }
 
@@ -435,10 +407,6 @@ h1 {
 
   .mobile-links {
     display: none;
-  }
-
-  .homepage-footer > ul {
-    display: inline-block;
   }
 }
 
@@ -478,7 +446,9 @@ input {
   box-shadow: 0 2px 0 rgba(0, 0, 0, 0.15);
 }
 .form-label fieldset + fieldset {
-  border-top: 1px solid #ddd;
+}
+fieldset {
+  border-bottom: 1px solid #ddd;
 }
 .form-label label {
   position: absolute;
@@ -507,7 +477,7 @@ input {
 }
 
 .section form {
-  max-width: 320px;
+  max-width: 279px;
   margin: 0 auto 20px;
 }
 
@@ -526,8 +496,6 @@ input {
   margin: 0px;
   list-style: none;
   text-align: center;
-  bottom: 0;
-  position: fixed;
 }
 
 .icon-bar {
@@ -612,7 +580,8 @@ input {
 
 .form-sign-up-button {
   background: #64AC00;
-  font-family: Raleway-ExtraBold;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 800;
   font-size: 16px;
   color: white;
   border: none;
