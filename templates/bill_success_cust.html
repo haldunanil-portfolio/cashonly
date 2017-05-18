@@ -14,14 +14,22 @@
 </div>
 
 <div>
-  Enjoy your experience at {{ bill.business.name }}?
+  Hope you enjoyed your experience at {{ bill.business.name }}!
 </div>
 
+{% if bill.business.facebook_page %}
 <div>
-  <button>Share on Facebook</buton>
+  <a href="{{ bill.business.facebook_page }}" target="_blank">
+    <button>Share on Facebook</buton>
+  </a>
 </div>
+{% endif %}
+{% if bill.business.yelp_page %}
 <div>
-  <button>Review on Yelp</buton>
+  <a href="{{ bill.business.yelp_page }}" target="_blank">
+    <button>Review on Yelp</buton>
+  </a>
+{% endif %}
 </div>
 
 {% endblock %}

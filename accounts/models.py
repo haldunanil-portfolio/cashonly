@@ -9,8 +9,9 @@ class Businesses(models.Model):
     Contain information for individual businesses registered with Cash Only
     """
     name = models.CharField(max_length=100)
-    website = models.URLField(blank=True,
-                              null=True)
+    website = models.URLField(blank=True, null=True)
+    yelp_page = models.URLField(blank=True, null=True)
+    facebook_page = models.URLField(blank=True, null=True)
     address_1 = models.CharField(max_length=50)
     address_2 = models.CharField(max_length=50,
                                  blank=True)

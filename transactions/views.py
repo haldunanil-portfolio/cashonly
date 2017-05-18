@@ -176,7 +176,7 @@ def pay_bill(request, bill_id):
         messages.info(request, "This bill ain't yours.")
         return redirect('/select-bill/')
 
-
+    
 
     return render(request, 'bill_pay_cust.html', {'bill': bill})
 
