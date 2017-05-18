@@ -4,8 +4,16 @@ from django.utils import html
 from transactions.models import Bill
 
 
+# customer section
+
 class BillSelectForm(forms.Form):
-    bill_code = forms.IntegerField()
+    bill_code = forms.IntegerField(
+        widget=forms.NumberInput(
+            attrs={
+                "type": "tel"
+                }
+        )
+    )
 
 
 class SubmitButtonWidget(forms.Widget):
@@ -41,4 +49,22 @@ class TipForm(forms.Form):
 
 
 class CustomTipForm(forms.Form):
-    tip_amount = forms.DecimalField()
+    tip_amount = forms.DecimalField(label='Tip Amount',
+                                    decimal_places=2,
+                                    widget=forms.NumberInput(
+                                        attrs={
+                                            "type": "number"
+                                        }
+                                    ))
+
+
+# business section
+
+class CreateEditBillForm(forms.Form):
+    human_amount = forms.DecimalField(label='Purchase Amount',
+                                      decimal_places=2,
+                                      widget=forms.NumberInput(
+                                          attrs={
+                                              "type": "number"
+                                          }
+                                      ))

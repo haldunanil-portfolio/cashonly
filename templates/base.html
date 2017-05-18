@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 {% load static from staticfiles %}
-{% load mathfilters %}
+{% load auth_extras %}
 
 <html lang="en">
 
@@ -44,8 +44,17 @@
       <div class="mobile-menu-line mobile-menu-line-2"></div>
       <div class="mobile-menu-line mobile-menu-line-3"></div>
     </div>
+    
     <div class="mobile-menu-toggle new-bill-button">
-      <a href="/select-bill/"><img src="{% static 'login/images/new_bill.png' %}"></a>
+      {% if request.user|has_group:"Consumers" %}
+      <a href="/select-bill/">
+        <img src="{% static 'login/images/new_bill.png' %}">
+      </a>
+      {% elif request.user|has_group:"Business Employees" %}
+      <a href="/create-bill/">
+        <img src="{% static 'login/images/new_bill.png' %}">
+      </a>
+      {% endif %}
     </div>
 
     <div class="navmenu navmenu-default">
@@ -119,42 +128,15 @@
       <div class="center-container">
 
         <a href="/">
-        {% if user.is_authenticated %}
-        <img class="mobile-logo" src="{% static 'sitewide/images/cash-only-full-logo-black.png' %}" alt="" height="" width="97px">
-        {% else %}
-        <img class="mobile-logo" src="{% static 'sitewide/images/cash-only-full-logo-white.png' %}" alt="" height="" width="97px">
-        {% endif %}
+          {% if user.is_authenticated %}
+          <img class="mobile-logo" src="{% static 'sitewide/images/cash-only-full-logo-black.png' %}" alt="" height="" width="97px">
+          {% else %}
+          <img class="mobile-logo" src="{% static 'sitewide/images/cash-only-full-logo-white.png' %}" alt="" height="" width="97px">
+          {% endif %}
         </a>
 
         {% block content %}
 
-        {% if user.is_authenticated %}
-
-        <h1>Transactions</h1>
-        <div class="balance-message">
-          <p>Howdy, {{ request.user.first_name }}? You currently have <span class="balance-amount">${{ request.user.customerbalance.account_balance|div:100|floatformat:2 }}</span> in your account.</p>
-        </div>
-        <a href=""><button class="submit-button">Reload My Account</button></a>
-
-        {% for bill in bills %}
-        <div class="transaction">
-       		<ul class="transactions-item-detail">
-       				<li class="transaction-date transaction-data">
-                {{ bill.timestamp }}
-              </li>
-       				<li class="transaction-location transaction-data">
-                <a href="{{ bill.business.website }}" target="_blank">
-                  {{ bill.business.name }} {% if not bill.paid %}(Unpaid){% endif %}
-                </a>
-              </li>
-       				<li class="transaction-amount transaction-data">
-                ${{ bill.amount|add:bill.tip|div:100|floatformat:2 }}
-              </li>
-       		</ul>
-       	</div>
-        {% endfor %}
-
-        {% else %}
         <div class="welcome-to-container">Welcome To</div>
         <svg class="mini-div" width="48" height="7" viewBox="360 56 48 7"><path d="M361.9 59.7L406 59.7" style="fill:none;stroke:#979797"/></svg>
         <img class="c-o-logo" src="{% static 'sitewide/images/cash-only-full-logo-white.png' %}" alt="" height="" width="300px">
@@ -162,7 +144,6 @@
           <i>Cash Only</i> is the only platform that allows you to pay with your existing credit cards, bank accounts, and mobile wallets at previously cash only businesses. Save hundreds of $$$ every year in ATM fees by going <i>Cash Only</i>!
       	  <img class="dab-emoji" src="{% static 'nologin/images/dab-emoji.png' %}" alt="" height="" width="24px">
         </div>
-        {% endif %}
 
         {% endblock %}
 

@@ -2,7 +2,13 @@
 
 {% load mathfilters %}
 
-{% block title %}Enter Tip{% endblock %}
+{% block title %}
+{% if 'tip' in request.path %}
+Enter Tip
+{% else %}
+Make Payment
+{% endif %}
+{% endblock %}
 
 {% block content %}
 
@@ -12,7 +18,7 @@
   Your total is <span class="balance-amount">${{ bill.amount|add:bill.tip|div:100|floatformat:2 }}</span> (including a ${{ bill.tip|div:100|floatformat:2 }} tip).
 </div>
 
-{% if bill.tip > 0 %}
+{% if bill.tip > 0 and 'tip' in request.path %}
 <div>
   Note: You may revise your tip amount using the options below.
 </div>

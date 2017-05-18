@@ -143,7 +143,8 @@ class Bill(models.Model):
     amount = models.IntegerField(verbose_name='Purchase amount (in cents)',
                                  validators=[MinValueValidator(0)])
     tip = models.IntegerField(verbose_name='Tip amount (in cents)',
-                                 validators=[MinValueValidator(0)])
+                              validators=[MinValueValidator(0)],
+                              default=0)
     comments = models.CharField(max_length=255, blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     stripe_id = models.CharField(max_length=30, blank=True, null=True)

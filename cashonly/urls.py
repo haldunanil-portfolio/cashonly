@@ -32,6 +32,11 @@ from transactions.views import confirm_bill
 from transactions.views import tip_bill
 from transactions.views import pay_bill
 from transactions.views import bill_success
+from transactions.views import create_bill
+from transactions.views import see_bill
+from transactions.views import edit_bill
+from transactions.views import delete_bill
+from transactions.views import bill_paid
 
 urlpatterns = [
     url(r'^$', home, name='home'),
@@ -56,5 +61,11 @@ urlpatterns = [
     url(r'^select-bill/(\d+)/tip/$', tip_bill, name='tip_bill'),
     url(r'^select-bill/(\d+)/pay/$', pay_bill, name='pay_bill'),
     url(r'^select-bill/(\d+)/success/$', bill_success, name='bill_success'),
+    url(r'^create-bill/$', create_bill, name='create_bill'),
+    url(r'^bill/(\d+)/$', see_bill, name='see_bill'),
+    url(r'^bill/(\d+)/edit/$', edit_bill, name='edit_bill'),
+    url(r'^bill/(\d+)/checkout/$', see_bill, name='checkout_bill'),
+    url(r'^bill/(\d+)/delete/$', delete_bill, name='delete_bill'),
+    url(r'^bill/(\d+)/success/$', bill_paid, name='bill_paid'),
     url(r'^tinymce/', include('tinymce.urls')),
 ]

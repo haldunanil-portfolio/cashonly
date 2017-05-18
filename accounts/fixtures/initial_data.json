@@ -10,7 +10,7 @@
     "model": "auth.group",
     "pk": 2,
     "fields": {
-      "name": "Businesses"
+      "name": "Business Employees"
     }
   }
 ]

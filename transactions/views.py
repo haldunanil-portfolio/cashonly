@@ -7,11 +7,15 @@ from django.http import Http404
 from transactions.forms import TipForm
 from transactions.forms import CustomTipForm
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.decorators import user_passes_test
+from transactions.forms import CreateEditBillForm
 
-
-# customer section
+####################
+# customer section #
+####################
 
 @login_required(login_url='/sign-in/')
+@user_passes_test(lambda u: u.groups.filter(name='Consumers').exists())
 def select_bill(request):
     """
     Finds a bill based on its ID number.
@@ -51,10 +55,11 @@ def select_bill(request):
     else:
         form = BillSelectForm()
 
-    return render(request, 'bill_select.html', {'form': form})
+    return render(request, 'bill_select_cust.html', {'form': form})
 
 
 @login_required(login_url='/sign-in/')
+@user_passes_test(lambda u: u.groups.filter(name='Consumers').exists())
 def view_bill(request, bill_id):
     """
     Finds a bill based on its ID number.
@@ -75,7 +80,7 @@ def view_bill(request, bill_id):
         return redirect('/select-bill/')
 
     return render(
-        request, 'bill_view.html',
+        request, 'bill_view_cust.html',
         {
             'bill': bill,
             'confirm_url': '/select-bill/%s/confirm/' % bill.id
@@ -84,6 +89,7 @@ def view_bill(request, bill_id):
 
 
 @login_required(login_url='/sign-in/')
+@user_passes_test(lambda u: u.groups.filter(name='Consumers').exists())
 def confirm_bill(request, bill_id):
     """
     Confirms a bill and associates it with a user
@@ -109,6 +115,7 @@ def confirm_bill(request, bill_id):
 
 
 @login_required(login_url='/sign-in/')
+@user_passes_test(lambda u: u.groups.filter(name='Consumers').exists())
 def tip_bill(request, bill_id):
     """
     Tip a bill
@@ -145,10 +152,11 @@ def tip_bill(request, bill_id):
     else:
         form = TipForm()
 
-    return render(request, 'bill_pay.html', {'form': form, 'bill': bill})
+    return render(request, 'bill_pay_cust.html', {'form': form, 'bill': bill})
 
 
 @login_required(login_url='/sign-in/')
+@user_passes_test(lambda u: u.groups.filter(name='Consumers').exists())
 def pay_bill(request, bill_id):
     """
     Pay a bill
@@ -168,10 +176,13 @@ def pay_bill(request, bill_id):
         messages.info(request, "This bill ain't yours.")
         return redirect('/select-bill/')
 
-    return render(request, 'bill_pay.html', {'bill': bill})
+
+
+    return render(request, 'bill_pay_cust.html', {'bill': bill})
 
 
 @login_required(login_url='/sign-in/')
+@user_passes_test(lambda u: u.groups.filter(name='Consumers').exists())
 def bill_success(request, bill_id):
     """
     Display success message when bill has been successfully paid.
@@ -179,16 +190,131 @@ def bill_success(request, bill_id):
     bill = Bill.objects.get(id=bill_id)
 
     if bill.paid:
-        return render(request, 'bill_success.html', {'bill': bill})
+        return render(request, 'bill_success_cust.html', {'bill': bill})
     else:
         url = '/select-bill/%s/tip/' % bill.id
         return redirect(url)
 
 
-# business section
+####################
+# business section #
+####################
 
+@login_required(login_url='/sign-in/')
+@user_passes_test(lambda u: u.groups.filter(name='Business Employees').exists())
 def create_bill(request):
     """
     Creates a new bill
     """
-    pass
+    if request.method == "POST":
+        form = CreateEditBillForm(request.POST)
+        if form.is_valid():
+            bill = Bill.objects.create(
+                business=request.user.profile.business,
+                amount=form.cleaned_data['human_amount'] * 100
+            )
+            bill.save()
+            url = '/bill/%s/checkout/' % bill.id
+            return redirect(url)
+
+    else:
+        form = CreateEditBillForm()
+
+    return render(request, 'bill_edit_biz.html', {'form': form})
+
+
+@login_required(login_url='/sign-in/')
+@user_passes_test(lambda u: u.groups.filter(name='Business Employees').exists())
+def see_bill(request, bill_id):
+    """
+    Displays a bill
+    """
+    bill = Bill.objects.get(id=bill_id)
+
+    # check if bill has already been paid, not ok otherwise
+    if bill.paid:
+        url = '/bill/%s/success/' % bill.id
+        return redirect()
+
+    # check if bill belongs to another business
+    elif bill.business != request.user.profile.business:
+        messages.info(request, "This bill was opened by another business.")
+        return redirect('/')
+
+    return render(request, 'bill_view_biz.html', {'bill': bill})
+
+
+@login_required(login_url='/sign-in/')
+@user_passes_test(lambda u: u.groups.filter(name='Business Employees').exists())
+def edit_bill(request, bill_id):
+    """
+    Edits an existing bill
+    """
+    bill = Bill.objects.get(id=bill_id)
+
+    # check if bill has already been paid, not ok otherwise
+    if bill.paid:
+        url = '/bill/%s/success/' % bill.id
+        return redirect()
+
+    # check if bill belongs to another business
+    elif bill.business != request.user.profile.business:
+        messages.info(request, "This bill was opened by another business.")
+        return redirect('/')
+
+    if request.method == "POST":
+        form = CreateEditBillForm(request.POST)
+        if form.is_valid():
+            bill.amount = form.cleaned_data['human_amount'] * 100
+            bill.save()
+            return redirect('/bill/%s/checkout/' % bill.id)
+
+    else:
+        form = CreateEditBillForm()
+
+    return render(request, 'bill_edit_biz.html', {'bill': bill, 'form': form})
+
+
+@login_required(login_url='/sign-in/')
+@user_passes_test(lambda u: u.groups.filter(name='Business Employees').exists())
+def delete_bill(request, bill_id):
+    """
+    Deletes a bill
+    """
+    bill = Bill.objects.get(id=bill_id)
+
+    # check if bill has already been paid, not ok otherwise
+    if bill.paid:
+        messages.info(request, "This bill has already been paid.")
+        return redirect('/')
+
+    # check if bill belongs to another business
+    elif bill.business != request.user.profile.business:
+        messages.info(request, "This bill was opened by another business.")
+        return redirect('/')
+
+    # delete bill if conditions passed
+    bill.delete()
+
+    return redirect('/')
+
+
+@login_required(login_url='/sign-in/')
+@user_passes_test(lambda u: u.groups.filter(name='Business Employees').exists())
+def bill_paid(request, bill_id):
+    """
+    Displays a success message indicating bill has been paid
+    """
+    bill = Bill.objects.get(id=bill_id)
+
+    # check if bill has not yet been paid, not ok otherwise
+    if not bill.paid:
+        messages.info(request, "This bill has not yet been paid.")
+        return redirect('/bill/%s/' % bill.id)
+
+    # check if bill belongs to another business
+    elif bill.business != request.user.profile.business:
+        messages.info(request, "This bill was opened by another business.")
+        return redirect('/')
+
+    return render(request, 'bill_success_biz.html', {'bill': bill})

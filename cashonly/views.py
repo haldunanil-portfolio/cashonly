@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.template import RequestContext
 from accounts.views import registration_next_steps
 from transactions.models import Bill
+from django.db.models import Sum
 
 
 def is_member(user, group):
@@ -37,16 +38,21 @@ def home(request):
 
 		# Check is user belongs to both the "Consumer" and "Business" groups
 		if is_in_multiple_groups(request.user, ['Consumers', 'Business Employees']):
-			pass ## to be developed
+			pass  # to be developed
 
 		# Check if user belongs to the "Consumers" group
 		elif is_member(request.user, 'Consumers'):
 			bills = Bill.objects.filter(customer=request.user)
-			return render(request, 'base.html', {'bills': bills})
+			return render(request, 'auth_customer.html', {'bills': bills})
 
 		# Check if user belongs to the "Businesses" group
 		elif is_member(request.user, 'Business Employees'):
-			pass ## to be developed
+			bills = Bill.objects.filter(business=request.user.profile.business,
+										paid=False)
+			total = bills.aggregate(Sum("amount"))["amount__sum"]
+
+			return render(request, 'auth_business.html', {'bills': bills,
+														  'total': total})
 
 		# Handle situation where user belongs to none of the groups
 		else:
