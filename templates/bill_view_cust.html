@@ -14,10 +14,17 @@
 <div>
   <a href="/select-bill/">Tap to Start Over</a>
 </div>
+
 <div>
+  {% if bill.customer is None %}
   <a href="{{ confirm_url }}">
     <button class="submit-button">Tap to Confirm This is Your Bill</button>
   </a>
+  {% else %}
+  <a href="/select-bill/{{ bill.id }}/pay/">
+    <button class="submit-button">Tap to Pay</button>
+  </a>
+  {% endif %}
 </div>
 
 {% endblock %}

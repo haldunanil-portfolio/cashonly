@@ -6,6 +6,21 @@ from transactions.models import Bill
 
 # customer section
 
+class RefillAccountForm(forms.Form):
+    OPTIONS = (
+        (2500, "$25 (+$1.25 fee)"),
+        (5000, "$50 (+$2.5 fee)"),
+        (10000, "$100 (+$5 fee)")
+    )
+
+    amount = forms.ChoiceField(
+        widget=forms.RadioSelect(
+            attrs={'onclick': 'this.form.submit();',
+                   'class': 'button'}
+        ),
+        choices=OPTIONS
+    )
+
 class BillSelectForm(forms.Form):
     bill_code = forms.IntegerField(
         widget=forms.NumberInput(

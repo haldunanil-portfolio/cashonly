@@ -6,13 +6,65 @@ from django.contrib import messages
 from django.http import Http404
 from transactions.forms import TipForm
 from transactions.forms import CustomTipForm
+from transactions.forms import RefillAccountForm
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import user_passes_test
 from transactions.forms import CreateEditBillForm
+from transactions.processing import AddToBalance
+
+
+####################
+# helper functions #
+####################
+
 
 ####################
 # customer section #
 ####################
+
+
+@login_required(login_url='/sign-in/')
+@user_passes_test(lambda u: u.groups.filter(name='Consumers').exists())
+def add_new_card(request):
+    """
+    Adds a new credit card to stripe
+    """
+    pass
+
+@login_required(login_url='/sign-in/')
+@user_passes_test(lambda u: u.groups.filter(name='Consumers').exists())
+def reload_my_account(request):
+    """
+    Adds money to user balance
+    """
+    if request.method == 'POST':
+        form = RefillAccountForm(request.POST)
+        if form.is_valid():
+            # grab the submitted amount
+            amount = float(form.cleaned_data['amount'])
+
+            # create an AddToBalance instance and process it
+            added_balance = AddToBalance(user=request.user, amount=amount)
+
+            # attempt to make the charge, catch error as message
+            try:
+                added_balance.process()
+            except ValueError as e:
+                messages.info(request, 'ERROR: %s' % e)
+                return redirect('/')
+
+            # inform user that the submission was added successfully
+            amount_dollars = amount / 100
+            messages.info(
+                request, "$%.2f was successfully added to your balance!" % amount_dollars
+            )
+            return redirect('/')
+
+    else:
+        form = RefillAccountForm()
+
+    return render(request, 'add_to_balance.html', {'form': form})
+
 
 @login_required(login_url='/sign-in/')
 @user_passes_test(lambda u: u.groups.filter(name='Consumers').exists())
@@ -48,7 +100,7 @@ def select_bill(request):
                 # if different customer associated, send back
                 elif bill.customer is not None and bill.customer != request.user:
                     url = '/select-bill/'
-                    messages.info(request, "This bill ain't yours.")
+                    messages.info(request, "This bill belongs to another customer.")
 
             return redirect(url)
 
@@ -64,10 +116,12 @@ def view_bill(request, bill_id):
     """
     Finds a bill based on its ID number.
     """
+    # attempt to find the bill, otherwise send user back to bill selection
     try:
         bill = Bill.objects.get(id=bill_id)
-    except ValueError:
-        raise Http404()
+    except ObjectDoesNotExist:
+        messages.info(request, "A bill with this code does not exist.")
+        return redirect('/select-bill/')
 
     # if bill was alredy paid, then back to select bill
     if bill.paid:
@@ -76,7 +130,7 @@ def view_bill(request, bill_id):
 
     # if bill confirmed by another customer, then back to select bill
     elif bill.customer is not None and bill.customer != request.user:
-        messages.info(request, "This bill ain't yours.")
+        messages.info(request, "This bill belongs to another customer.")
         return redirect('/select-bill/')
 
     return render(
@@ -94,7 +148,12 @@ def confirm_bill(request, bill_id):
     """
     Confirms a bill and associates it with a user
     """
-    bill = Bill.objects.get(id=bill_id)
+    # attempt to find the bill, otherwise send user back to bill selection
+    try:
+        bill = Bill.objects.get(id=bill_id)
+    except ObjectDoesNotExist:
+        messages.info(request, "A bill with this code does not exist.")
+        return redirect('/select-bill/')
 
     # if bill was alredy paid, then back to select bill
     if bill.paid:
@@ -103,7 +162,7 @@ def confirm_bill(request, bill_id):
 
     # if bill confirmed, then back to select bill
     elif bill.customer is not None:
-        messages.info(request, "This bill ain't yours.")
+        messages.info(request, "This bill belongs to another customer.")
         return redirect('/select-bill/')
 
     bill.customer = request.user
@@ -120,7 +179,12 @@ def tip_bill(request, bill_id):
     """
     Tip a bill
     """
-    bill = Bill.objects.get(id=bill_id)
+    # attempt to find the bill, otherwise send user back to bill selection
+    try:
+        bill = Bill.objects.get(id=bill_id)
+    except ObjectDoesNotExist:
+        messages.info(request, "A bill with this code does not exist.")
+        return redirect('/select-bill/')
 
     # if bill was alredy paid, then back to select bill
     if bill.paid:
@@ -129,7 +193,7 @@ def tip_bill(request, bill_id):
 
     # if bill confirmed by another customer, then back to select bill
     elif bill.customer is not None and bill.customer != request.user:
-        messages.info(request, "This bill ain't yours.")
+        messages.info(request, "This bill belongs to another customer.")
         return redirect('/select-bill/')
 
     if request.method == "POST":
@@ -152,7 +216,7 @@ def tip_bill(request, bill_id):
     else:
         form = TipForm()
 
-    return render(request, 'bill_pay_cust.html', {'form': form, 'bill': bill})
+    return render(request, 'bill_tip_cust.html', {'form': form, 'bill': bill})
 
 
 @login_required(login_url='/sign-in/')
@@ -160,11 +224,13 @@ def tip_bill(request, bill_id):
 def pay_bill(request, bill_id):
     """
     Pay a bill
-
-    ## Some Stripe shit will happen here
-    ## IMPLEMENTATION NOT COMPLETE
     """
-    bill = Bill.objects.get(id=bill_id)
+    # attempt to find the bill, otherwise send user back to bill selection
+    try:
+        bill = Bill.objects.get(id=bill_id)
+    except ObjectDoesNotExist:
+        messages.info(request, "A bill with this code does not exist.")
+        return redirect('/select-bill/')
 
     # if bill was alredy paid, then back to select bill
     if bill.paid:
@@ -173,12 +239,21 @@ def pay_bill(request, bill_id):
 
     # if bill confirmed by another customer, then back to select bill
     elif bill.customer is not None and bill.customer != request.user:
-        messages.info(request, "This bill ain't yours.")
+        messages.info(request, "This bill belongs to another customer.")
         return redirect('/select-bill/')
 
-    
-
     return render(request, 'bill_pay_cust.html', {'bill': bill})
+
+@login_required(login_url='/sign-in/')
+@user_passes_test(lambda u: u.groups.filter(name='Consumers').exists())
+def process_payment(request, bill_id):
+    """
+    Process bill payment
+    """
+    # check if user balance enough
+    # if enough, make balance payment
+    # if not enough, ask user if pay as you go or refill
+    pass
 
 
 @login_required(login_url='/sign-in/')
@@ -187,12 +262,18 @@ def bill_success(request, bill_id):
     """
     Display success message when bill has been successfully paid.
     """
-    bill = Bill.objects.get(id=bill_id)
+    # attempt to find the bill, otherwise send user back to bill selection
+    try:
+        bill = Bill.objects.get(id=bill_id)
+    except ObjectDoesNotExist:
+        messages.info(request, "A bill with this code does not exist.")
+        return redirect('/select-bill/')
 
     if bill.paid:
         return render(request, 'bill_success_cust.html', {'bill': bill})
+
     else:
-        url = '/select-bill/%s/tip/' % bill.id
+        url = '/select-bill/%s/' % bill.id
         return redirect(url)
 
 
@@ -229,7 +310,12 @@ def see_bill(request, bill_id):
     """
     Displays a bill
     """
-    bill = Bill.objects.get(id=bill_id)
+    # attempt to find the bill, otherwise send user back to bill selection
+    try:
+        bill = Bill.objects.get(id=bill_id)
+    except ObjectDoesNotExist:
+        messages.info(request, "A bill with this code does not exist.")
+        return redirect('/')
 
     # check if bill has already been paid, not ok otherwise
     if bill.paid:
@@ -250,7 +336,12 @@ def edit_bill(request, bill_id):
     """
     Edits an existing bill
     """
-    bill = Bill.objects.get(id=bill_id)
+    # attempt to find the bill, otherwise send user back to bill selection
+    try:
+        bill = Bill.objects.get(id=bill_id)
+    except ObjectDoesNotExist:
+        messages.info(request, "A bill with this code does not exist.")
+        return redirect('/')
 
     # check if bill has already been paid, not ok otherwise
     if bill.paid:
@@ -281,7 +372,12 @@ def delete_bill(request, bill_id):
     """
     Deletes a bill
     """
-    bill = Bill.objects.get(id=bill_id)
+    # attempt to find the bill, otherwise send user back to bill selection
+    try:
+        bill = Bill.objects.get(id=bill_id)
+    except ObjectDoesNotExist:
+        messages.info(request, "A bill with this code does not exist.")
+        return redirect('/')
 
     # check if bill has already been paid, not ok otherwise
     if bill.paid:
@@ -305,7 +401,12 @@ def bill_paid(request, bill_id):
     """
     Displays a success message indicating bill has been paid
     """
-    bill = Bill.objects.get(id=bill_id)
+    # attempt to find the bill, otherwise send user back to bill selection
+    try:
+        bill = Bill.objects.get(id=bill_id)
+    except ObjectDoesNotExist:
+        messages.info(request, "A bill with this code does not exist.")
+        return redirect('/')
 
     # check if bill has not yet been paid, not ok otherwise
     if not bill.paid:

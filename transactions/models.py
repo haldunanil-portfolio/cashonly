@@ -27,7 +27,7 @@ class CustomerBalance(models.Model):
         verbose_name_plural = 'Customer Balances'
 
     def __str__(self):
-        return u'%s has a balance of $%s.' % (
+        return u'%s has a balance of $%.2f.' % (
             self.customer, self.account_balance / 100
         )
 
@@ -128,9 +128,9 @@ class Charge(models.Model):
         )
 
         if not self.fail:
-            return u'A Stripe payment of $%s succeeded on %s for %s.' % details
+            return u'A Stripe payment of $%.2f succeeded on %s for %s.' % details
         else:
-            return u'A Stripe payment of %s failed on %s for %s.' % details
+            return u'A Stripe payment of %.2f failed on %s for %s.' % details
 
 
 class Bill(models.Model):
@@ -153,9 +153,10 @@ class Bill(models.Model):
     class Meta:
         verbose_name = 'Bill'
         verbose_name_plural = 'Bills'
+        ordering = ['-timestamp',]
 
     def __str__(self):
-        return u'$%s bill at %s on %s.' % (
+        return u'$%.2f bill at %s on %s.' % (
             self.amount / 100,
             self.business,
             self.timestamp.astimezone().strftime('%Y-%m-%d %H:%M:%S')

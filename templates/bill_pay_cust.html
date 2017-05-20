@@ -2,38 +2,42 @@
 
 {% load mathfilters %}
 
-{% block title %}
-{% if 'tip' in request.path %}
-Enter Tip
-{% else %}
-Make Payment
-{% endif %}
-{% endblock %}
+{% block title %}Make Payment{% endblock %}
 
 {% block content %}
 
 <h1>{{ bill.business.name }}</h1>
 
 <div>
-  Your total is <span class="balance-amount">${{ bill.amount|add:bill.tip|div:100|floatformat:2 }}</span> (including a ${{ bill.tip|div:100|floatformat:2 }} tip).
+  Your total is <span class="balance-amount">${{ bill.amount|add:bill.tip|div:100|floatformat:2 }}</span> (including a <a href="/select-bill/{{ bill.id }}/tip/">${{ bill.tip|div:100|floatformat:2 }} tip</a>).
 </div>
 
-{% if bill.tip > 0 and 'tip' in request.path %}
 <div>
-  Note: You may revise your tip amount using the options below.
+  Your current balance is: ${{ request.user.customerbalance.account_balance|div:100|floatformat:2 }}
+</div>
+
+{% if request.user.customerbalance.account_balance < bill.amount|add:bill.tip %}
+<div>
+  Your account balance is insufficient for this bill.
+</div>
+<div>
+  <a href="/reload-my-account/">
+    <button class="submit-button">Reload Account</button>
+  </a>
+</div>
+<div>
+  <a href="">
+    <button class="submit-button">Pay Now</button>
+  </a>
+</div>
+{% else %}
+<div>
+  <a href="">
+    <button class="submit-button">Pay Now</button>
+  </a>
 </div>
 {% endif %}
 
-<form class="sign-up-form form-label form-css-label" method="post">
-  {% csrf_token %}
-  {% for field in form %}
-  <fieldset>
-    {{ field }}
-  </fieldset>
-  {% endfor %}
-
-  <button class="submit-button" type="submit" value="Submit">Pay</button>
-</form>
 
 
 {% endblock %}

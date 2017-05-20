@@ -90,7 +90,7 @@ class SimpleTransaction(object):
             print("CAUTION: No business provided.")
 
     def __str__(self):
-        return u'%s has a trx worth $%s' % (self.user, self.amount / 100)
+        return u'%s has a trx worth $%.2f' % (self.user, self.amount / 100)
 
     def _calculate_commission(self, *args, **kwargs):
         """
@@ -142,12 +142,11 @@ class SimpleTransaction(object):
                 get_value("DEFAULT_REV_SHARE"), 0
             ))
 
-    def _create_stripe_charge(self, source, comments=None, *args, **kwargs):
+    def _create_stripe_charge(self, comments=None, *args, **kwargs):
         """
         Creates a stripe charge for the user.
 
         Inputs:
-        - source = token to be used for the transaction
         - comments = Optional; any comments to be included with the charge.
 
         Returns: result of a stripe.Charge.create API call
@@ -165,11 +164,21 @@ class SimpleTransaction(object):
         # give stripe our API key
         stripe.api_key = settings.STRIPE_API_TEST_SECRET
 
+        # get stripe customer object
+        stripe_cust = stripe.Customer.retrieve(
+            self.user.profile.stripe_id
+        )
+
+        # check that a credit card exists in the system, otherwise raise error
+        # note: error should be caught in view
+        if stripe_cust.default_source is None:
+            raise ValueError("No credit card provided.")
+
         # initialize common charge info
         basic_info = {
             "amount": int(self.amount + self._calculate_commission()),
             "currency": "usd",
-            "source": source,
+            "source": stripe_cust.default_source,
             "customer": self.user.profile.stripe_id,
             "description": comments
         }
@@ -260,19 +269,18 @@ class PayAsYouGo(SimpleTransaction):
         if not self.pay_as_you_go:
             raise AssertionError("Must indicate transaction as pay-as-you-go.")
 
-    def process(self, source, comments=None, *args, **kwargs):
+    def process(self, comments=None, *args, **kwargs):
         """
         Make a purchase directly.
 
         Inputs:
-        - source = token to be used for the transaction
         - comments = Optional; any comments to be included with the charge.
 
         Return:
         - stripe.Charge.create response element
         """
         # Step 1: Try to make stripe charge; if declined, raise error
-        charge = self._create_stripe_charge(source, comments=None)
+        charge = self._create_stripe_charge(comments=None)
 
         # Step 2: Mark bill as paid
         self.bill.paid = True
@@ -284,19 +292,18 @@ class PayAsYouGo(SimpleTransaction):
 
 class AddToBalance(SimpleTransaction):
 
-    def process(self, source, comments=None, *args, **kwargs):
+    def process(self, comments=None, *args, **kwargs):
         """
         Add to the user balance without making a purchase.
 
         Inputs:
-        - source = token to be used for the transaction
         - comments = Optional; any comments to be included with the charge.
 
         Returns:
         - stripe.Charge.create response element
         """
         # Step 1: Try to make a stripe charge; catch errors in the view
-        charge = self._create_stripe_charge(source, comments=None)
+        charge = self._create_stripe_charge(comments=None)
 
         # Step 2: Add to customer's balance
         self.user.customerbalance.add_to_customer_balance(self.amount)
@@ -320,7 +327,6 @@ class PurchaseFromBalance(SimpleTransaction):
         Make a purchase from existing balance.
 
         Inputs:
-        - source = token to be used for the transaction
         - comments = Optional; any comments to be included with the charge.
 
         Returns:
