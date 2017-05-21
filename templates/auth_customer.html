@@ -12,6 +12,12 @@
   <button class="submit-button">Reload My Account</button>
 </a>
 
+{% if not bills %}
+<div>
+  Nothing here yet... **crickets**
+</div>
+{% endif %}
+
 {% for bill in bills %}
 <div class="transaction">
   <ul class="transactions-item-detail">

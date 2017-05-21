@@ -8,6 +8,12 @@
 
 <h1>Existing Credit Cards</h1>
 
+{% if not methods %}
+<div>
+  Nothing here yet... **crickets**
+</div>
+{% endif %}
+
 {% for method in methods %}
 <div class="credit-card">
   <ul class="credit-card-detail">
@@ -35,6 +41,5 @@
 <a href="/cards/add/">
   <button class="submit-button">Add New Card</button>
 </a>
-
 
 {% endblock %}

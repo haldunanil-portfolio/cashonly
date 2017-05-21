@@ -53,7 +53,23 @@ def add_new_card(request):
     """
     Adds a new credit card to stripe
     """
-    pass
+    if request.method == "POST":
+        # grab the stripe token
+        stripe_token = request.POST.get("stripeToken")
+
+        # create a stripe card element
+        stripe.api_key = settings.STRIPE_API_TEST_SECRET
+        stripe_cust = stripe.Customer.retrieve(request.user.profile.stripe_id)
+        new_card = stripe_cust.sources.create(source=stripe_token)
+
+        return render(request, 'add_card.html', {'new_card': new_card})
+
+    # get stripe public key
+    stripe_public_key = settings.STRIPE_API_TEST_PUBLIC
+
+    return render(
+        request, 'add_card.html', {'stripe_public_key': stripe_public_key}
+    )
 
 
 @login_required(login_url='/sign-in/')
@@ -76,7 +92,7 @@ def reload_my_account(request):
                 added_balance.process()
             except ValueError as e:
                 messages.info(request, 'ERROR: %s' % e)
-                return redirect('/')
+                return redirect('/cards/add/')
 
             # inform user that the submission was added successfully
             amount_dollars = amount / 100
@@ -268,6 +284,7 @@ def pay_bill(request, bill_id):
         return redirect('/select-bill/')
 
     return render(request, 'bill_pay_cust.html', {'bill': bill})
+
 
 @login_required(login_url='/sign-in/')
 @user_passes_test(lambda u: u.groups.filter(name='Consumers').exists())
