@@ -24,13 +24,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'nologin/css/styles.css' %}">
     {% endif %}
 
-    <!-- Bootstrap core CSS -->
-    <!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"> -->
-    <!-- <link href="{% static 'sitewide/css/jasny-bootstrap.min.css' %}" rel="stylesheet"> -->
-
-    <!-- Custom styles for this nav menu template -->
-    <!-- <link href="{% static 'sitewide/css/navmenu-reveal.css' %}" rel="stylesheet"> -->
-
+    <!-- Custom styles -->
     {% block head %}{% endblock %}
   </head>
 
@@ -44,7 +38,7 @@
       <div class="mobile-menu-line mobile-menu-line-2"></div>
       <div class="mobile-menu-line mobile-menu-line-3"></div>
     </div>
-    
+
     <div class="mobile-menu-toggle new-bill-button">
       {% if request.user|has_group:"Consumers" %}
       <a href="/select-bill/">
@@ -118,10 +112,8 @@
       </div>
     </nav>
     {% endif %}
-
-    {% endblock %}
-
     <!-- end nav block here -->
+    {% endblock %}
 
     <!-- begin main content block here -->
     <div class="main-container">
@@ -151,8 +143,8 @@
     </div>
     <!-- end main content block here -->
 
-    <!-- begin footer block here -->
     {% block footer %}
+    <!-- begin footer block here -->
     {% load flatpages %}
     {% get_flatpages as flatpages %}
     <footer>
@@ -160,8 +152,8 @@
       <li><a href="{{ page.url }}">{{ page.title }}</a></li>
       {% endfor %}
     </footer>
-    {% endblock %}
     <!-- end footer block here -->
+    {% endblock %}
 
     {% if messages or debug %}
     <!-- begin message block here -->
@@ -172,6 +164,7 @@
         {% endfor %}
         {% block messages %}{% endblock %}
       </ul>
+    <!-- end message block here -->
     {% endif %}
 
     <!-- Bootstrap core JavaScript
@@ -182,9 +175,9 @@
     <script src="{% static 'sitewide/js/animations.js' %}"></script>
     <script src="{% static 'sitewide/js/mobile-menu.js' %}"></script>
 
-    <!-- begin additional js block here -->
     {% block script %}
-    {% endblock %}
+    <!-- begin additional js block here -->
     <!-- end additional js block here -->
+    {% endblock %}
   </body>
 </html>
