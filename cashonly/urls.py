@@ -26,6 +26,9 @@ from accounts.forms import BusinessForm
 from django.views.generic import TemplateView
 from cashonly.views import handler404 #### remove after testing
 from accounts.decorators import not_loggedin_required
+from transactions.views import see_cards
+from transactions.views import add_new_card
+from transactions.views import reload_my_account
 from transactions.views import select_bill
 from transactions.views import view_bill
 from transactions.views import confirm_bill
@@ -37,7 +40,6 @@ from transactions.views import see_bill
 from transactions.views import edit_bill
 from transactions.views import delete_bill
 from transactions.views import bill_paid
-from transactions.views import reload_my_account
 
 urlpatterns = [
     url(r'^$', home, name='home'),
@@ -64,6 +66,8 @@ urlpatterns = [
     url(r'^select-bill/(\d+)/success/$', bill_success, name='bill_success'),
     url(r'^reload-my-account/$', reload_my_account, name="reload_my_account"),
     url(r'^create-bill/$', create_bill, name='create_bill'),
+    url(r'^cards/$', see_cards, name='see_cards'),
+    url(r'^cards/add/$', add_new_card, name='add_new_cards'),
     url(r'^bill/(\d+)/$', see_bill, name='see_bill'),
     url(r'^bill/(\d+)/edit/$', edit_bill, name='edit_bill'),
     url(r'^bill/(\d+)/checkout/$', see_bill, name='checkout_bill'),

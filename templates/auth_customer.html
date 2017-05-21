@@ -8,7 +8,9 @@
 <div class="balance-message">
   <p>Howdy, {{ request.user.first_name }}? You currently have <span class="balance-amount">${{ request.user.customerbalance.account_balance|div:100|floatformat:2 }}</span> in your account.</p>
 </div>
-<a href="/reload-my-account/"><button class="submit-button">Reload My Account</button></a>
+<a href="/reload-my-account/">
+  <button class="submit-button">Reload My Account</button>
+</a>
 
 {% for bill in bills %}
 <div class="transaction">
@@ -37,8 +39,6 @@
       {% endif %}
   </ul>
 </div>
-
-
 {% endfor %}
 
 {% endblock %}

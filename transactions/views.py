@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from transactions.forms import BillSelectForm
 from transactions.models import Bill
@@ -11,6 +12,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import user_passes_test
 from transactions.forms import CreateEditBillForm
 from transactions.processing import AddToBalance
+import stripe
 
 
 ####################
@@ -25,11 +27,34 @@ from transactions.processing import AddToBalance
 
 @login_required(login_url='/sign-in/')
 @user_passes_test(lambda u: u.groups.filter(name='Consumers').exists())
+def see_cards(request):
+    """
+    See added credit cards
+    """
+    # get stripe object
+    stripe.api_key = settings.STRIPE_API_TEST_SECRET
+    stripe_cust = stripe.Customer.retrieve(request.user.profile.stripe_id)
+
+    # check if default card set, if not return empty page
+    if stripe_cust.default_source is None:
+        return render(request, 'see_cards.html')
+
+    # get list of payment methods
+    methods = stripe_cust.sources.data
+    default_id = stripe_cust.default_source
+
+    return render(request, 'see_cards.html', {'methods': methods,
+                                              'default_id': default_id})
+
+
+@login_required(login_url='/sign-in/')
+@user_passes_test(lambda u: u.groups.filter(name='Consumers').exists())
 def add_new_card(request):
     """
     Adds a new credit card to stripe
     """
     pass
+
 
 @login_required(login_url='/sign-in/')
 @user_passes_test(lambda u: u.groups.filter(name='Consumers').exists())
