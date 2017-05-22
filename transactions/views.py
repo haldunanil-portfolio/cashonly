@@ -74,6 +74,27 @@ def add_new_card(request):
 
 @login_required(login_url='/sign-in/')
 @user_passes_test(lambda u: u.groups.filter(name='Consumers').exists())
+def change_default_card(request):
+    """
+    Changes default credit card
+    """
+    if request.method == 'POST':
+        # get stripe object
+        stripe.api_key = settings.STRIPE_API_TEST_SECRET
+        stripe_cust = stripe.Customer.retrieve(request.user.profile.stripe_id)
+
+        # make updates
+        stripe_cust.default_source = request.POST.get("new_default")
+        stripe_cust.save()
+
+        # inform user that change happened
+        messages.info(request, "Default card successfully changed.")
+
+    return redirect('/cards/')
+
+
+@login_required(login_url='/sign-in/')
+@user_passes_test(lambda u: u.groups.filter(name='Consumers').exists())
 def reload_my_account(request):
     """
     Adds money to user balance

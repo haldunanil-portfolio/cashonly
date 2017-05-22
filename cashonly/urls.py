@@ -28,6 +28,7 @@ from cashonly.views import handler404 #### remove after testing
 from accounts.decorators import not_loggedin_required
 from transactions.views import see_cards
 from transactions.views import add_new_card
+from transactions.views import change_default_card
 from transactions.views import reload_my_account
 from transactions.views import select_bill
 from transactions.views import view_bill
@@ -68,6 +69,7 @@ urlpatterns = [
     url(r'^create-bill/$', create_bill, name='create_bill'),
     url(r'^cards/$', see_cards, name='see_cards'),
     url(r'^cards/add/$', add_new_card, name='add_new_cards'),
+    url(r'^cards/change-default/$', change_default_card, name='change_default'),
     url(r'^bill/(\d+)/$', see_bill, name='see_bill'),
     url(r'^bill/(\d+)/edit/$', edit_bill, name='edit_bill'),
     url(r'^bill/(\d+)/checkout/$', see_bill, name='checkout_bill'),
