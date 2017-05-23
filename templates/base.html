@@ -59,6 +59,9 @@
       <ul class="nav-options">
 
         <li><a href="/">Home</a></li>
+        <li><a href="">Help</a></li>
+        <li><a href="">Settings</a></li>
+        <li><a href="/cards/">My Cards</a></li>
         {% if user.is_authenticated %}
         <li><a href="/sign-out/">Sign Out</a></li>
         {% else %}
@@ -81,6 +84,7 @@
         <ul>
           <li><a class="mobile-links">Help</a></li>
           <li><a class="mobile-links">Settings</a></li>
+          <li><a class="mobile-links" href="/cards/">My Cards</a></li>
 
     			{% if user.is_staff %}
     			<li><a class="mobile-links" href='/admin/'>Admin</a></li>

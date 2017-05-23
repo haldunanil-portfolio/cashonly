@@ -2,10 +2,6 @@
 
 {% block head %}
 <style>
-  /**
-   * The CSS shown here will not be introduced in the Quickstart guide, but shows
-   * how you can use CSS to style your Element's container.
-   */
   .StripeElement {
     background-color: white;
     padding: 8px 12px;
@@ -58,7 +54,7 @@
 {% endif %}
 <div>
   <a href="/cards/">
-    <button>Back to All Cards</button>
+    <button class="submit-link">Back to All Cards</button>
   </a>
 </div>
 {% endblock %}
@@ -79,7 +75,7 @@
       lineHeight: '24px',
       fontFamily: 'Raleway',
       fontSmoothing: 'antialiased',
-      fontSize: '16px',
+      fontSize: '14px',
       '::placeholder': {
         color: '#aab7c4'
       }
