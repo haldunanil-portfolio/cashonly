@@ -12,6 +12,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import user_passes_test
 from transactions.forms import CreateEditBillForm
 from transactions.processing import AddToBalance
+from transactions.processing import PurchaseFromBalance
+from transactions.processing import PayAsYouGo
 import stripe
 
 
@@ -309,14 +311,48 @@ def pay_bill(request, bill_id):
 
 @login_required(login_url='/sign-in/')
 @user_passes_test(lambda u: u.groups.filter(name='Consumers').exists())
+def bill_confirmation(request, bill_id):
+    """
+    Confirm payment amount
+    """
+    # attempt to find the bill, otherwise send user back to bill selection
+    try:
+        bill = Bill.objects.get(id=bill_id)
+    except ObjectDoesNotExist:
+        messages.info(request, "A bill with this code does not exist.")
+        return redirect('/select-bill/')
+
+    return render(request, 'bill_pay_confirmation_cust.html', {'bill': bill})
+
+
+@login_required(login_url='/sign-in/')
+@user_passes_test(lambda u: u.groups.filter(name='Consumers').exists())
 def process_payment(request, bill_id):
     """
     Process bill payment
     """
-    # check if user balance enough
-    # if enough, make balance payment
-    # if not enough, ask user if pay as you go or refill
-    pass
+    # attempt to find the bill, otherwise send user back to bill selection
+    try:
+        bill = Bill.objects.get(id=bill_id)
+    except ObjectDoesNotExist:
+        messages.info(request, "A bill with this code does not exist.")
+        return redirect('/select-bill/')
+
+    # charge amount and tip
+    charge = bill.amount + bill.tip
+
+    # charge to account, pay as you go otherwise
+    if request.user.customerbalance.is_current_balance_sufficient(charge):
+        purchase = PurchaseFromBalance(bill=bill)
+
+    else:
+        purchase = PayAsYouGo(bill=bill)
+
+    # process the purchase
+    purchase.process()
+
+    url = '/select-bill/%s/success/' % bill.id
+    return redirect(url)
 
 
 @login_required(login_url='/sign-in/')

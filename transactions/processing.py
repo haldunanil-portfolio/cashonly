@@ -38,7 +38,7 @@ class SimpleTransaction(object):
         if 'bill' in kwargs:
             self.bill = kwargs['bill']
             self.user = kwargs['bill'].customer
-            self.amount = kwargs['bill'].amount
+            self.amount = kwargs['bill'].amount + kwargs['bill'].tip
             self.business = kwargs['bill'].business
 
         elif 'user' in kwargs and 'amount' in kwargs:

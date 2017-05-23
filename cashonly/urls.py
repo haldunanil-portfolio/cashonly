@@ -35,6 +35,8 @@ from transactions.views import view_bill
 from transactions.views import confirm_bill
 from transactions.views import tip_bill
 from transactions.views import pay_bill
+from transactions.views import bill_confirmation
+from transactions.views import process_payment
 from transactions.views import bill_success
 from transactions.views import create_bill
 from transactions.views import see_bill
@@ -64,6 +66,8 @@ urlpatterns = [
     url(r'^select-bill/(\d+)/confirm/$', confirm_bill, name='confirm_bill'),
     url(r'^select-bill/(\d+)/tip/$', tip_bill, name='tip_bill'),
     url(r'^select-bill/(\d+)/pay/$', pay_bill, name='pay_bill'),
+    url(r'^select-bill/(\d+)/confirm-bill/$', bill_confirmation, name='bill_confirmation'),
+    url(r'^select-bill/(\d+)/process-payment/$', process_payment, name='process_payment'),
     url(r'^select-bill/(\d+)/success/$', bill_success, name='bill_success'),
     url(r'^reload-my-account/$', reload_my_account, name="reload_my_account"),
     url(r'^create-bill/$', create_bill, name='create_bill'),
