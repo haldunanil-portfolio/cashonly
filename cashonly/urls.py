@@ -43,6 +43,7 @@ from transactions.views import see_bill
 from transactions.views import edit_bill
 from transactions.views import delete_bill
 from transactions.views import bill_paid
+from transactions.views import transactions_biz
 
 urlpatterns = [
     url(r'^$', home, name='home'),
@@ -79,5 +80,6 @@ urlpatterns = [
     url(r'^bill/(\d+)/checkout/$', see_bill, name='checkout_bill'),
     url(r'^bill/(\d+)/delete/$', delete_bill, name='delete_bill'),
     url(r'^bill/(\d+)/success/$', bill_paid, name='bill_paid'),
+    url(r'^completed-transactions/$', transactions_biz, name='transactions_biz'),
     url(r'^tinymce/', include('tinymce.urls')),
 ]

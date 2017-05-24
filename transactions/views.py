@@ -14,6 +14,7 @@ from transactions.forms import CreateEditBillForm
 from transactions.processing import AddToBalance
 from transactions.processing import PurchaseFromBalance
 from transactions.processing import PayAsYouGo
+from django.db.models import Sum
 import stripe
 
 
@@ -518,3 +519,19 @@ def bill_paid(request, bill_id):
         return redirect('/')
 
     return render(request, 'bill_success_biz.html', {'bill': bill})
+
+
+@login_required(login_url='/sign-in/')
+@user_passes_test(lambda u: u.groups.filter(name='Business Employees').exists())
+def transactions_biz(request):
+    """
+    Completed business transactions
+    """
+    bills = Bill.objects.filter(
+        business=request.user.profile.business, paid=True
+    )
+
+    total = bills.aggregate(Sum('amount'))['amount__sum']
+
+    return render(request, 'transactions_biz.html', {'bills': bills,
+                                                     'total': total})

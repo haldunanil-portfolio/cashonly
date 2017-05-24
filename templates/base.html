@@ -61,7 +61,11 @@
         <li><a href="/">Home</a></li>
         <li><a href="">Help</a></li>
         <li><a href="">Settings</a></li>
+        {% if request.user|has_group:"Business Employees" %}
+        <li><a href="/completed-transactions/">Closed Bills</a></li>
+        {% elif request.user|has_group:"Consumers" %}
         <li><a href="/cards/">My Cards</a></li>
+        {% endif %}
         {% if user.is_authenticated %}
         <li><a href="/sign-out/">Sign Out</a></li>
         {% else %}
@@ -84,7 +88,11 @@
         <ul>
           <li><a class="mobile-links">Help</a></li>
           <li><a class="mobile-links">Settings</a></li>
-          <li><a class="mobile-links" href="/cards/">My Cards</a></li>
+          {% if request.user|has_group:"Business Employees" %}
+          <li><a href="/completed-transactions/" class="mobile-links">Closed Bills</a></li>
+          {% elif request.user|has_group:"Consumers" %}
+          <li><a href="/cards/" class="mobile-links">My Cards</a></li>
+          {% endif %}
 
     			{% if user.is_staff %}
     			<li><a class="mobile-links" href='/admin/'>Admin</a></li>
