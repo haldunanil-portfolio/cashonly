@@ -42,7 +42,7 @@ def home(request):
 
 		# Check if user belongs to the "Consumers" group
 		elif is_member(request.user, 'Consumers'):
-			bills = Bill.objects.filter(customer=request.user)
+			bills = Bill.objects.filter(customer=request.user)[:10]
 			return render(request, 'auth_customer.html', {'bills': bills})
 
 		# Check if user belongs to the "Businesses" group
