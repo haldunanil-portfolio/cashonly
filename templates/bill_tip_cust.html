@@ -23,11 +23,16 @@
   {% csrf_token %}
   {% for field in form %}
   <fieldset>
+    <label>{{ field.label }}</label>
     {{ field }}
   </fieldset>
   {% endfor %}
 
+  {% if 'custom' in request.path %}
+  <button class="submit-button" type="submit" value="Submit">Submit</button>
+  {% else %}
   <button class="submit-button" type="submit" value="Submit">Pay</button>
+  {% endif %}
 </form>
 
 

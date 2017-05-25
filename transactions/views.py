@@ -267,7 +267,8 @@ def tip_bill(request, bill_id):
 
             # determine if tip amount is custom or not
             if form.cleaned_data['tip_amount'] == 'custom':
-                pass
+                url = '/select-bill/%s/custom-tip/' % bill.id
+                return redirect(url)
 
             # if not custom, add amount to bill object and go to payment screen
             else:
@@ -282,6 +283,46 @@ def tip_bill(request, bill_id):
         form = TipForm()
 
     return render(request, 'bill_tip_cust.html', {'form': form, 'bill': bill})
+
+
+@login_required(login_url='/sign-in/')
+@user_passes_test(lambda u: u.groups.filter(name='Consumers').exists())
+def custom_tip_bill(request, bill_id):
+    """
+    Custom tip for bill
+    """
+    # attempt to find the bill, otherwise send user back to bill selection
+    try:
+        bill = Bill.objects.get(id=bill_id)
+    except ObjectDoesNotExist:
+        messages.info(request, "A bill with this code does not exist.")
+        return redirect('/select-bill/')
+
+    # if bill was alredy paid, then back to select bill
+    if bill.paid:
+        messages.info(request, "This bill has already been paid.")
+        return redirect('/select-bill/')
+
+    # if bill confirmed by another customer, then back to select bill
+    elif bill.customer is not None and bill.customer != request.user:
+        messages.info(request, "This bill belongs to another customer.")
+        return redirect('/select-bill/')
+
+    if request.method == "POST":
+        form = CustomTipForm(request.POST)
+        if form.is_valid():
+            tip_amount = float(form.cleaned_data['tip_amount']) * 100
+            bill.tip = tip_amount
+            bill.save()
+
+            url = '/select-bill/%s/pay/' % bill.id
+            return redirect(url)
+
+    else:
+        form = CustomTipForm()
+
+    return render(request, 'bill_tip_cust.html', {'form': form, 'bill': bill})
+
 
 
 @login_required(login_url='/sign-in/')
