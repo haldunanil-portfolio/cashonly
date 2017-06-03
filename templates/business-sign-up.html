@@ -2,9 +2,46 @@
 
 {% block title %}Business Sign-Up{% endblock %}
 
+{% block head %}
+<style>
+.regular-checkbox {
+	-webkit-appearance: none;
+	background-color: #fafafa;
+	border: 1px solid #cacece;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+	padding: 9px;
+	border-radius: 3px;
+	display: inline-block;
+	position: relative;
+}
+
+.regular-checkbox:active, .regular-checkbox:checked:active {
+	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
+}
+
+.regular-checkbox:checked {
+	background-color: #e9ecee;
+	border: 1px solid #adb8c0;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);
+	color: #99a1a7;
+}
+
+.regular-checkbox:checked:after {
+	content: '\2714';
+	font-size: 14px;
+	position: absolute;
+	top: 0px;
+	left: 3px;
+	color: #99a1a7;
+}
+</style>
+{% endblock %}
+
 {% block content %}
+
 <h1>Request Access to the Cash Only Beta</h1>
-<p>Thanks for your interest in registering your business with Cash Only, {{ user.first_name|title }}! Please fill out the following form and we'll get back to you as soon as possible!</p>
+<div>Thanks for your interest in registering your business with Cash Only, {{ user.first_name|title }}! Please fill out the following form and we'll get back to you as soon as possible!</div>
+<div style="color: red;">Please note that we're only accepting businesses legally incorporated in the United States at this time.</div>
 
 <div class="center-container">
   <div class="section">

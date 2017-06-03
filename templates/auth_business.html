@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% load mathfilters %}
+
+{% block content %}
+
+<h1>Open Bills</h1>
+{% if bills %}
+<div class="balance-message">
+  <p>Bonjour! You currently have open/unpaid bills totaling <span class="balance-amount">${{ total|div:100|floatformat:2 }}</span>.</p>
+</div>
+{% else %}
+<div class="balance-message">
+  <p>Bonjour! You don't have any open bills. Create one now:</p>
+</div>
+<div>
+  <a href="/create-bill/">
+    <button class="submit-button">New Bill</button>
+  </a>
+</div>
+
+{% endif %}
+
+{% for bill in bills %}
+<div class="transaction">
+  <ul class="transactions-item-detail">
+      <li class="transaction-delete transaction-data">
+        <a href="/bill/{{ bill.id }}/delete/" onclick="return confirm_alert(this);">X</a>
+      </li>
+      <li class="transaction-date transaction-data">
+        {{ bill.timestamp }}
+      </li>
+      <li class="transaction-amount transaction-data">
+        ${{ bill.amount|div:100|floatformat:2 }}
+      </li>
+      <li class="transaction-edit transaction-data">
+        <a href="/bill/{{ bill.id }}/">Tap to edit</a>
+      </li>
+      <li>
+        <a href="/bill/{{ bill.id }}/checkout/">
+          <button class="submit-button">Checkout</button>
+        </a>
+      </li>
+  </ul>
+</div>
+{% endfor %}
+
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+function confirm_alert(node) {
+    return confirm("Are you sure you want to delete this bill? This can't be reversed.");
+}
+</script>
+{% endblock %}

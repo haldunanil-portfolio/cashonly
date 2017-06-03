@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% load mathfilters %}
+
+{% block content %}
+
+<h1>Closed Bills</h1>
+<div class="balance-message">
+  <p>Hi, {{ request.user.first_name }}! Fun fact: {{ request.user.profile.business }} has made <span class="balance-amount">${{ total|div:100|floatformat:2 }}</span> through Cash Only.</p>
+</div>
+
+{% if not bills %}
+<div>
+  Nothing here yet... **crickets**
+</div>
+{% endif %}
+
+{% for bill in bills %}
+<div class="transaction">
+  <ul class="transactions-item-detail">
+      <li class="transaction-date transaction-data">
+        {{ bill.timestamp }}
+      </li>
+      <li class="transaction-customer transaction-data">
+        {{ bill.customer.first_name }} {{ bill.customer.last_name|make_list|first }}. {% if not bill.paid %}(Unpaid){% endif %}
+      </li>
+      <li class="transaction-amount transaction-data">
+        ${{ bill.amount|div:100|floatformat:2 }}
+      </li>
+      <li class="transaction-tip transaction-data">
+        (+${{ bill.tip|div:100|floatformat:2 }} tip)
+      </li>
+  </ul>
+</div>
+{% endfor %}
+
+{% endblock %}

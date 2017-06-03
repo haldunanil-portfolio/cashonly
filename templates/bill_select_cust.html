@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Select Your Bill{% endblock %}
+
+{% block content %}
+
+<h1>Enter the bill code below</h1>
+<p>Tip: ask your server!</p>
+<form class="sign-up-form form-label form-css-label" method="post">
+  {% csrf_token %}
+  {% for field in form %}
+  <fieldset>
+    {{ field }}
+    <label>{{ field.label }}</label>
+  </fieldset>
+  {% endfor %}
+
+  <button class="submit-button" type="submit" value="Submit">Search</button>
+</form>
+
+{% endblock %}

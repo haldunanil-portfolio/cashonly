@@ -25,15 +25,21 @@ SECRET_KEY = '+mr!12odk72qsa&=$ydx5^@c(hz_=*qai@s3fu_sdv!o^(7jzd'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.elasticbeanstalk.com',
-                 'localhost',
-                 '127.0.0.1',
-                 '.cashon.ly']
+ALLOWED_HOSTS = [
+    '.elasticbeanstalk.com',
+    'localhost',
+    '127.0.0.1',
+    '.cashon.ly'
+]
 
 INTERNAL_IPS = (
     '0.0.0.0',
     '127.0.0.1',
 )
+
+ADMINS = [
+    ('Haldun Anil', 'haldun@cashon.ly')
+]
 
 # Application definition
 
@@ -54,6 +60,9 @@ INSTALLED_APPS = [
     'social_django',
     'django_countries',
     'tinymce',
+    'appconfig',
+    'simple_history',
+    'mathfilters',
 ]
 
 MIDDLEWARE = [
@@ -66,6 +75,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+    'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
 ROOT_URLCONF = 'cashonly.urls'
@@ -197,7 +207,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
@@ -213,6 +222,8 @@ STATIC_URL = '/static/'
 CSRF_COOKIE_SECURE = True
 
 SESSION_COOKIE_SECURE = True
+
+SECURE_SSL_REDIRECT = True
 
 X_FRAME_OPTIONS = 'DENY'
 
@@ -231,3 +242,11 @@ TINYMCE_DEFAULT_CONFIG = {
 TINYMCE_SPELLCHECKER = True
 
 # TINYMCE_COMPRESSOR = True
+
+# Stripe
+# https://dashboard.stripe.com/account/apikeys
+STRIPE_API_TEST_SECRET = 'sk_test_iLOI0zuwgnqGncXfEq0SKNNp'
+STRIPE_API_TEST_PUBLIC = 'pk_test_ntvPJgeDpYjjf0OUmmL3RY75'
+
+STRIPE_API_PROD_SECRET = ''
+STRIPE_API_PROD_PUBLIC = ''

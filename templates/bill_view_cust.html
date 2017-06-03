@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% load mathfilters %}
+
+{% block title %}View Bill{% endblock %}
+
+{% block content %}
+
+<h1>{{ bill.business.name }}</h1>
+
+<div>
+  Your total is <span class="balance-amount">${{ bill.amount|div:100|floatformat:2 }}</span>.
+</div>
+<div>
+  <a href="/select-bill/">Tap to Start Over</a>
+</div>
+
+<div>
+  {% if bill.customer is None %}
+  <a href="{{ confirm_url }}">
+    <button class="submit-button">Tap to Confirm This is Your Bill</button>
+  </a>
+  {% else %}
+  <a href="/select-bill/{{ bill.id }}/pay/">
+    <button class="submit-button">Tap to Pay</button>
+  </a>
+  {% endif %}
+</div>
+
+{% endblock %}

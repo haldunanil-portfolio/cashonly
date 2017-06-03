@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 {% load static from staticfiles %}
+{% load auth_extras %}
 
 <html lang="en">
 
@@ -24,13 +25,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'nologin/css/styles.css' %}">
     {% endif %}
 
-    <!-- Bootstrap core CSS -->
-    <!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"> -->
-    <!-- <link href="{% static 'sitewide/css/jasny-bootstrap.min.css' %}" rel="stylesheet"> -->
-
-    <!-- Custom styles for this nav menu template -->
-    <!-- <link href="{% static 'sitewide/css/navmenu-reveal.css' %}" rel="stylesheet"> -->
-
+    <!-- Custom styles -->
     {% block head %}{% endblock %}
   </head>
 
@@ -44,7 +39,7 @@
         <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
         {% endfor %}
         {% block messages %}{% endblock %}
-      </ul>
+      </ul>t
     {% endif %}
 
     <div class="everything-below-messages-bar">
@@ -83,6 +78,7 @@
       <nav class="desktop-nav">
         <a href="/">
           {% if user.is_authenticated %}
+
           <img class="cash-only-full-logo-black" src="{% static 'sitewide/images/cash-only-full-logo-black.png' %}" alt="" height="" width="97px">
           {% else %}
           <img class="cash-only-full-logo-white" src="{% static 'sitewide/images/cash-only-full-logo-white.png' %}" alt="" height="" width="97px">
@@ -145,8 +141,8 @@
       <!-- end main content block here -->
     </div>
 
-    <!-- begin footer block here -->
     {% block footer %}
+    <!-- begin footer block here -->
     {% load flatpages %}
     {% get_flatpages as flatpages %}
     <footer>
@@ -156,10 +152,8 @@
       </ul>
       {% endfor %}
     </footer>
-    {% endblock %}
     <!-- end footer block here -->
-
-
+    {% endblock %}
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
@@ -168,10 +162,11 @@
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="{% static 'sitewide/js/animations.js' %}"></script>
     <script src="{% static 'sitewide/js/mobile-menu.js' %}"></script>
+    <script src="https://js.stripe.com/v3/"></script>
 
-    <!-- begin additional js block here -->
     {% block script %}
-    {% endblock %}
+    <!-- begin additional js block here -->
     <!-- end additional js block here -->
+    {% endblock %}
   </body>
 </html>

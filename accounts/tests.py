@@ -3,13 +3,14 @@ from django.contrib.auth import get_user
 from django.contrib.auth.models import User, Group
 from accounts.forms import RegistrationForm, ProfileForm
 
+
 class RegistrationTests(TestCase):
 
     def test_registration_form_valid(self):
-        '''
+        """
         Valid user should be successfully created after entering
         all required fields.
-        '''
+        """
         form_data = {'username': 'test@example.com',
                      'first_name': 'Test',
                      'last_name': 'Person',
@@ -21,10 +22,10 @@ class RegistrationTests(TestCase):
         self.assertTrue(form.is_valid())
 
     def test_registration_form_invalid(self):
-        '''
+        """
         Invalid user should not be created after entering the
         required fields.
-        '''
+        """
         form_data = {'username': '',
                      'first_name': '',
                      'last_name': '',
@@ -36,17 +37,17 @@ class RegistrationTests(TestCase):
         self.assertFalse(form.is_valid())
 
     def test_registration_view(self):
-        '''
+        """
         Tests whether user registration view calls the right template.
-        '''
+        """
         response = self.client.get("/sign-up/")
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "auth_form.html")
 
     def test_registration_valid_view(self):
-        '''
+        """
         Test whether registration form properly creates a user.
-        '''
+        """
         user_count = User.objects.count()
         form_data = {'username': 'test@example.com',
                      'first_name': 'Test',
@@ -61,9 +62,9 @@ class RegistrationTests(TestCase):
         self.assertEqual(User.objects.count(), user_count+1)
 
     def test_registration_invalid_view(self):
-        '''
+        """
         Test whether an invalid registration form does NOT create a user.
-        '''
+        """
         user_count = User.objects.count()
         form_data = {'username': '',
                      'first_name': '',
@@ -78,10 +79,10 @@ class RegistrationTests(TestCase):
         self.assertEqual(User.objects.count(), user_count)
 
     def test_not_logged_in(self):
-        '''
+        """
         User should only be able to register if they are
         not already logged in.
-        '''
+        """
         # first, attempt to access sign up page while not
         # logged in
         response = self.client.get('/sign-up/')
@@ -99,22 +100,48 @@ class RegistrationTests(TestCase):
         user_li = get_user(self.client)
         self.assertTrue(user_li.is_authenticated())
 
-        # attempt to visit page while logged in
+        # attempt to visit sign up page while logged in
         response_li = self.client.get('/sign-up/')
-        self.assertRedirects(response_li, '/')
+        self.assertRedirects(response_li, '/', target_status_code=302)
+
+        # next sign out
+        self.client.get('/sign-out/', )
 
         # last, attempt to revisit sign up page after logout
         response_lo = self.client.get('/sign-up/')
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response_lo.status_code, 200)
+
+
+class ProfileCreationTests(TestCase):
+    """
+    Must successfully create a profile after sign up regardless of method
+    """
+    def test_manual_sign_up(self):
+        """
+
+        """
+        pass
+
+    def test_facebook_sign_up(self):
+        """
+
+        """
+        pass
+
+    def test_google_sign_up(self):
+        """
+
+        """
+        pass
 
 
 class SignOutTests(TestCase):
 
     def test_sign_out_successfully(self):
-        '''
+        """
         User should be successfully signed out when visiting
         /sign-out/ and redirected to home.
-        '''
+        """
         username, pw = 'test@example.com', 'test1234'
         user = User.objects.create_user(username, password=pw)
         user.save()

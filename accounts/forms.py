@@ -47,5 +47,7 @@ class BusinessForm(ModelForm):
         model = Businesses
         exclude = (
             'country',
-            'tax_number',
+            'rev_share_perc',
+            'stripe_id',
+            'owner',
         )

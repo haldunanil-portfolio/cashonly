@@ -1,0 +1,52 @@
+[
+  {
+    "model": "appconfig.config",
+    "pk": 1,
+    "fields": {
+      "key": "CASH_ONLY_VAR_FEE",
+      "comments": "Variable fee for cash only purchases. Should be between 0.0 and 1.0.",
+      "value": 0.05,
+      "timestamp": "2017-05-01T00:00:00.00-05:00"
+    }
+  },
+  {
+    "model": "appconfig.config",
+    "pk": 2,
+    "fields": {
+      "key": "CASH_ONLY_FIXED_FEE",
+      "comments": "Variable fee for cash only purchases. Should be greater than or equal to 0.",
+      "value": 1,
+      "timestamp": "2017-05-01T00:00:00.00-05:00"
+    }
+  },
+  {
+    "model": "appconfig.config",
+    "pk": 3,
+    "fields": {
+      "key": "STRIPE_VAR_FEE_PERC",
+      "comments": "Variable fee charged by Stripe. Should be between 0.0 and 1.0.",
+      "value": 0.029,
+      "timestamp": "2017-05-01T00:00:00.00-05:00"
+    }
+  },
+  {
+    "model": "appconfig.config",
+    "pk": 4,
+    "fields": {
+      "key": "STRIPE_FIXED_FEE_DOLLAR",
+      "comments": "Fixed fee charged by Stripe. Should be greater than or equal to 0.",
+      "value": 0.3,
+      "timestamp": "2017-05-01T00:00:00.00-05:00"
+    }
+  },
+  {
+    "model": "appconfig.config",
+    "pk": 5,
+    "fields": {
+      "key": "DEFAULT_REV_SHARE",
+      "comments": "Default revenue share amount applied to a newly created business. Must be between 0.0 and 1.0.",
+      "value": 0.5,
+      "timestamp": "2017-05-01T00:00:00.00-05:00"
+    }
+  }
+]

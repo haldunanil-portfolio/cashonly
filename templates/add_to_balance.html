@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% load mathfilters %}
+
+{% block title %}Refill Balance{% endblock %}
+
+{% block content %}
+
+<h1>Reload Account Balance</h1>
+
+<div>
+  Your current balance is: <span class="balance-amount">${{ request.user.customerbalance.account_balance|div:100|floatformat:2 }}</span>
+</div>
+
+<div>
+  Please choose one of the following options to refill your Cash Only account:
+</div>
+
+<form class="sign-up-form form-label form-css-label" method="post">
+  {% csrf_token %}
+  {% for field in form %}
+  <fieldset>
+    {{ field }}
+  </fieldset>
+  {% endfor %}
+</form>
+
+
+
+{% endblock %}

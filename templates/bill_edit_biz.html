@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% load mathfilters %}
+
+{% block title %}
+{% if 'create' in request.path %}
+Create New Bill
+{% else %}
+Edit Bill
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+{% if 'create' in request.path %}
+<h1>Create Bill</h1>
+{% else %}
+<h1>Edit Bill</h1>
+<div class="balance-message">
+  <p>Current balance: <span class="balance-amount">${{ bill.amount|div:100|floatformat:2 }}</span></p>
+</div>
+{% endif %}
+
+<form class="sign-up-form form-label form-css-label" method="post">
+  {% csrf_token %}
+  {% for field in form %}
+  <fieldset>
+    <label>{{ field.label }}</label>
+    {{ field }}
+  </fieldset>
+  {% endfor %}
+
+  <button class="submit-link" type="submit" value="Submit">Submit</button>
+</form>
+
+{% if not 'create' in request.path %}
+<a href="/bill/{{ bill.id }}/checkout/">
+  <button class="submit-button" type="submit" value="Submit">Checkout</button>
+</a>
+{% endif %}
+
+{% endblock %}
