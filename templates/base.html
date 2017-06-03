@@ -39,7 +39,7 @@
         <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
         {% endfor %}
         {% block messages %}{% endblock %}
-      </ul>t
+      </ul>
     {% endif %}
 
     <div class="everything-below-messages-bar">
@@ -90,6 +90,7 @@
             {% if user.is_authenticated %}
             <li><a class="mobile-links">Help</a></li>
             <li><a class="mobile-links">Settings</a></li>
+            <li><a class="mobile-links" href='/cards/'>My Cards</a></li>
             {% else %}
             <li><a class="mobile-links">Products</a></li>
             <li><a class="mobile-links">Business</a></li>
