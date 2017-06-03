@@ -38,13 +38,13 @@
 {% endblock %}
 
 {% block content %}
-<div class="main-container">
-	<h1>Request Access to the Cash Only Beta</h1>
-	<div>Thanks for your interest in registering your business with Cash Only, {{ user.first_name|title }}! Please fill out the following form and we'll get back to you as soon as possible!</div>
-	<div style="color: red;">Please note that we're only accepting businesses legally incorporated in the United States at this time.</div>
 
-	<div class="center-container">
-    <div class="section">
+<h1>Request Access to the Cash Only Beta</h1>
+<div>Thanks for your interest in registering your business with Cash Only, {{ user.first_name|title }}! Please fill out the following form and we'll get back to you as soon as possible!</div>
+<div style="color: red;">Please note that we're only accepting businesses legally incorporated in the United States at this time.</div>
+
+<div class="center-container">
+  <div class="section">
     <form class="form-label form-css-label" method="post"> 
       {% csrf_token %}
       {% for field in form %}
@@ -53,12 +53,12 @@
           <label>{{ field.label }}</label>
         </fieldset>
       {% endfor %}
-			<input type="checkbox" class="regular-checkbox" required>I verify that I am a legal owner of the business above.</input>
-			<br>
-      <button type="submit" value="Submit">Submit</button>
 
-	    </form>
-		</div>
+      <button class="submit-button" type="submit" value="Submit">
+      Submit
+      </button>
+
+    </form>
 	</div>
 </div>
 {% endblock %}
