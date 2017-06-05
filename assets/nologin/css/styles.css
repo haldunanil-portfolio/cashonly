@@ -26,11 +26,6 @@ a:hover {
   cursor: pointer;
 }
 
-#id_amount > li > label > input {
-  width: 37px !important;
-  height: 37px !important;
-}
-
 .mobile-links {
   color: #fff !important;
 }

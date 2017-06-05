@@ -47,18 +47,22 @@ fieldset {
 }
 /* global input styles - end*/
 
+.sign-out-mobile-menu:hover > .sign-out {
+  color: #fff !important;
+}
+
 #id_amount {
     padding: 0px;
 }
 
+@media screen and (min-width: 400px) {
+  #payment-form {
+    display: inline-block;
+  }
+}
+
 ul, li {
   text-decoration: none;
-  text-transform: uppercase;
-  font-family: 'Raleway', sans-serif;;
-  font-weight: 700;
-  font-size: 16px;
-  color: #282E33;
-  cursor: pointer;
   list-style: none;
 }
 
