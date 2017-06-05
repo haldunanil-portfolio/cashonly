@@ -7,6 +7,14 @@ body {
   background-size: cover;
 }
 
+input {
+  width: 280px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  height: 37px;
+  background: transparent;
+}
+
 a, a:visited {
     text-decoration: none;
     color: #fff;
@@ -16,6 +24,11 @@ a:hover {
   text-decoration: underline;
   color: #64AC00;
   cursor: pointer;
+}
+
+#id_amount > li > label > input {
+  width: 37px !important;
+  height: 37px !important;
 }
 
 .mobile-links {

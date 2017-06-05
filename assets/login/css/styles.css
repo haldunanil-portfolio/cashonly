@@ -8,6 +8,14 @@ body {
   background-size: cover;
 }
 
+input {
+  width: 280px;
+  border: none;
+  border-bottom: 1px solid #000;
+  height: 37px;
+  background: transparent;
+}
+
 a, a:visited {
     text-decoration: none;
     color: #282E33;

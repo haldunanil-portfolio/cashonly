@@ -11,8 +11,8 @@ body {
 
 /*footer - start*/
 footer {
-  position: absolute;
-  width: 100%;
+  position: relative;
+  display: block;
   height: auto;
   padding: 20px;
   background: #596869;
@@ -30,14 +30,43 @@ footer > ul > li > a {
   text-transform: uppercase;
   font-weight: 700;
 }
-/*footer - end*/
 
-input {
-  background: transparent;
+/* global input styles - start*/
+fieldset {
+  border: none;
+  padding: 0px;
 }
 
+@media screen and (max-width: 400px) {
+  input {
+    width: 100% !important;
+  }
+  button {
+    width: 100% !important;
+  }
+}
+/* global input styles - end*/
+
+#id_amount {
+    padding: 0px;
+}
+
+ul, li {
+  text-decoration: none;
+  text-transform: uppercase;
+  font-family: 'Raleway', sans-serif;;
+  font-weight: 700;
+  font-size: 16px;
+  color: #282E33;
+  cursor: pointer;
+  list-style: none;
+}
+
+/*footer - end*/
+
 .everything-below-messages-bar {
-  height: 100vh;
+  height: auto;
+  margin-bottom: 20vh;
 }
 
 .sign-out {
@@ -49,7 +78,7 @@ input {
   margin: 20px;
 }
 
-.submit-button {
+button {
   background: #64AC00;
   font-family: 'Raleway', sans-serif;;
   font-weight: 800;
@@ -64,7 +93,7 @@ input {
   margin-top: 20px;
 }
 
-.submit-button:hover, .submit-button:active, .submit-button:focus {
+button:hover, button:active, button:focus {
   color: white;
   background: #596869;
   box-shadow: transparent;
@@ -102,9 +131,12 @@ input {
 }
 /*404 message - end*/
 
+.mobile-menu-toggle {
+  z-index: +1
+}
+
 @media screen and (max-width: 768px) {
   .mobile-menu-toggle {
-    padding-top: 10px;
     width: 30px;
     height: 60.5px;
     background: transparent;
@@ -167,7 +199,6 @@ input {
 }
 
 .main-container {
-  width: 100%;
   position: relative;
   text-align: center;
   padding: 50px 20px 0px 20px;
@@ -299,6 +330,11 @@ h1 {
   .desktop-links {
     display: none;
   }
+  .main-container {
+    position: relative;
+    text-align: center;
+    padding: 237px 20px 0px 20px;
+  }
 }
 
 @media screen and (min-width: 767px) {
@@ -410,86 +446,8 @@ h1 {
   }
 }
 
-/*animated inputs*/
-fieldset {
-  margin: 0;
-  padding: 0;
-  border: 0;
-}
-
-input {
-  display: block;
-  width: 100%;
-  height: 3em;
-  padding: 16px 8px;
-  border: 0;
-  border-radius: 0;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1;
-  outline: 0;
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
-  -webkit-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
-}
-
-.form-label fieldset {
-  position: relative;
-}
-.form-label fieldset:first-child input {
-  border-radius: 4px 4px 0 0;
-}
-.form-label fieldset:last-child input {
-  border-radius: 0 0 4px 4px;
-  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.15);
-}
-.form-label fieldset + fieldset {
-}
-fieldset {
-  border-bottom: 1px solid #ddd;
-}
-.form-label label {
-  position: absolute;
-  top: 15px;
-  left: 8px;
-  color: #282E33;
-  -webkit-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
-  -webkit-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
-}
-
-.form-css-label input[data-empty="false"], .form-css-label input:valid, .form-css-label input:focus {
-  padding: 22px 8px 10px;
-}
-.form-css-label input:focus {
-  outline: 0;
-  background: white;
-}
-.form-css-label input[data-empty="false"] + label, .form-css-label input:valid + label, .form-css-label input:focus + label {
-  color: #64AC00;
-  font-weight: 700;
-  font-size: 12px;
-  -webkit-transform: translate3d(0, -10px, 0);
-  transform: translate3d(0, -10px, 0);
-}
-
-.section form {
-  max-width: 279px;
-  margin: 0 auto 20px;
-}
-
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-}
-
 .messages {
   background: #d84949;
-  width: 100%;
   height: auto;
   padding: 20px;
   color: white;
@@ -601,16 +559,12 @@ fieldset {
   border: none;
 }
 
-#id_phone_number {
-  border: solid 1px #64AC00;
-}
-
 /*new mobile nav - start*/
 .navmenu-default {
   background-color: rgba(89, 104, 105, 0.96);
   height: 100%;
   width: 100%;
-  position: fixed;
+  position: absolute;
   z-index: +999;
   display: none;
 }
@@ -647,7 +601,7 @@ fieldset {
   height: 80px;
   background: transparent;
   position: relative;
-  top: 40px;
+  top: 30px;
   right: 40px;
   float: right;
   cursor: pointer;
