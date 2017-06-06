@@ -6,7 +6,7 @@ body {
   font-family: 'Raleway', sans-serif;
   position: relative;
   min-height: 100%;
-  padding-bottom: 6rem;
+  padding-bottom: 0px !important;
 }
 
 /*footer - start*/
@@ -70,7 +70,7 @@ ul, li {
 
 .everything-below-messages-bar {
   height: auto;
-  margin-bottom: 20vh;
+  margin-bottom: 25vh;
 }
 
 .sign-out {
@@ -484,7 +484,7 @@ h1 {
   font-style: italic;
   color: #FFFFFF;
   width: 280px;
-  height: 50px;
+  height: 67px;
   margin: 0 auto;
   display: block;
   text-align: center;
@@ -492,6 +492,7 @@ h1 {
   outline: none;
   border: none;
   text-decoration: none;
+  padding: 10px;
 }
 
 .facebook-button-logo {
@@ -511,7 +512,7 @@ h1 {
   font-style: italic;
   color: #FFFFFF;
   width: 280px;
-  height: 50px;
+  height: 67px;
   margin: 0 auto;
   display: block;
   text-align: center;
@@ -519,6 +520,7 @@ h1 {
   outline: none;
   border: none;
   text-decoration: none;
+  padding: 10px 15px 15px 10px;
 }
 
 .google-button-logo {
