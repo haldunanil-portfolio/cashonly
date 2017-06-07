@@ -90,11 +90,11 @@ button {
   color: white;
   border: none;
   width: 280px;
-  height: 37px;
   text-transform: uppercase;
   cursor: pointer;
   margin-bottom: 25px;
   margin-top: 20px;
+  padding: 10px 5px 10px 5px;
 }
 
 button:hover, button:active, button:focus {
@@ -647,11 +647,20 @@ h1 {
 
 .submit-link {
   background: transparent;
-  color: #64AC00;
+  color: #64AC00 !important;
+  font-weight: 700;
 }
 
 .submit-link:hover {
   background: transparent;
   color: #64AC00;
   text-decoration: underline;
+}
+
+.sign-up-form > fieldset > label {
+  font-weight: 700;
+}
+
+.id_tip_amount > li > label > input {
+  width: 0px !important;
 }

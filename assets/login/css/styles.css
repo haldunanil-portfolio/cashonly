@@ -26,3 +26,7 @@ a:hover {
   color: #64AC00;
   cursor: pointer;
 }
+
+.main-container {
+  padding-top: 130px !important;
+}
