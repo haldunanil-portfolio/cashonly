@@ -67,6 +67,12 @@
           <li><a href="/sign-in/">Sign In</a></li>
           {% endif %}
 
+          {% if request.user|has_group:"Consumers" %}
+          <li><a href='/cards/'>My Cards</a></li>
+          {% elif request.user|has_group:"Business Employees" %}
+          <li><a href='/completed-transactions/'>Closed Bills</a></li>
+          {% endif %}
+
           {% load flatpages %}
           {% get_flatpages as flatpages %}
           {% for page in flatpages %}
@@ -90,7 +96,13 @@
             {% if user.is_authenticated %}
             <li><a class="mobile-links">Help</a></li>
             <li><a class="mobile-links">Settings</a></li>
+
+            {% if request.user|has_group:"Consumers" %}
             <li><a class="mobile-links" href='/cards/'>My Cards</a></li>
+            {% elif request.user|has_group:"Business Employees" %}
+            <li><a class="mobile-links" href='/completed-transactions/'>Closed Bills</a></li>
+            {% endif %}
+
             {% else %}
             <li><a class="mobile-links">Products</a></li>
             <li><a class="mobile-links">Business</a></li>
