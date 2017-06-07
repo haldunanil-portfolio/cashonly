@@ -25,7 +25,7 @@
 <div class="transaction">
   <ul class="transactions-item-detail">
       <li class="transaction-delete transaction-data">
-        <a href="/bill/{{ bill.id }}/delete/" onclick="return confirm_alert(this);">X</a>
+        <a class="delete-transaction" href="/bill/{{ bill.id }}/delete/" onclick="return confirm_alert(this);">x</a>
       </li>
       <li class="transaction-date transaction-data">
         {{ bill.timestamp }}
@@ -36,12 +36,10 @@
       <li class="transaction-edit transaction-data">
         <a href="/bill/{{ bill.id }}/">Tap to edit</a>
       </li>
-      <li>
-        <a href="/bill/{{ bill.id }}/checkout/">
-          <button class="submit-button">Checkout</button>
-        </a>
-      </li>
   </ul>
+    <a href="/bill/{{ bill.id }}/checkout/">
+      <button class="submit-button">Checkout</button>
+    </a>
 </div>
 {% endfor %}
 

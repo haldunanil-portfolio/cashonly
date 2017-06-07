@@ -47,6 +47,10 @@ fieldset {
 }
 /* global input styles - end*/
 
+ul {
+  padding: 0px;
+}
+
 .sign-out-mobile-menu:hover > .sign-out {
   color: #fff !important;
 }
@@ -661,6 +665,73 @@ h1 {
   font-weight: 700;
 }
 
-.id_tip_amount > li > label > input {
-  width: 0px !important;
+.edit-icon {
+  fill: #64AC00;
+  stroke: #64AC00;
+  background: transparent;
+  height: 18px;
+}
+
+.bill-checkout-id {
+  color: #64AC00;
+  font-weight: 700;
+  font-size: 34px;
+}
+
+.transaction-delete {
+  width: 15px;
+}
+
+.transaction-edit > a {
+  font-weight: 700;
+  color: #64AC00;
+}
+
+.delete-transaction {
+  color: red;
+  font-weight: 700;
+  font-size: 24px;
+  text-transform: lowercase;
+}
+
+.card-radio {
+  width: 20px !important;
+  display: block;
+  margin: 0 auto;
+  border: 2px solid #64AC00;
+}
+
+.default-card-instruction {
+  font-weight: 700;
+  color: #282E33;
+  margin: 0px;
+}
+
+.credit-card-detail {
+  padding: 0px;
+}
+
+.credit-card {
+  margin-bottom: 15px;
+  border-bottom: 1px solid #282E33;
+}
+
+@media screen and (min-width: 850px) {
+  .credit-card {
+    margin: 0px 300px 0px 300px;
+  }
+}
+
+#id_tip_amount {
+  padding: 0px !important;
+}
+
+.avoid-fee-message {
+  display: inline;
+  font-weight: 500;
+  color: #64AC00;
+}
+
+.right-column {
+  font-weight: 500;
 }
