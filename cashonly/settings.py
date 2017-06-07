@@ -29,7 +29,8 @@ ALLOWED_HOSTS = [
     '.elasticbeanstalk.com',
     'localhost',
     '127.0.0.1',
-    '.cashon.ly'
+    '.cashon.ly',
+    '.pythonanywhere.com'
 ]
 
 INTERNAL_IPS = (
