@@ -68,7 +68,8 @@ class CustomTipForm(forms.Form):
                                     decimal_places=2,
                                     widget=forms.NumberInput(
                                         attrs={
-                                            "type": "number"
+                                            "type": "number",
+                                            "id": "number"
                                         }
                                     ))
 
@@ -80,6 +81,7 @@ class CreateEditBillForm(forms.Form):
                                       decimal_places=2,
                                       widget=forms.NumberInput(
                                           attrs={
-                                              "type": "number"
+                                              "type": "number",
+                                              "id": "number"
                                           }
                                       ))
