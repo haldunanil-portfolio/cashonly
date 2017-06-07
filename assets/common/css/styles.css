@@ -70,7 +70,7 @@ ul, li {
 
 .everything-below-messages-bar {
   height: auto;
-  margin-bottom: 25vh;
+  margin-bottom: 30vh;
 }
 
 .sign-out {
@@ -644,3 +644,14 @@ h1 {
   margin-bottom: 5px;
 }
 /*new mobile nav - end*/
+
+.submit-link {
+  background: transparent;
+  color: #64AC00;
+}
+
+.submit-link:hover {
+  background: transparent;
+  color: #64AC00;
+  text-decoration: underline;
+}
