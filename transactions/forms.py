@@ -16,7 +16,7 @@ class RefillAccountForm(forms.Form):
     amount = forms.ChoiceField(
         widget=forms.RadioSelect(
             attrs={'onclick': 'this.form.submit();',
-                   'class': 'button'}
+                   'class': 'refill-radio'}
         ),
         choices=OPTIONS
     )
@@ -57,7 +57,7 @@ class TipForm(forms.Form):
     tip_amount = forms.ChoiceField(
         widget=forms.RadioSelect(
             attrs={'onclick': 'this.form.submit();',
-                   'class': 'button'}
+                   'class': 'tip-radio'}
         ),
         choices=OPTIONS
     )

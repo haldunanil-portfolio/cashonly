@@ -3,7 +3,6 @@
 {% block title %}Next Steps{% endblock %}
 
 {% block content %}
-<div class="main-container">
 	<h1>Thank you for signing up, {{ user.first_name|title }}!</h1>
 	<p>We just need a little more info from you!</p>
 
@@ -18,7 +17,7 @@
 	      {% for field in form %}
 	        <fieldset>
 	          {{ field }}
-	          <label>{{ field.label }}</label>
+	          <!-- <label>{{ field.label }}</label> -->
 	        </fieldset>
 	      {% endfor %}
 
@@ -29,5 +28,4 @@
 	    </form>
 		</div>
 	</div>
-</div>
 {% endblock %}

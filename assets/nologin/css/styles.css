@@ -7,6 +7,14 @@ body {
   background-size: cover;
 }
 
+input {
+  width: 280px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  height: 37px;
+  background: transparent;
+}
+
 a, a:visited {
     text-decoration: none;
     color: #fff;
