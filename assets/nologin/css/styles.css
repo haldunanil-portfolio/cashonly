@@ -26,6 +26,10 @@ a:hover {
   cursor: pointer;
 }
 
+input {
+    color: #fff;
+}
+
 .mobile-links {
   color: #fff !important;
 }
