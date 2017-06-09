@@ -21,9 +21,9 @@
     </g></svg>
   </a>{% endif %}
 </div>
-
+<br>
 <div>
-  Your current balance is: ${{ request.user.customerbalance.account_balance|div:100|floatformat:2 }}
+  FYI: Your current account balance is: ${{ request.user.customerbalance.account_balance|div:100|floatformat:2 }}
 </div>
 
 {% if request.user.customerbalance.account_balance < bill.amount|add:bill.tip %}

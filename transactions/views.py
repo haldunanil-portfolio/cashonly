@@ -5,9 +5,7 @@ from transactions.forms import BillSelectForm
 from transactions.models import Bill
 from django.contrib import messages
 from django.http import Http404
-from transactions.forms import TipForm
 from transactions.forms import CustomTipForm
-from transactions.forms import RefillAccountForm
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import user_passes_test
 from transactions.forms import CreateEditBillForm
@@ -102,11 +100,10 @@ def reload_my_account(request):
     """
     Adds money to user balance
     """
-    if request.method == 'POST':
-        form = RefillAccountForm(request.POST)
-        if form.is_valid():
+    if request.method == 'POST' and "reload-selector" in request.POST:
+        if request.POST.get("reload-selector") in ("2500", "5000", "10000"):
             # grab the submitted amount
-            amount = float(form.cleaned_data['amount'])
+            amount = float(request.POST.get("reload-selector"))
 
             # create an AddToBalance instance and process it
             added_balance = AddToBalance(user=request.user, amount=amount)
@@ -125,10 +122,10 @@ def reload_my_account(request):
             )
             return redirect('/')
 
-    else:
-        form = RefillAccountForm()
+        else:
+            raise ValueError("Invalid value entered, please try again.")
 
-    return render(request, 'add_to_balance.html', {'form': form})
+    return render(request, 'reload_account.html')
 
 
 @login_required(login_url='/sign-in/')
@@ -137,7 +134,7 @@ def select_bill(request):
     """
     Finds a bill based on its ID number.
     """
-    if request.method == 'POST':
+    if request.method == 'POST' and "tip-selector" in request.POST:
         form = BillSelectForm(request.POST)
         if form.is_valid():
             # look up db for id number
@@ -262,27 +259,18 @@ def tip_bill(request, bill_id):
         return redirect('/select-bill/')
 
     if request.method == "POST":
-        form = TipForm(request.POST)
-        if form.is_valid():
 
-            # determine if tip amount is custom or not
-            if form.cleaned_data['tip_amount'] == 'custom':
-                url = '/select-bill/%s/custom-tip/' % bill.id
-                return redirect(url)
+        if request.POST.get("tip-selector") == "custom":
+            url = '/select-bill/%s/custom-tip/' % bill.id
+            return redirect(url)
+        elif request.POST.get("tip-selector") in ("0.15", "0.18", "0.20"):
+            tip_amount = float(request.POST.get("tip-selector")) * bill.amount
+            bill.tip = tip_amount
+            bill.save()
+        else:
+            raise ValueError("An invalid value was entered.")
 
-            # if not custom, add amount to bill object and go to payment screen
-            else:
-                tip_amount = float(form.cleaned_data['tip_amount']) * bill.amount
-                bill.tip = tip_amount
-                bill.save()
-
-                url = '/select-bill/%s/pay/' % bill.id
-                return redirect(url)
-
-    else:
-        form = TipForm()
-
-    return render(request, 'bill_tip_cust.html', {'form': form, 'bill': bill})
+    return render(request, 'bill_tip_cust.html', {'bill': bill})
 
 
 @login_required(login_url='/sign-in/')
