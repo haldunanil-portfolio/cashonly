@@ -134,7 +134,7 @@ def select_bill(request):
     """
     Finds a bill based on its ID number.
     """
-    if request.method == 'POST' and "tip-selector" in request.POST:
+    if request.method == 'POST':
         form = BillSelectForm(request.POST)
         if form.is_valid():
             # look up db for id number
@@ -258,7 +258,7 @@ def tip_bill(request, bill_id):
         messages.info(request, "This bill belongs to another customer.")
         return redirect('/select-bill/')
 
-    if request.method == "POST":
+    if request.method == "POST" and "tip-selector" in request.POST:
 
         if request.POST.get("tip-selector") == "custom":
             url = '/select-bill/%s/custom-tip/' % bill.id

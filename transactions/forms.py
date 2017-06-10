@@ -10,7 +10,8 @@ class BillSelectForm(forms.Form):
     bill_code = forms.IntegerField(
         widget=forms.NumberInput(
             attrs={
-                "type": "tel"
+                "type": "tel",
+                "placeholder": "Enter Bill Code Here"
                 }
         )
     )
@@ -48,6 +49,7 @@ class CreateEditBillForm(forms.Form):
                                       decimal_places=2,
                                       widget=forms.NumberInput(
                                           attrs={
-                                              "type": "number"
+                                              "type": "number",
+                                              "placeholder": "Enter Bill Amount"
                                           }
                                       ))
