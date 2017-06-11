@@ -20,6 +20,14 @@ class RegistrationForm(UserCreationForm):
             'password2',
         )
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs['placeholder'] = 'Email'
+        self.fields['first_name'].widget.attrs['placeholder'] = 'First Name'
+        self.fields['last_name'].widget.attrs['placeholder'] = 'Last Name'
+        self.fields['password1'].widget.attrs['placeholder'] = 'Password'
+        self.fields['password2'].widget.attrs['placeholder'] = 'Password (Confirm)'
+
     def save(self, commit=True):
         user = super(RegistrationForm, self).save(commit=False)
         user.first_name = self.cleaned_data['first_name']
@@ -41,6 +49,11 @@ class ProfileForm(ModelForm):
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(max_length=150, label="Email")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs['placeholder'] = 'Email'
+        self.fields['password'].widget.attrs['placeholder'] = 'Password'
 
 class BusinessForm(ModelForm):
     class Meta:

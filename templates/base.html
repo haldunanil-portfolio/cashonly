@@ -58,19 +58,20 @@
           <div class="left-line"></div>
         </div>
         <ul class="nav-options">
-
-          <li><a href="/">Home</a></li>
-          {% if user.is_authenticated %}
-          <li class="sign-out-mobile-menu"><a class="sign-out" href="/sign-out/">Sign Out</a></li>
-          {% else %}
-          <li><a href="/sign-up/">Sign Up</a></li>
-          <li><a href="/sign-in/">Sign In</a></li>
-          {% endif %}
+          <li class="hide-home-if-login"><a href="/">Home</a></li>
 
           {% if request.user|has_group:"Consumers" %}
           <li><a href='/cards/'>My Cards</a></li>
           {% elif request.user|has_group:"Business Employees" %}
           <li><a href='/completed-transactions/'>Closed Bills</a></li>
+          {% endif %}
+
+          {% if user.is_authenticated %}
+          <li><a href="/">Transactions</a></li>
+          <li class="sign-out-mobile-menu"><a class="sign-out" href="/sign-out/">Sign Out</a></li>
+          {% else %}
+          <li><a href="/sign-up/">Sign Up</a></li>
+          <li><a href="/sign-in/">Sign In</a></li>
           {% endif %}
 
           {% load flatpages %}

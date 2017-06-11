@@ -27,6 +27,13 @@ a:hover {
   cursor: pointer;
 }
 
-.main-container {
-  padding-top: 130px !important;
+@media screen and (min-width: 767px) {
+
+  .main-container {
+    padding-top: 50px !important;
+  }
+}
+
+.hide-home-if-login {
+  display: none;
 }

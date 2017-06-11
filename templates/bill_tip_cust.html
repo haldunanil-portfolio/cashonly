@@ -10,7 +10,7 @@
 
 <div>
   Your total is <span class="balance-amount">${{ bill.amount|add:bill.tip|div:100|floatformat:2 }}</span>
-  {% if bill.tip > 0 %}(including a <a class="submit-link" href="/select-bill/{{ bill.id }}/tip/">${{ bill.tip|div:100|floatformat:2 }} tip
+  {% if bill.tip > 0 %}including a <a class="submit-link" href="/select-bill/{{ bill.id }}/tip/">${{ bill.tip|div:100|floatformat:2 }} tip
     <svg class="edit-icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px" height="24px" viewBox="0 0 24 24"><g  transform="translate(0, 0)">
     <polygon fill="none" stroke="#64AC00" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" points="7,21 2,22 3,17
     15,5 19,9 " stroke-linejoin="miter"/>
@@ -19,9 +19,9 @@
     <polyline fill="none" stroke="#64AC00" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" points="19,9 22,12 16,18
     " stroke-linejoin="miter"/>
     </g></svg>
-  </a>){% endif %}.
+  </a>{% endif %}
 </div>
-
+<br>
 {% if bill.tip > 0 %}
 <div>
   Note: You may revise your tip amount using the options below.
@@ -30,19 +30,48 @@
 
 <form class="sign-up-form form-label form-css-label" method="post">
   {% csrf_token %}
+  {% if 'custom' in request.path %}
   {% for field in form %}
-  <fieldset>
-    <label>{{ field.label }}</label>
     {{ field }}
-  </fieldset>
   {% endfor %}
+
+  {% else %}
+  <div class="radio-buttons-container">
+    <ul class="radio-button-list">
+      <li class="radio-button-list-items">
+        <input class="radio-input" type="radio" id="f-option" name="tip-selector" value="0.15" onclick="this.form.submit();">
+        <label class="radio-label" for="f-option">15% Tip</label>
+        <div class="check"></div>
+      </li>
+
+      <li class="radio-button-list-items">
+        <input class="radio-input" type="radio" id="s-option" name="tip-selector" value="0.18" onclick="this.form.submit();">
+        <label class="radio-label" for="s-option">18% Tip</label>
+        <div class="check"><div class="inside"></div></div>
+      </li>
+
+      <li class="radio-button-list-items">
+        <input class="radio-input" type="radio" id="t-option" name="tip-selector" value="0.20" onclick="this.form.submit();">
+        <label class="radio-label" for="t-option">20% Tip</label>
+        <div class="check"><div class="inside"></div></div>
+      </li>
+
+      <li class="radio-button-list-items">
+        <input class="radio-input" type="radio" id="c-option" name="tip-selector" value="custom" onclick="this.form.submit();">
+        <label class="radio-label" for="c-option">Custom</label>
+        <div class="check"><div class="inside"></div></div>
+      </li>
+    </ul>
+  </div>
+  {% endif %}
 
   {% if 'custom' in request.path %}
   <button class="submit-button" type="submit" value="Submit">Submit</button>
-  {% else %}
-  <button class="submit-button" type="submit" value="Submit">Pay</button>
   {% endif %}
 </form>
 
+<a href="/select-bill/{{ bill.id }}/pay">
+  <button class="submit-button" type="submit" value="Submit">Pay</button>
+</a>
 
 {% endblock %}
