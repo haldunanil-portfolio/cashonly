@@ -29,7 +29,8 @@ ALLOWED_HOSTS = [
     '.elasticbeanstalk.com',
     'localhost',
     '127.0.0.1',
-    '.cashon.ly'
+    '.cashon.ly',
+    '.pythonanywhere.com'
 ]
 
 INTERNAL_IPS = (
@@ -107,17 +108,31 @@ LOGIN_REDIRECT_URL = '/'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
+# mysql-- to be used on pythonaywhere
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'codb',
-        'USER': 'postgres',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'haldunanil$codb',
+        'USER': 'haldunanil',
         'PASSWORD': '$$Ca$hcmhaja19',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'HOST': 'haldunanil.mysql.pythonanywhere-services.com',
+        'TEST': {
+            'NAME': 'haldunanil$test_codb'
+        }
     }
 }
 
+# postgres-- to be used on AWS
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'codb',
+#         'USER': 'postgres',
+#         'PASSWORD': '$$Ca$hcmhaja19',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
