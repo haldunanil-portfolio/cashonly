@@ -308,7 +308,7 @@ class SimpleTransactionInitTests(TestCase):
 #         from accounts.stripe import create_customer_stripe_account
 #         from accounts.stripe import create_managed_stripe_account
 #
-#         stripe.api_key = settings.STRIPE_API_TEST_SECRET
+#         stripe.api_key = settings.STRIPE_API_SECRET
 #
 #         # create a user
 #         username = 'test%s@example.com' % int(random() * 10000)

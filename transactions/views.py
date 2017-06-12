@@ -33,7 +33,7 @@ def see_cards(request):
     See added credit cards
     """
     # get stripe object
-    stripe.api_key = settings.STRIPE_API_TEST_SECRET
+    stripe.api_key = settings.STRIPE_API_SECRET
     stripe_cust = stripe.Customer.retrieve(request.user.profile.stripe_id)
 
     # check if default card set, if not return empty page
@@ -59,14 +59,14 @@ def add_new_card(request):
         stripe_token = request.POST.get("stripeToken")
 
         # create a stripe card element
-        stripe.api_key = settings.STRIPE_API_TEST_SECRET
+        stripe.api_key = settings.STRIPE_API_SECRET
         stripe_cust = stripe.Customer.retrieve(request.user.profile.stripe_id)
         new_card = stripe_cust.sources.create(source=stripe_token)
 
         return render(request, 'add_card.html', {'new_card': new_card})
 
     # get stripe public key
-    stripe_public_key = settings.STRIPE_API_TEST_PUBLIC
+    stripe_public_key = settings.STRIPE_API_PUBLIC
 
     return render(
         request, 'add_card.html', {'stripe_public_key': stripe_public_key}
@@ -81,7 +81,7 @@ def change_default_card(request):
     """
     if request.method == 'POST':
         # get stripe object
-        stripe.api_key = settings.STRIPE_API_TEST_SECRET
+        stripe.api_key = settings.STRIPE_API_SECRET
         stripe_cust = stripe.Customer.retrieve(request.user.profile.stripe_id)
 
         # make updates

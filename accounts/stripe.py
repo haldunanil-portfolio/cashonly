@@ -17,7 +17,7 @@ def create_customer_stripe_account(user, commit=True, *args, **kwargs):
     Returns: created Stripe Customer object
     """
     # create account on stripe
-    stripe.api_key = settings.STRIPE_API_TEST_SECRET
+    stripe.api_key = settings.STRIPE_API_SECRET
     customer = stripe.Customer.create(
         email=user.email,
         metadata={
@@ -37,7 +37,7 @@ def create_managed_stripe_account(user, business, *args, **kwargs):
     """
     """
     # create managed account on stripe
-    stripe.api_key = settings.STRIPE_API_TEST_SECRET
+    stripe.api_key = settings.STRIPE_API_SECRET
     account = stripe.Account.create(
         country="US", managed=True,
         business_name=business.name,
