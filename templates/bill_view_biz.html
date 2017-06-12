@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% load mathfilters %}
+
+{% block title %}
+{% if 'checkout' in request.path %}
+Checkout Bill
+{% else %}
+View Bill
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<h1>Open Bill</h1>
+<div class="balance-message">
+  <p>Total balance: <span class="balance-amount">${{ bill.amount|div:100|floatformat:2 }}</span></p>
+</div>
+
+{% if 'checkout' in request.path %}
+<div>
+  <p>Please ask your customer to search for the following code with their Cash Only app:
+</div>
+<div>
+  <p class="bill-checkout-id"> {{ bill.id }} </p>
+</div>
+{% else %}
+<div>
+  <a href="/bill/{{ bill.id }}/edit/">Edit Bill</a>
+</div>
+<div>
+  <a href="/bill/{{ bill.id }}/checkout/">
+    <button class="submit-button">Initiate Checkout</button>
+  </a>
+</div>
+{% endif %}
+
+<div>
+  <a href="/">
+    <button class="close-button">Close</button>
+  </a>
+</div>
+
+{% endblock %}

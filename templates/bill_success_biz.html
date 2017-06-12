@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% load static from staticfiles %}
+
+{% block title %}Payment Success{% endblock %}
+
+{% block content %}
+
+<h1>Success!</h1>
+<div>
+  Your customer, {{ bill.customer.first_name }}, has confirmed payment
+</div>
+<div>
+  {{ bill.business.name }}
+</div>
+
+<div>
+  Thanks for using cash only!
+  <img class="dab-emoji" src="{% static 'nologin/images/dab-emoji.png' %}" alt="" height="" width="24px">
+</div>
+
+<div>
+  <a href="/">
+    <button class="close-button">Done</button>
+  </a>
+</div>
+
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% load mathfilters %}
+
+{% block content %}
+
+<h1>Transactions</h1>
+<div class="balance-message">
+  <p>Howdy, {{ request.user.first_name }}? You currently have <span class="balance-amount">${{ request.user.customerbalance.account_balance|div:100|floatformat:2 }}</span> in your account.</p>
+</div>
+<div>
+  <a href="/reload-my-account/">
+    <button class="submit-button">Reload My Account</button>
+  </a>
+</div>
+<div>
+  <a href="/select-bill/">
+    <button class="submit-link">Select Bill</button>
+  </a>
+</div>
+
+{% if not bills %}
+<div>
+  Nothing here yet... **crickets**
+</div>
+{% endif %}
+
+{% for bill in bills %}
+<div class="transaction">
+  <ul class="transactions-item-detail">
+      <li class="transaction-date transaction-data">
+        {{ bill.timestamp }}
+      </li>
+      <li class="transaction-location transaction-data">
+        {% if bill.paid %}
+        <a href="{{ bill.business.website }}" target="_blank">
+        {% else %}
+        <a href="/select-bill/{{ bill.id }}/">
+        {% endif %}
+          {{ bill.business.name }} {% if not bill.paid %}(Unpaid){% endif %}
+        </a>
+      </li>
+      <li class="transaction-amount transaction-data">
+        ${{ bill.amount|add:bill.tip|div:100|floatformat:2 }}
+      </li>
+      {% if not bill.paid %}
+      <li>
+        <a href="/select-bill/{{ bill.id }}/pay/">
+          <button class="submit-button">Pay Now</button>
+        </a>
+      </li>
+      {% endif %}
+  </ul>
+</div>
+{% endfor %}
+
+{% endblock %}

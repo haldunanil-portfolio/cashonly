@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% load static from staticfiles %}
+
+{% block title %}Your Credit Cards{% endblock %}
+
+{% block content %}
+
+<h1>Existing Credit Cards</h1>
+
+{% if not methods %}
+<div>
+  Nothing here yet... **crickets**
+</div>
+{% endif %}
+
+<form method="post" action='/cards/change-default/'>
+  {% csrf_token %}
+  {% for method in methods %}
+  <div class="credit-card">
+    <ul class="credit-card-detail">
+        <li class="credit-card-default-radio card-data">
+          <input type="radio" class="card-radio" name="new_default" value="{{ method.id }}" onclick="this.form.submit();"><p class="default-card-instruction">Tap radio button above to set as default card</p></input>
+        </li>
+    </ul>
+    <ul class="credit-card-detail">
+        <li class="credit-card-icon card-data">
+        {% with 'sitewide/images/'|add:method.brand|add:'.png' as image_static %}
+          <img src="{% static image_static %}" width="30px">
+        {% endwith %}
+        </li>
+    </ul>
+    <ul class="credit-card-detail">
+        <li class="credit-card-number card-data">
+          &#9679; &#9679; &#9679; &#9679; &nbsp; &#9679; &#9679; &#9679; &#9679; &nbsp; &#9679; &#9679; &#9679; &#9679; &nbsp; {{ method.last4 }}
+        </li>
+    </ul>
+    {% if method.id == default_id %}
+    <ul class="credit-card-detail">
+        <li class="credit-card-number card-data">
+          (Default)
+        </li>
+    </ul>
+    {% endif %}
+  </div>
+  {% endfor %}
+</form>
+
+<a href="/cards/add/">
+  <button class="submit-button">Add New Card</button>
+</a>
+
+{% endblock %}

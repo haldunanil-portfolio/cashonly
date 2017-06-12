@@ -3,31 +3,29 @@
 {% block title %}Next Steps{% endblock %}
 
 {% block content %}
-<div>
 	<h1>Thank you for signing up, {{ user.first_name|title }}!</h1>
-	<div>We just need a little more info from you!</p>
+	<p>We just need a little more info from you!</p>
 
-	<div>
+	<div class="center-container">
 		{% if form.errors %}
-      <p>There is an error with your registration, please try again.</p>
+    <p>There is an error with your registration, please try again.</p>
     {% endif %}
 
     <div class="section">
-    <form class="form-label form-css-label" method="post"> 
-      {% csrf_token %}
-      {% for field in form %}
-        <fieldset>
-          {{ field }}
-          <label>{{ field.label }}</label>
-        </fieldset>
-      {% endfor %}
+	    <form class="phone-number form-label form-css-label" method="post"> 
+	      {% csrf_token %}
+	      {% for field in form %}
+	        <fieldset>
+	          {{ field }}
+	          <!-- <label>{{ field.label }}</label> -->
+	        </fieldset>
+	      {% endfor %}
 
-      <button type="submit" value="Submit">
-      Submit
-      </button>
+	      <button class="submit-button" type="submit" value="Submit">
+	      Submit
+	      </button>
 
-    </form>
+	    </form>
+		</div>
 	</div>
-
-</div>
 {% endblock %}

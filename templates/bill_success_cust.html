@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Payment Success{% endblock %}
+
+{% block content %}
+
+<h1>Success!</h1>
+
+<div>
+  Thanks for using Cash Only to pay at
+</div>
+<div>
+  {{ bill.business.name }}
+</div>
+
+<div>
+  Hope you enjoyed your experience at {{ bill.business.name }}!
+</div>
+
+{% if bill.business.facebook_page %}
+<div>
+  <a href="{{ bill.business.facebook_page }}" target="_blank">
+    <button>Share on Facebook</buton>
+  </a>
+</div>
+{% endif %}
+{% if bill.business.yelp_page %}
+<div>
+  <a href="{{ bill.business.yelp_page }}" target="_blank">
+    <button>Review on Yelp</buton>
+  </a>
+{% endif %}
+</div>
+
+{% endblock %}

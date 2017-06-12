@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% load mathfilters %}
+
+{% block title %}Confirm Bill{% endblock %}
+
+{% block content %}
+
+<h1>{{ bill.business.name }}</h1>
+
+<div class="payment-confirmation">
+  <ul class="payment-confirmation-detail">
+    <li class="left-column payment-confirmation-data">
+      Subtotal
+    </li>
+    <li class="right-column payment-confirmation-data">
+      ${{ bill.amount|div:100|floatformat:2 }}
+    </li>
+  </ul>
+  <ul class="payment-confirmation-detail">
+    <li class="left-column payment-confirmation-data">
+      Tip Amount
+    </li>
+    <li class="right-column payment-confirmation-data">
+      ${{ bill.tip|div:100|floatformat:2 }}
+    </li>
+  </ul>
+  <ul class="payment-confirmation-detail">
+    <li class="left-column payment-confirmation-data">
+      Bill Total
+    </li>
+    <li class="right-column payment-confirmation-data">
+      ${{ bill.amount|add:bill.tip|div:100|floatformat:2 }}
+    </li>
+  </ul>
+  <ul class="payment-confirmation-detail">
+    <li class="left-column payment-confirmation-data">
+      Cash Only Fee
+    </li>
+    <li class="right-column payment-confirmation-data">
+      ${{ bill.amount|add:bill.tip|mul:0.05|div:100|floatformat:2 }} (5%)
+    </li>
+  </ul>
+  <ul class="payment-confirmation-detail">
+    <li class="left-column payment-confirmation-data">
+      Pay-As-You-Go Fee <a class="avoid-fee-message" href="/reload-my-account/">(avoid this by reloading your account!)</a>
+    </li>
+    <li class="right-column payment-confirmation-data">
+      $1
+    </li>
+  </ul>
+  <ul class="payment-confirmation-detail">
+    <li class="left-column payment-confirmation-data">
+      Total Due Today
+    </li>
+    <li class="right-column payment-confirmation-data">
+      ${{ bill.amount|add:bill.tip|mul:1.05|add:100|div:100|floatformat:2 }}
+    </li>
+  </ul>
+</div>
+
+<div>
+  <a href="/select-bill/{{ bill.id }}/process-payment/">
+    <button class="submit-button">Pay Now</button>
+  </a>
+</div>
+
+
+
+{% endblock %}

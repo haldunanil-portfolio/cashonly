@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% load mathfilters %}
+
+{% block title %}Make Payment{% endblock %}
+
+{% block content %}
+
+<h1>{{ bill.business.name }}</h1>
+
+<div>
+  Your total is <span class="balance-amount">${{ bill.amount|add:bill.tip|div:100|floatformat:2 }}</span>
+  {% if bill.tip > 0 %}including a <a class="submit-link" href="/select-bill/{{ bill.id }}/tip/">${{ bill.tip|div:100|floatformat:2 }} tip
+    <svg class="edit-icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px" height="24px" viewBox="0 0 24 24"><g  transform="translate(0, 0)">
+    <polygon fill="none" stroke="#64AC00" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" points="7,21 2,22 3,17
+    15,5 19,9 " stroke-linejoin="miter"/>
+    <path data-color="color-2" data-stroke="none" fill="#64AC00" d="M17.5,3.5l1.879-1.879c0.828-0.828,2.172-0.828,3,0c0.824,0.824,0.831,2.169,0,3
+    L20.5,6.5L17.5,3.5z" stroke-linejoin="miter" stroke-linecap="square"/>
+    <polyline fill="none" stroke="#64AC00" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" points="19,9 22,12 16,18
+    " stroke-linejoin="miter"/>
+    </g></svg>
+  </a>{% endif %}
+</div>
+<br>
+<div>
+  FYI: Your current account balance is: ${{ request.user.customerbalance.account_balance|div:100|floatformat:2 }}
+</div>
+
+{% if request.user.customerbalance.account_balance < bill.amount|add:bill.tip %}
+<div>
+  Your account balance is insufficient for this bill.
+</div>
+<div>
+  <a href="/reload-my-account/">
+    <button class="submit-link">Reload Account</button>
+  </a>
+</div>
+<div>
+  <a href="/select-bill/{{ bill.id }}/confirm-bill/">
+    <button class="submit-button">Pay Now</button>
+  </a>
+</div>
+{% else %}
+<div>
+  <a href="/select-bill/{{ bill.id }}/process-payment/">
+    <button class="submit-button">Pay Now</button>
+  </a>
+</div>
+{% endif %}
+
+
+
+
+
+
+
+
+{% endblock %}

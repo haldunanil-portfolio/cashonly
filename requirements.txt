@@ -1,4 +1,4 @@
-Django
+Django==1.11
 django-storages
 django-phonenumber-field
 psycopg2
@@ -7,3 +7,6 @@ Werkzeug
 pyOpenSSL
 social-auth-app-django
 django-countries
+django-simple-history
+django-mathfilters
+django-tinymce

@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% load mathfilters %}
+
+{% block title %}
+{% if 'create' in request.path %}
+Create New Bill
+{% else %}
+Edit Bill
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+{% if 'create' in request.path %}
+<h1>Create Bill</h1>
+{% else %}
+<h1>Edit Bill</h1>
+<div class="balance-message">
+  <p>Current balance: <span class="balance-amount">${{ bill.amount|div:100|floatformat:2 }}</span></p>
+</div>
+{% endif %}
+
+<form class="sign-up-form form-label form-css-label" method="post">
+  {% csrf_token %}
+  {% for field in form %}
+  <fieldset>
+    <label>{{ field.label }}</label>
+    {{ field }}
+  </fieldset>
+  {% endfor %}
+
+  <button class="submit-link" type="submit" value="Submit">Submit</button>
+</form>
+
+{% if not 'create' in request.path %}
+<a href="/bill/{{ bill.id }}/checkout/">
+  <button class="submit-button" type="submit" value="Submit">Checkout</button>
+</a>
+{% endif %}
+
+{% endblock %}
+
+{% block script %}
+<script>
+  var i = 0,
+      before = [],
+      after = [],
+      value = [],
+      number = '';
+
+  function resetVal() {
+      i = 0;
+      before = [];
+      after = [];
+      value = [];
+      number = '';
+      $("#number").val("");
+      $(".amount").html("");
+      $("#result").val("");
+  }
+
+  function addComma(num) {
+      return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+  $("#number").on("keyup", function (e, v) {
+      if ((e.which >= 48) && (e.which <= 57)) {
+          number = String.fromCharCode(e.which);
+          $(this).val("");
+          value.push(number);
+          before.push(value[i]);
+          if (i > 1) {
+              after.push(value[i - 2]);
+              before.splice(0, 1);
+          }
+          var val_final = after.join("") + "." + before.join("");
+          $(this).val(addComma(val_final));
+          i++;
+          $(".amount").html(" " + $(this).val());
+          $("#result").val(val_final * 0.74);
+      } else {
+          resetVal();
+      }
+  });
+
+  $(".ui-input-text .ui-input-clear").on("click", function () {
+      resetVal();
+  });  
+</script>
+{% endblock %}
