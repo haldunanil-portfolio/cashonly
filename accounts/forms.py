@@ -50,6 +50,7 @@ class ProfileForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['phone_number'].widget.attrs['placeholder'] = 'Phone Number'
+        self.fields['phone_number'].widget.attrs["type"] = "tel"
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(max_length=150, label="Email")
