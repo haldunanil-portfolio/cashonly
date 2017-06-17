@@ -47,6 +47,10 @@ class ProfileForm(ModelForm):
         model = Profile
         fields = ('phone_number',)
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['phone_number'].widget.attrs['placeholder'] = 'Phone Number'
+
 class LoginForm(AuthenticationForm):
     username = forms.CharField(max_length=150, label="Email")
 
