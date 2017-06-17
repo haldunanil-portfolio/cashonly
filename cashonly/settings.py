@@ -278,8 +278,8 @@ TINYMCE_SPELLCHECKER = True
 # Stripe
 # https://dashboard.stripe.com/account/apikeys
 if PRODUCTION:
-    STRIPE_API_SECRET = 'sk_test_iLOI0zuwgnqGncXfEq0SKNNp'
-    STRIPE_API_PUBLIC = 'pk_test_ntvPJgeDpYjjf0OUmmL3RY75'
+    STRIPE_API_SECRET = 'sk_test_wPql0ElQUqIpvW5GpIO3VhdD'
+    STRIPE_API_PUBLIC = 'pk_test_JXCsIi6ufah5qTDQMsgRoQ7r'
 else:
-    STRIPE_API_SECRET = 'sk_test_iLOI0zuwgnqGncXfEq0SKNNp'
-    STRIPE_API_PUBLIC = 'pk_test_ntvPJgeDpYjjf0OUmmL3RY75'
+    STRIPE_API_SECRET = 'sk_test_wPql0ElQUqIpvW5GpIO3VhdD'
+    STRIPE_API_PUBLIC = 'pk_test_JXCsIi6ufah5qTDQMsgRoQ7r'
