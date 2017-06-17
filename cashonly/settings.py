@@ -12,9 +12,9 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import os
 
 # Determine whether webserver running on production environment
-if 'PRODUCTION' in os.environ and os.environ['PRODUCTION']:
+if 'SERVER_MODE' in os.environ and os.environ['SERVER_MODE'] == "PRODUCTION":
     SERVER_MODE = "PRODUCTION"
-elif 'DEV' in os.environ and os.environ['DEV']:
+elif 'SERVER_MODE' in os.environ and os.environ['SERVER_MODE'] == "DEV":
     SERVER_MODE = "DEV"
 else:
     SERVER_MODE = "LOCAL"
