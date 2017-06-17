@@ -16,6 +16,12 @@ input {
   background: transparent;
 }
 
+input, input::placeholder {
+    color: #000;
+    font-weight: 300;
+    font-size: 18px;
+}
+
 a, a:visited {
     text-decoration: none;
     color: #282E33;
