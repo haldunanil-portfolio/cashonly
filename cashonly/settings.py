@@ -136,7 +136,7 @@ elif SERVER_MODE == "DEV":
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'haldunanil$codb-dev',
+            'NAME': 'haldunanil$codb_dev',
             'USER': 'haldunanil',
             'PASSWORD': '$$Ca$hcmhaja19',
             'HOST': 'haldunanil.mysql.pythonanywhere-services.com',
