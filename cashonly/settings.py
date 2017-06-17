@@ -13,9 +13,11 @@ import os
 
 # Determine whether webserver running on production environment
 if 'PRODUCTION' in os.environ and os.environ['PRODUCTION']:
-    PRODUCTION = True
+    SERVER_MODE = "PRODUCTION"
+elif 'DEV' in os.environ and os.environ['DEV']:
+    SERVER_MODE = "DEV"
 else:
-    PRODUCTION = False
+    SERVER_MODE = "LOCAL"
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -28,7 +30,7 @@ SECRET_KEY = '+mr!12odk72qsa&=$ydx5^@c(hz_=*qai@s3fu_sdv!o^(7jzd'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-if not PRODUCTION:
+if SERVER_MODE != "PRODUCTION":
     DEBUG = True
 
 ALLOWED_HOSTS = [
@@ -114,12 +116,27 @@ LOGIN_REDIRECT_URL = '/'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-if PRODUCTION:
+if SERVER_MODE == "PRODUCTION":
     # mysql-- to be used on pythonaywhere
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
             'NAME': 'haldunanil$codb',
+            'USER': 'haldunanil',
+            'PASSWORD': '$$Ca$hcmhaja19',
+            'HOST': 'haldunanil.mysql.pythonanywhere-services.com',
+            'TEST': {
+                'NAME': 'haldunanil$test_codb'
+            }
+        }
+    }
+
+elif SERVER_MODE == "DEV":
+    # mysql-- to be used on pythonaywhere
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'haldunanil$codb-dev',
             'USER': 'haldunanil',
             'PASSWORD': '$$Ca$hcmhaja19',
             'HOST': 'haldunanil.mysql.pythonanywhere-services.com',
@@ -233,7 +250,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
-if PRODUCTION:
+if SERVER_MODE == "PRODUCTION":
+    STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+    STATICFILES_DIRS = (os.path.join('assets'),)
+
+    STATIC_URL = '/static/'
+
+elif SERVER_MODE == "DEV":
     STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
     STATICFILES_DIRS = (os.path.join('assets'),)
@@ -277,7 +301,7 @@ TINYMCE_SPELLCHECKER = True
 
 # Stripe
 # https://dashboard.stripe.com/account/apikeys
-if PRODUCTION:
+if SERVER_MODE == "PRODUCTION":
     STRIPE_API_SECRET = 'sk_test_wPql0ElQUqIpvW5GpIO3VhdD'
     STRIPE_API_PUBLIC = 'pk_test_JXCsIi6ufah5qTDQMsgRoQ7r'
 else:
