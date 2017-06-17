@@ -20,16 +20,16 @@
 {% if bill.business.facebook_page %}
 <div>
   <a href="{{ bill.business.facebook_page }}" target="_blank">
-    <button>Share on Facebook</buton>
+    <button class="share-on-buttons share-on-fb-button">Share on Facebook</button>
   </a>
 </div>
 {% endif %}
 {% if bill.business.yelp_page %}
 <div>
   <a href="{{ bill.business.yelp_page }}" target="_blank">
-    <button>Review on Yelp</buton>
+    <button class="share-on-buttons share-on-yelp-button">Review on Yelp</button>
   </a>
 {% endif %}
 </div>
-
+<a class="send-feedback-link" href="mailto:cashonlyhq@gmail.com?Subject=Customer%20Feedback" target="_top">Send us feedback</a>
 {% endblock %}

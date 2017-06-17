@@ -26,8 +26,10 @@ a:hover {
   cursor: pointer;
 }
 
-input {
+input, input::placeholder {
     color: #fff;
+    font-weight: 300;
+    font-size: 18px;
 }
 
 .mobile-links {

@@ -31,6 +31,20 @@ footer > ul > li > a {
   font-weight: 700;
 }
 
+a {
+  text-decoration: none;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 700;
+  color: #282E33;
+  cursor: pointer;
+}
+
+.send-feedback-link {
+  color: #64AC00;
+  margin-top: 15px;
+  display: block;
+}
+
 /* global input styles - start*/
 fieldset {
   border: none;
@@ -42,6 +56,7 @@ fieldset {
 input {
   display: block;
   margin: 0 auto;
+  margin-top: 15px;
 }
 
 @media screen and (max-width: 400px) {
@@ -114,6 +129,10 @@ button {
   padding: 10px 5px 10px 5px;
 }
 
+button > a {
+  color: #fff;
+}
+
 button:hover, button:active, button:focus {
   color: white;
   background: #596869;
@@ -168,9 +187,7 @@ button:hover, button:active, button:focus {
     right: 50px;
     display: block;
   }
-  .hide-mobile-menu-toggle {
-    display: none;
-  }
+
   .desktop-links {
     display: none;
   }
@@ -178,6 +195,9 @@ button:hover, button:active, button:focus {
 
 @media screen and (min-width: 767px) {
   .mobile-menu-toggle {
+    display: none;
+  }
+  .add-transaction-button {
     display: none;
   }
   .desktop-nav{
@@ -608,7 +628,7 @@ h1 {
 /*new mobile nav - start*/
 .navmenu-default {
   background-color: rgba(89, 104, 105, 0.96);
-  height: 100%;
+  height: 100vh;
   width: 100%;
   position: absolute;
   z-index: +999;
@@ -881,4 +901,42 @@ input[type=radio]:checked ~ .radio-label{
   display: block;
   margin: 0 auto;
   margin-top: 10px;
+}
+
+.share-on-buttons {
+  font-family: 'Raleway', sans-serif;
+  font-size: 18px;
+  color: #FFF !important;
+  font-weight: 400;
+  font-style: italic;
+  width: 280px;
+  height: 67px;
+  margin: 0 auto;
+  display: block;
+  text-align: center;
+  box-shadow: transparent;
+  outline: none;
+  border: none;
+  text-decoration: none;
+  padding: 10px;
+  margin-top: 15px;
+}
+
+.share-on-buttons > a {
+  color: #FFF !important;
+}
+
+.share-on-fb-button {
+  background: #4990E2;
+}
+
+.share-on-yelp-button {
+  background: #D62D20;
+}
+
+.add-transaction-button {
+  position: absolute;
+  top: 113px;
+  right: 110px;
+  cursor: pointer;
 }

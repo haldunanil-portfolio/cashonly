@@ -45,6 +45,18 @@
     <div class="everything-below-messages-bar">
       <!-- navigation is here -->
       {% block nav %}
+
+      {% if user.is_authenticated %}
+      {% if request.user|has_group:"Consumers" %}
+      <a href="/select-bill/">
+      {% elif request.user|has_group:"Business Employees" %}
+      <a href="/create-bill/">
+      {% endif %}
+        <img class="add-transaction-button" src="{% static 'sitewide/images/add-transaction.png' %}" alt="" height="34" width="34px">
+      </a>
+
+      {% endif %}
+
       <div class="mobile-menu-toggle toggle-nav">
         <div class="mobile-menu-line mobile-menu-line-1"></div>
         <div class="mobile-menu-line mobile-menu-line-2"></div>
@@ -95,9 +107,8 @@
         <div class="links-app-top desktop-links">
           <ul>
             {% if user.is_authenticated %}
-            <li><a class="mobile-links">Help</a></li>
-            <li><a class="mobile-links">Settings</a></li>
-
+            <li><a href="https://www.facebook.com/messages/t/cashonlyhq" class="mobile-links">Help</a></li>
+            <!-- <li><a class="mobile-links">Settings</a></li> -->
             {% if request.user|has_group:"Consumers" %}
             <li><a class="mobile-links" href='/cards/'>My Cards</a></li>
             {% elif request.user|has_group:"Business Employees" %}
@@ -159,14 +170,14 @@
     <!-- begin footer block here -->
     {% load flatpages %}
     {% get_flatpages as flatpages %}
-    <footer>
+    <!-- <footer>
       SOMETHING
       {% for page in flatpages %}
       <ul>
         <li><a href="{{ page.url }}">{{ page.title }}</a></li>
       </ul>
       {% endfor %}
-    </footer>
+    </footer> -->
     <!-- end footer block here -->
     {% endblock %}
 
