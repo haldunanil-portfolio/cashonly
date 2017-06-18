@@ -31,7 +31,7 @@ def registration(request):
 									password=form.cleaned_data['password1'])
 
 			# send account creation confirmation email
-			subject = "Thanks for signing up!"
+			subject = "Thanks for signing up, %s!" % new_user.first_name
 			from_email = 'info@cashon.ly'
 			to = new_user.email
 
