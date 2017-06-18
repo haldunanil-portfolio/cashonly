@@ -65,7 +65,15 @@
   var stripe = Stripe('{{ stripe_public_key }}');
 
   // Create an instance of Elements
-  var elements = stripe.elements();
+  var elements = stripe.elements({
+    fonts: [
+      {
+        family: 'Raleway',
+        weight: 300,
+        src: 'url(https://fonts.googleapis.com/css?family=Raleway) format("woff2")',
+      },
+    ]
+  });
 
   // Custom styling can be passed to options when creating an Element.
   // (Note that this demo uses a wider set of styles than the guide below.)
@@ -73,7 +81,7 @@
     base: {
       color: '#32325d',
       lineHeight: '24px',
-      fontFamily: 'Raleway',
+      fontFamily: "Raleway, sans-serif",
       fontSmoothing: 'antialiased',
       fontSize: '14px',
       '::placeholder': {

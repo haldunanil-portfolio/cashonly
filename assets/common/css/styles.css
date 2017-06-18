@@ -345,6 +345,10 @@ button:hover, button:active, button:focus {
   .c-o-logo {
     width: 50%;
   }
+
+  .transaction-location {
+    width: 200px; 
+  }
 }
 
 h1 {
@@ -482,7 +486,7 @@ h1 {
 
   .desktop-links {
     width: auto;
-    right: 0px;
+    right: -158px;
     position: relative;
     padding-right: 50px;
     top: 43px;
@@ -935,8 +939,20 @@ input[type=radio]:checked ~ .radio-label{
 }
 
 .add-transaction-button {
-  position: absolute;
-  top: 113px;
-  right: 110px;
+  position: absolute;;
   cursor: pointer;
+  bottom: 11px;
+}
+
+.mobile-menu-and-add-transaction-button-container {
+  height: 100px;
+  width: 150px;
+  position: relative;
+  display: block;
+  float: right;
+}
+
+.if-bill-not-payed-pay-button {
+  display: block;
+  margin-top: 35px;
 }

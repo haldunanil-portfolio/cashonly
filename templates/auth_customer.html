@@ -44,9 +44,9 @@
         ${{ bill.amount|add:bill.tip|div:100|floatformat:2 }}
       </li>
       {% if not bill.paid %}
-      <li>
+      <li class="if-bill-not-payed-pay-button">
         <a href="/select-bill/{{ bill.id }}/pay/">
-          <button class="submit-button">Pay Now</button>
+          <button class="submit-button">Pay This Bill</button>
         </a>
       </li>
       {% endif %}

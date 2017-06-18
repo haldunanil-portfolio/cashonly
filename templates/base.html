@@ -46,22 +46,23 @@
       <!-- navigation is here -->
       {% block nav %}
 
-      {% if user.is_authenticated %}
-      {% if request.user|has_group:"Consumers" %}
-      <a href="/select-bill/">
-      {% elif request.user|has_group:"Business Employees" %}
-      <a href="/create-bill/">
-      {% endif %}
-        <img class="add-transaction-button" src="{% static 'sitewide/images/add-transaction.png' %}" alt="" height="34" width="34px">
-      </a>
+      <div class="mobile-menu-and-add-transaction-button-container">
+        {% if user.is_authenticated %}
+        {% if request.user|has_group:"Consumers" %}
+        <a href="/select-bill/">
+        {% elif request.user|has_group:"Business Employees" %}
+        <a href="/create-bill/">
+        {% endif %}
+          <img class="add-transaction-button" src="{% static 'sitewide/images/add-transaction.png' %}" alt="" height="34" width="34px">
+        </a>
+        {% endif %}
 
-      {% endif %}
-
-      <div class="mobile-menu-toggle toggle-nav">
-        <div class="mobile-menu-line mobile-menu-line-1"></div>
-        <div class="mobile-menu-line mobile-menu-line-2"></div>
-        <div class="mobile-menu-line mobile-menu-line-3"></div>
-        <div class="mobile-menu-line mobile-menu-line-4"></div>
+        <div class="mobile-menu-toggle toggle-nav">
+          <div class="mobile-menu-line mobile-menu-line-1"></div>
+          <div class="mobile-menu-line mobile-menu-line-2"></div>
+          <div class="mobile-menu-line mobile-menu-line-3"></div>
+          <div class="mobile-menu-line mobile-menu-line-4"></div>
+        </div>
       </div>
 
       <div class="navmenu navmenu-default">

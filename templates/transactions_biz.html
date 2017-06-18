@@ -5,13 +5,13 @@
 {% block content %}
 
 <h1>Closed Bills</h1>
+{% if bills %}
 <div class="balance-message">
   <p>Hi, {{ request.user.first_name }}! Fun fact: {{ request.user.profile.business }} has made <span class="balance-amount">${{ total|div:100|floatformat:2 }}</span> through Cash Only.</p>
 </div>
-
-{% if not bills %}
-<div>
-  Nothing here yet... **crickets**
+{% else %}
+<div class="balance-message">
+  <p>Nothing here yet... **crickets**</p>
 </div>
 {% endif %}
 
