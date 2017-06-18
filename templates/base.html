@@ -156,7 +156,7 @@
           <svg class="mini-div" width="48" height="7" viewBox="360 56 48 7"><path d="M361.9 59.7L406 59.7" style="fill:none;stroke:#979797"/></svg>
           <img class="c-o-logo" src="{% static 'sitewide/images/cash-only-full-logo-white.png' %}" alt="" height="" width="300px">
           <div class="promotional-message">
-            <i>Cash Only</i> is the only platform that allows you to pay with your existing credit cards, bank accounts, and mobile wallets at previously cash only businesses. Save hundreds of $$$ every year in ATM fees by going <i>Cash Only</i>!
+            <i>Cash Only</i> is the only platform that allows you to pay with your existing credit cards, bank accounts, and mobile wallets at previously cash only businesses. Save hundreds of $$$ every year in ATM fees and support local businesses by going <i>Cash Only</i>!
         	  <img class="dab-emoji" src="{% static 'nologin/images/dab-emoji.png' %}" alt="" height="" width="24px">
           </div>
           {% endif %}
@@ -189,7 +189,52 @@
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="{% static 'sitewide/js/animations.js' %}"></script>
     <script src="{% static 'sitewide/js/mobile-menu.js' %}"></script>
+    <!-- Stripe js -->
     <script src="https://js.stripe.com/v3/"></script>
+    {% if not SERVER_MODE == "LOCAL" %}
+    <!-- The GA and Fullstory code should not run locally -->
+    <script>
+      // Main Google Analytics js block
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      {% if SERVER_MODE == "PRODUCTION" %}
+      ga('create', 'UA-101220205-3', 'auto');
+      {% elif SERVER_MODE == "DEV" %}
+      ga('create', 'UA-101220205-2', 'auto');
+      {% endif %}
+      ga('send', 'pageview');
+
+      // Main Full Story js block
+      window['_fs_debug'] = false;
+      window['_fs_host'] = 'fullstory.com';
+      window['_fs_org'] = '56TQZ';
+      window['_fs_namespace'] = 'FS';
+      (function(m,n,e,t,l,o,g,y){
+          if (e in m && m.console && m.console.log) { m.console.log('FullStory namespace conflict. Please set window["_fs_namespace"].'); return;}
+          g=m[e]=function(a,b){g.q?g.q.push([a,b]):g._api(a,b);};g.q=[];
+          o=n.createElement(t);o.async=1;o.src='https://'+_fs_host+'/s/fs.js';
+          y=n.getElementsByTagName(t)[0];y.parentNode.insertBefore(o,y);
+          g.identify=function(i,v){g(l,{uid:i});if(v)g(l,v)};g.setUserVars=function(v){g(l,v)};
+          g.identifyAccount=function(i,v){o='account';v=v||{};v.acctId=i;g(o,v)};
+          g.clearUserCookie=function(c,d,i){if(!c || document.cookie.match('fs_uid=[`;`]*`[`;`]*`[`;`]*`')){
+          d=n.domain;while(1){n.cookie='fs_uid=;domain='+d+
+          ';path=/;expires='+new Date(0).toUTCString();i=d.indexOf('.');if(i<0)break;d=d.slice(i+1)}}};
+      })(window,document,window['_fs_namespace'],'script','user');
+
+      {% if user.is_authenticated %}
+      // Fullstory user identification
+      FS.identify('{{ user.id }}', {
+        displayName: '{{ user.get_full_name|default:user.username }}',
+        email: '{{ user.email }}',
+        serverMode: '{{ SERVER_MODE }}'
+      });
+      {% endif %}
+    </script>
+    {% endif %}
+
 
     {% block script %}
     <!-- begin additional js block here -->
