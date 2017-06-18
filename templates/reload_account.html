@@ -21,19 +21,19 @@
   <div class="radio-buttons-container">
     <ul class="radio-button-list">
       <li class="radio-button-list-items">
-        <input class="radio-input" type="radio" id="f-option" name="reload-selector" value="2500" onclick="this.form.submit();">
+        <input class="radio-input" type="radio" id="f-option" name="reload-selector" value="2500" >
         <label class="radio-label" for="f-option">$25 (+$1.25 fee)</label>
         <div class="check"></div>
       </li>
 
       <li class="radio-button-list-items">
-        <input class="radio-input" type="radio" id="s-option" name="reload-selector" value="5000" onclick="this.form.submit();">
+        <input class="radio-input" type="radio" id="s-option" name="reload-selector" value="5000" >
         <label class="radio-label" for="s-option">$50 (+$2.5 fee)</label>
         <div class="check"><div class="inside"></div></div>
       </li>
 
       <li class="radio-button-list-items">
-        <input class="radio-input" type="radio" id="t-option" name="reload-selector" value="10000" onclick="this.form.submit();">
+        <input class="radio-input" type="radio" id="t-option" name="reload-selector" value="10000" >
         <label class="radio-label" for="t-option"> $100 (+$5 fee)</label>
         <div class="check"><div class="inside"></div></div>
       </li>
@@ -41,6 +41,18 @@
   </div>
 </form>
 
+{% endblock %}
 
+{% block script %}
+<script>
+  $(document).ready(function() {
+    $(".radio-input").click(function() {
+      var value = $(this).val() / 100;
 
+      if (confirm("Please confirm you want to add $"+value+" to your account, with a $"+value*0.05+" fee.")) {
+        this.form.submit();
+      };
+    })
+  });
+</script>
 {% endblock %}
