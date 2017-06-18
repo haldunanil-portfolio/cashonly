@@ -229,7 +229,7 @@
       FS.identify('{{ user.id }}', {
         displayName: '{{ user.get_full_name|default:user.username }}',
         email: '{{ user.email }}',
-        serverMode: '{{ SERVER_MODE }}'
+        serverMode_str: '{{ SERVER_MODE }}'
       });
       {% endif %}
     </script>
