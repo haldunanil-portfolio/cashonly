@@ -72,6 +72,7 @@ INSTALLED_APPS = [
     'appconfig',
     'simple_history',
     'mathfilters',
+    'anymail',
 ]
 
 MIDDLEWARE = [
@@ -315,3 +316,18 @@ if SERVER_MODE == "PRODUCTION":
 else:
     STRIPE_API_SECRET = 'sk_test_wPql0ElQUqIpvW5GpIO3VhdD'
     STRIPE_API_PUBLIC = 'pk_test_JXCsIi6ufah5qTDQMsgRoQ7r'
+
+# Email setup
+if SERVER_MODE == "PRODUCTION":
+    ANYMAIL = {
+        "MAILGUN_API_KEY": "key-1cc51910116a94108a2cf3458fdf7bbd",
+        "MAILGUN_SENDER_DOMAIN": "cashon.ly"
+    }
+else:
+    ANYMAIL = {
+        "MAILGUN_API_KEY": "key-1cc51910116a94108a2cf3458fdf7bbd",
+        "MAILGUN_SENDER_DOMAIN": "sandboxded023e244ca4eb2b086dbc060325a93.mailgun.org"
+    }
+
+EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
+DEFAULT_FROM_EMAIL = "info@cashon.ly"
