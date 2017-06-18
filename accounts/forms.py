@@ -48,13 +48,11 @@ class ProfileForm(ModelForm):
         model = Profile
         fields = ('phone_number',)
         widgets = {
-            'phone_number': forms.IntegerField(
-                widget=forms.NumberInput(
-                    attrs={
-                        "type": "tel",
-                        "placeholder": "Phone Number"
-                    }
-                )
+            'phone_number': forms.TextInput(
+                attrs={
+                    "type": "tel",
+                    "placeholder": "Phone Number"
+                }
             )
         }
 
