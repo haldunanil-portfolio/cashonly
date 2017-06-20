@@ -25,17 +25,17 @@ View Bill
   <p class="bill-checkout-id"> {{ bill.id }} </p>
 </div>
 {% else %}
-<div>
-  <a href="/bill/{{ bill.id }}/edit/">Edit Bill</a>
+<div class="edit-bill-link-button">
+  <a class="edit-bill-link" href="/bill/{{ bill.id }}/edit/">Edit Bill</a>
 </div>
-<div>
+<div class="initiate-checkout-button">
   <a href="/bill/{{ bill.id }}/checkout/">
     <button class="submit-button">Initiate Checkout</button>
   </a>
 </div>
 {% endif %}
 
-<div>
+<div class="close-button-container">
   <a href="/">
     <button class="close-button">Close</button>
   </a>
