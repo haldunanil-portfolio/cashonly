@@ -42,7 +42,8 @@ def create_managed_stripe_account(user, business, *args, **kwargs):
     # create managed account on stripe
     stripe.api_key = settings.STRIPE_API_SECRET
     account = stripe.Account.create(
-        country="US", managed=True,
+        country="US",
+        type="custom",
         business_name=business.name,
         email=user.email,
         legal_entity={
