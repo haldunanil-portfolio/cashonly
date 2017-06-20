@@ -311,8 +311,8 @@ TINYMCE_SPELLCHECKER = True
 # Stripe
 # https://dashboard.stripe.com/account/apikeys
 if SERVER_MODE == "PRODUCTION":
-    STRIPE_API_SECRET = 'sk_live_v69oTbPbJ2fjITDojNhOcpfk'
-    STRIPE_API_PUBLIC = 'pk_live_grBbuvqi3BDWNqPPxC8XQxdf'
+    STRIPE_API_SECRET = 'sk_live_x6YdkZiCZB1lVp1qqZXH0IGb'
+    STRIPE_API_PUBLIC = 'pk_live_yKG1UZqg8soyU0STj8jcBG1e'
 elif SERVER_MODE == "DEV":
     STRIPE_API_SECRET = 'sk_test_wPql0ElQUqIpvW5GpIO3VhdD'
     STRIPE_API_PUBLIC = 'pk_test_JXCsIi6ufah5qTDQMsgRoQ7r'
