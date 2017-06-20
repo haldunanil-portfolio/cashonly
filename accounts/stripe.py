@@ -5,6 +5,9 @@ import stripe
 from django.conf import settings
 from django.contrib.auth.models import Group
 from transactions.models import CustomerBalance
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
+from accounts.models import Profile
 
 
 def create_customer_stripe_account(user, commit=True, *args, **kwargs):
@@ -62,3 +65,13 @@ def create_managed_stripe_account(user, business, *args, **kwargs):
     business.save()
 
     return account
+
+
+@receiver(pre_delete, sender=Profile)
+def model_pre_delete(sender, instance, **kwargs):
+    """
+    Delete associated stripe account
+    """
+    stripe.api_key = settings.STRIPE_API_SECRET
+    cust = stripe.Customer.retrieve(instance.stripe_id)
+    cust.delete()

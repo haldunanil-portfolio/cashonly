@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import logout
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 from accounts.forms import RegistrationForm
 from accounts.forms import ProfileForm
 from accounts.forms import BusinessForm
@@ -22,9 +25,26 @@ def registration(request):
 	if request.method == 'POST':
 		form = RegistrationForm(request.POST)
 		if form.is_valid():
+			# register user
 			form.save()
 			new_user = authenticate(username=form.cleaned_data['username'],
 									password=form.cleaned_data['password1'])
+
+			# send account creation confirmation email
+			subject = "Thanks for signing up, %s!" % new_user.first_name
+			from_email = 'info@cashon.ly'
+			to = new_user.email
+
+			html_content = render_to_string(
+				'email_welcome.html', {'user': new_user}
+			)
+			text_content = strip_tags(html_content)
+
+			msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+			msg.attach_alternative(html_content, "text/html")
+			msg.send()
+
+			# log user in
 			login(request, new_user)
 			return redirect('/sign-up/more-details/')
 
