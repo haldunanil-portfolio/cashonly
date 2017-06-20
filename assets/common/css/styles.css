@@ -188,6 +188,11 @@ button:hover, button:active, button:focus {
     display: block;
   }
 
+  .sign-up-cta-container {
+    display: block;
+    
+  }
+
   .desktop-links {
     display: none;
   }
@@ -347,7 +352,7 @@ button:hover, button:active, button:focus {
   }
 
   .transaction-location {
-    width: 200px; 
+    width: 200px;
   }
 }
 
@@ -362,6 +367,7 @@ h1 {
 .current-balance-statement {
   text-align: center;
   padding: 0px 10px 0px 10px;
+  font-weight: 600;
 }
 
 .refill-account-instruction {
