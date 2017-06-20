@@ -347,7 +347,7 @@ button:hover, button:active, button:focus {
   }
 
   .transaction-location {
-    width: 200px; 
+    width: 200px;
   }
 }
 
@@ -955,4 +955,29 @@ input[type=radio]:checked ~ .radio-label{
 .if-bill-not-payed-pay-button {
   display: block;
   margin-top: 35px;
+}
+
+.edit-bill-link-button {
+  margin-top: 30px;
+}
+
+.close-button-container {
+  margin-top: 80px;
+}
+
+.edit-bill-link {
+  color: #64AC00;
+  text-transform: uppercase;
+}
+
+.close-button {
+  background: #596869;
+}
+
+.close-button:hover {
+  background: #64AC00;
+}
+
+.initiate-checkout-button {
+  margin-top: 25px;
 }
