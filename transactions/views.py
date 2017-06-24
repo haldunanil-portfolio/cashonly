@@ -269,7 +269,7 @@ def tip_bill(request, bill_id):
             bill.save()
 
             url = '/select-bill/%s/pay/' % bill.id
-            return redirect(url)            
+            return redirect(url)
         else:
             raise ValueError("An invalid value was entered.")
 
@@ -489,6 +489,7 @@ def edit_bill(request, bill_id):
         form = CreateEditBillForm(request.POST)
         if form.is_valid():
             bill.amount = form.cleaned_data['human_amount'] * 100
+            bill.large_party = form.cleaned_data['large_party']
             bill.save()
             return redirect('/bill/%s/checkout/' % bill.id)
 

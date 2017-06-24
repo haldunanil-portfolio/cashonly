@@ -33,6 +33,7 @@
   {% else %}
   <div class="radio-buttons-container">
     <ul class="radio-button-list">
+      {% if not bill.large_party %}
       <li class="radio-button-list-items">
         <input class="radio-input" type="radio" id="f-option" name="tip-selector" value="0.15" onclick="this.form.submit();">
         <label class="radio-label" for="f-option">15% Tip (${{ bill.amount|mul:0.15|div:100|floatformat:2 }})</label>
@@ -44,6 +45,7 @@
         <label class="radio-label" for="s-option">18% Tip (${{ bill.amount|mul:0.18|div:100|floatformat:2 }})</label>
         <div class="check"><div class="inside"></div></div>
       </li>
+      {% endif %}
 
       <li class="radio-button-list-items">
         <input class="radio-input" type="radio" id="t-option" name="tip-selector" value="0.20" onclick="this.form.submit();">
@@ -51,11 +53,13 @@
         <div class="check"><div class="inside"></div></div>
       </li>
 
+      {% if not bill.large_party %}
       <li class="radio-button-list-items">
         <input class="radio-input" type="radio" id="c-option" name="tip-selector" value="custom" onclick="this.form.submit();">
         <label class="radio-label" for="c-option">Custom</label>
         <div class="check"><div class="inside"></div></div>
       </li>
+      {% endif %}      
     </ul>
   </div>
   {% endif %}
