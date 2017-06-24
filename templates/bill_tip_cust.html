@@ -9,7 +9,7 @@
 <h1>{{ bill.business.name }}</h1>
 
 <div>
-  Your total is <span class="balance-amount">${{ bill.amount|add:bill.tip|div:100|floatformat:2 }}</span>
+  Your total is <span class="balance-amount">${{ bill.amount|add:bill.tip|div:100|floatformat:2 }}</span>,
   {% if bill.tip > 0 %}including a <a class="submit-link" href="/select-bill/{{ bill.id }}/tip/">${{ bill.tip|div:100|floatformat:2 }} tip
     <svg class="edit-icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px" height="24px" viewBox="0 0 24 24"><g  transform="translate(0, 0)">
     <polygon fill="none" stroke="#64AC00" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" points="7,21 2,22 3,17
@@ -22,11 +22,6 @@
   </a>{% endif %}
 </div>
 <br>
-{% if bill.tip > 0 %}
-<div>
-  Note: You may revise your tip amount using the options below.
-</div></br>
-{% endif %}
 
 <form class="sign-up-form form-label form-css-label" method="post">
   {% csrf_token %}
@@ -40,19 +35,19 @@
     <ul class="radio-button-list">
       <li class="radio-button-list-items">
         <input class="radio-input" type="radio" id="f-option" name="tip-selector" value="0.15" onclick="this.form.submit();">
-        <label class="radio-label" for="f-option">15% Tip</label>
+        <label class="radio-label" for="f-option">15% Tip (${{ bill.amount|mul:0.15|div:100|floatformat:2 }})</label>
         <div class="check"></div>
       </li>
 
       <li class="radio-button-list-items">
         <input class="radio-input" type="radio" id="s-option" name="tip-selector" value="0.18" onclick="this.form.submit();">
-        <label class="radio-label" for="s-option">18% Tip</label>
+        <label class="radio-label" for="s-option">18% Tip (${{ bill.amount|mul:0.18|div:100|floatformat:2 }})</label>
         <div class="check"><div class="inside"></div></div>
       </li>
 
       <li class="radio-button-list-items">
         <input class="radio-input" type="radio" id="t-option" name="tip-selector" value="0.20" onclick="this.form.submit();">
-        <label class="radio-label" for="t-option">20% Tip</label>
+        <label class="radio-label" for="t-option">20% Tip (${{ bill.amount|mul:0.20|div:100|floatformat:2 }})</label>
         <div class="check"><div class="inside"></div></div>
       </li>
 
@@ -70,8 +65,6 @@
   {% endif %}
 </form>
 
-<a href="/select-bill/{{ bill.id }}/pay">
-  <button class="submit-button" type="submit" value="Submit">Pay</button>
-</a>
+
 
 {% endblock %}

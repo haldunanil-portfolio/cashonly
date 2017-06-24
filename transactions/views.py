@@ -267,6 +267,9 @@ def tip_bill(request, bill_id):
             tip_amount = float(request.POST.get("tip-selector")) * bill.amount
             bill.tip = tip_amount
             bill.save()
+
+            url = '/select-bill/%s/pay/' % bill.id
+            return redirect(url)            
         else:
             raise ValueError("An invalid value was entered.")
 
