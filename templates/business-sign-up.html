@@ -1,64 +1,345 @@
 {% extends 'base.html' %}
 
+{% load static from staticfiles %}
+
 {% block title %}Business Sign-Up{% endblock %}
 
 {% block head %}
 <style>
-.regular-checkbox {
-	-webkit-appearance: none;
-	background-color: #fafafa;
-	border: 1px solid #cacece;
-	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
-	padding: 9px;
-	border-radius: 3px;
-	display: inline-block;
-	position: relative;
-}
+	body {
+		min-height: 800px;
+	}
 
-.regular-checkbox:active, .regular-checkbox:checked:active {
-	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
-}
+	.msform {
+		width: 500px;
+		margin: auto;
+		text-align: center;
+		position: relative;
+	}
 
-.regular-checkbox:checked {
-	background-color: #e9ecee;
-	border: 1px solid #adb8c0;
-	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);
-	color: #99a1a7;
-}
+	.msform fieldset {
+		background: #fff;
+		border: 0 none;
+		border-radius: 3px;
+		box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+		padding: 20px 30px;
 
-.regular-checkbox:checked:after {
-	content: '\2714';
-	font-size: 14px;
-	position: absolute;
-	top: 0px;
-	left: 3px;
-	color: #99a1a7;
-}
+		box-sizing: border-box;
+		width: 80%;
+		margin: 0 10%;
+		margin-bottom: 50px;
+
+		position: absolute;
+	}
+
+	.msform fieldset:not(:first-of-type) {
+		display: none;
+	}
+
+	.msform .submit-button {
+		margin-top: 15px;
+		margin-bottom: 10px;
+	}
+
+	.select2-container {
+		text-align: left;
+		font-size: 18px;
+	}
+
 </style>
 {% endblock %}
 
 {% block content %}
 
 <h1>Request Access to the Cash Only Beta</h1>
-<div>Thanks for your interest in registering your business with Cash Only, {{ user.first_name|title }}! Please fill out the following form and we'll get back to you as soon as possible!</div>
-<div style="color: red;">Please note that we're only accepting businesses legally incorporated in the United States at this time.</div>
+<ul>
+	<li><b>Thanks for your interest in registering your business with Cash Only, {{ user.first_name|title }}!</b></li>
+	<li style="color: red;">Please note that we're only accepting businesses legally incorporated in the United States at this time.</li>
+</ul>
 
-<div class="center-container">
-  <div class="section">
-    <form class="form-label form-css-label" method="post"> 
-      {% csrf_token %}
-      {% for field in form %}
-        <fieldset>
-          {{ field }}
-          <label>{{ field.label }}</label>
-        </fieldset>
-      {% endfor %}
+<form id="msform1" class="form-label form-css-label msform" method="post"> 
+  {% csrf_token %}
 
-      <button class="submit-button" type="submit" value="Submit">
-      Submit
-      </button>
+	<fieldset>
+		<h2 class="fs-title">Basic Business Information</h2>
+		<select id="basic-single1" class="basic-single-type1" name="business_type" style="width: 280px">
+			<option></option>
+			{% for bt in business_types %}
+			<option value="{{ bt.name }}" {% if user.profile.business.business_type == bt %}selected{% endif %}>{{ bt.name }}</option>
+			{% endfor %}
+		</select>
+		<input type="text" name="name" placeholder="Name" {% if user.profile.business.name %}value="{{ user.profile.business.name }}"{% endif %} required>
+		<input type="url" name="website" placeholder="Website" {% if user.profile.business.website %}value="{{ user.profile.business.website }}"{% endif %}>
+		<input type="url" name="yelp_page" placeholder="Yelp page" {% if user.profile.business.yelp_page %}value="{{ user.profile.business.yelp_page }}"{% endif %}>
+		<input type="url" name="facebook_page" placeholder="Facebook page" {% if user.profile.business.facebook_page %}value="{{ user.profile.business.facebook_page }}"{% endif %}>
+		<button type="button" class="submit-button next" name="next" value="Next">Next</button>
+	</fieldset>
+	<fieldset>
+		<h2 class="fs-title">Business Address Information</h2>
+		<input type="text" name="address_1" placeholder="Address 1" {% if user.profile.business.address_1 %}value="{{ user.profile.business.address_1 }}"{% endif %} required>
+		<input type="text" name="address_2" placeholder="Address 2 (optional)" {% if user.profile.business.address_2 %}value="{{ user.profile.business.address_2 }}"{% endif %}>
+		<input type="text" name="city" placeholder="City" {% if user.profile.business.city %}value="{{ user.profile.business.city }}"{% endif %} required>
+		<input type="text" name="state_province" placeholder="State" {% if user.profile.business.state_province %}value="{{ user.profile.business.state_province }}"{% endif %} required>
+		<input type="text" name="zipcode" placeholder="Zipcode" {% if user.profile.business.zipcode %}value="{{ user.profile.business.zipcode }}"{% endif %} required>
+		<button type="button" class="submit-link previous" name="previous" value="Previous">Previous</button>
+		<button id="submit1" class="submit-button" type="submit" value="Submit">Next</button>
+	</fieldset>
+	<fieldset>
+		<h2 class="fs-title">Tax Information</h2>
+		<h3 class="fs-subtitle">Company Details</h3>
+		<select class="basic-single-type2" name="company_legal_type" style="width: 280px">
+			<option></option>
+			<option value="company">Company</option>
+			<option value="individual">Individual</option>
+		</select>
+		<input type="text" name="company_legal_name" placeholder="Legal Name" required>
+		<input type="text" name="tin" placeholder="EIN / Tax ID Number" required>
+		<h3 class="fs-subtitle">Business Owner Details</h3>
+		<input type="text" name="dob" placeholder="Date of Birth (MM/DD/YYYY)" maxlength=10  onkeyup="this.value=this.value.replace(/^(\d\d)(\d)$/g,'$1/$2').replace(/^(\d\d\/\d\d)(\d+)$/g,'$1/$2').replace(/[^\d\/]/g,'')" required>
+		<input type="text" name="last_4_ssn" placeholder="SSN (Last 4)" maxlength="4" required>
+		<button type="button" class="submit-link previous" name="previous" value="Previous">Previous</button>
+		<button id="submit2" class="submit-button next" type="submit" value="Submit">Next</button>
+	</fieldset>
+	<fieldset>
+		<h2 class="fs-title">Bank Account Information</h2>
+		<h3 class="fs-subtitle">Account must be in the US, with USD as its currency.</h3>
+		<input type="text" name="routing_number" placeholder="Bank Account Routing Number" required>
+		<input type="text" name="account_number1" placeholder="Bank Account Number" required>
+		<input type="text" name="account_number2" placeholder="Bank Account Number (Verify)" required>
+		<button type="button" class="submit-link previous" name="previous" value="Previous">Previous</button>
+		<button id="submit3" class="submit-button" type="submit" value="Submit">Register Your Account</button>
+		By registering your account, you accept the Cash Only service agreement and the <a href="https://stripe.com/us/connect-account/legal" target="_blank">Stripe Connected Account Agreement</a>.
+	</fieldset>
+	<fieldset>
+		<h2 class="fs-title">Success!</h2>
+		<h3 class="fs-subtitle">Thanks for signing up, {{ user.first_name }}!</h3>
+		<p>You can begin accepting <i>Cash Only</i> for payments instantly!</p>
+		<a href="/?mode=business">
+			<button type="button" class="submit-button" value="Get Started">Get Started</button>
+		</a>
+	</fieldset>
+</form>
 
-    </form>
-	</div>
-</div>
+
+
+
+
+
+{% endblock %}
+
+
+{% block script %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+<script src="{% static 'common/js/co_scripts.js' %}"></script>
+<script>
+	$(document).ready(function() {
+		$(".basic-single-type1").select2({
+			placeholder: "Company Type",
+			allowClear: true
+		});
+
+		$(".basic-single-type2").select2({
+			placeholder: "Legal Type",
+			allowClear: true
+		});
+	});
+
+	var current_fs, next_fs, previous_fs; //fieldsets
+	var left, opacity, scale; //fieldset properties to be animated
+	var animating; // prevent rapid click glitches
+
+	$(document).ready(function() {
+	  $(window).keydown(function(event){
+	    if(event.keyCode == 13) {
+	      event.preventDefault();
+				return false;
+	    }
+	  });
+	});
+
+	$('.next').click(function() {
+		result = animateNext($(this), animating);
+		current_fs = result.current_fs;
+		next_fs = result.next_fs;
+	});
+
+	$('.previous').click(function() {
+		result = animatePrev($(this), animating);
+		current_fs = result.current_fs;
+		previous_fs = result.previous_fs;
+	});
+
+	var account_id; // create account var for ajax assignment and reuse
+	$('#submit1').click(function() {
+		// stop form submit to server
+		event.preventDefault();
+
+		// grab all form data
+		var data = {};
+		$.each($('#msform1').serializeArray(), function(index, value) {
+			if (value.value != '') {
+				data[value.name] = value.value;
+			}
+		});
+
+		// validate that minimum data submitted
+		var req_properties = [
+			'name', 'business_type', 'address_1', 'city', 'state_province', 'zipcode'
+		];
+		var missing_properties = [];
+		$.each(req_properties, function(index, value) {
+			if (!data.hasOwnProperty(value)) {
+				missing_properties.push(titleCase(value.replace('_', ' ')));
+			}
+		});
+
+		if (missing_properties.length > 0) {
+			var html = "The following fields are required: \n\n\t• " +
+				missing_properties.join("\n\t• ")
+			alert(html);
+			return false;
+		}
+		else {
+			// setup and execute ajax call
+			$.ajaxSetup({
+				headers: {'X-CSRFToken': getCookie('csrftoken')}
+			});
+
+			$.ajax({
+				type: "POST",
+				url: '/ajax/business-sign-up/',
+				data: {
+					'data': data,
+					'user': '{{ user }}'
+				},
+				dataType: 'json',
+				success: function (data) {
+					if (data.found_user) {
+						result = animateNext($('#submit1'), animating);
+						current_fs = result.current_fs;
+						next_fs = result.next_fs;
+						account_id = data.account_id;
+					}
+				}
+			});
+		}
+	});
+
+	$('#submit2').click(function() {
+		// stop form submit to server
+		event.preventDefault();
+
+		// grab all form data
+		var data = {};
+		$.each($('#msform1').serializeArray(), function(index, value) {
+			if (value.value != '') {
+				data[value.name] = value.value;
+			}
+		});
+
+		// validate that minimum data submitted
+		var req_properties = [
+			'company_legal_type', 'company_legal_name', 'tin', 'dob', 'last_4_ssn'
+		];
+		var missing_properties = [];
+		$.each(req_properties, function(index, value) {
+			if (!data.hasOwnProperty(value)) {
+				missing_properties.push(titleCase(value.replace('_', ' ')));
+			}
+		});
+
+		if (missing_properties.length > 0) {
+			var html = "The following fields are required: \n\n\t• " +
+				missing_properties.join("\n\t• ")
+			alert(html);
+			return false;
+		}
+		else {
+			// setup and execute ajax call
+			$.ajaxSetup({
+				headers: {'X-CSRFToken': getCookie('csrftoken')}
+			});
+
+			$.ajax({
+				type: "POST",
+				url: '/ajax/business-submit-legal/',
+				data: {
+					'data': data,
+					'account_id': account_id
+				},
+				dataType: 'json',
+				success: function (data) {
+					if (data.found_user) {
+						result = animateNext($('#submit2'), animating);
+						current_fs = result.current_fs;
+						next_fs = result.next_fs;
+					}
+				}
+			});
+		}
+	});
+
+	$('#submit3').click(function() {
+		// stop form submit to server
+		event.preventDefault();
+
+		// grab all form data
+		var data = {};
+		$.each($('#msform1').serializeArray(), function(index, value) {
+			if (value.value != '') {
+				data[value.name] = value.value;
+			}
+		});
+
+		// ensure that the account numbers match
+		var account_number1 = $("input[name=account_number1]").val();
+		var account_number2 = $("input[name=account_number2]").val();
+
+		if (account_number1 != account_number2) {
+			alert("Account numbers don't match, please verify and submit again.");
+			return false;
+		}
+
+		// validate that minimum data submitted
+		var req_properties = [
+			'routing_number', 'account_number1', 'account_number2'
+		];
+		var missing_properties = [];
+		$.each(req_properties, function(index, value) {
+			if (!data.hasOwnProperty(value)) {
+				missing_properties.push(titleCase(value.replace('_', ' ')));
+			}
+		});
+
+		if (missing_properties.length > 0) {
+			var html = "The following fields are required: \n\n\t• " +
+				missing_properties.join("\n\t• ")
+			alert(html);
+			return false;
+		}
+		else {
+			// setup and execute ajax call
+			$.ajaxSetup({
+				headers: {'X-CSRFToken': getCookie('csrftoken')}
+			});
+
+			$.ajax({
+				type: "POST",
+				url: '/ajax/tos-accept-add-ext-acct/',
+				data: {
+					'data': data,
+					'account_id': account_id
+				},
+				dataType: 'json',
+				success: function (data) {
+					alert('success!');
+					result = animateNext($('#submit3'), animating);
+					current_fs = result.current_fs;
+					next_fs = result.next_fs;
+				}
+			});
+		}
+	});
+
+</script>
 {% endblock %}

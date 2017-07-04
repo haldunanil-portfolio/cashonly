@@ -12,5 +12,19 @@
     "fields": {
       "name": "Business Employees"
     }
+  },
+  {
+    "model": "auth.group",
+    "pk": 3,
+    "fields": {
+      "name": "Business Owners"
+    }
+  },
+  {
+    "model": "accounts.business_type",
+    "pk": 4,
+    "fields": {
+      "name": "Restaurant"
+    }
   }
 ]
