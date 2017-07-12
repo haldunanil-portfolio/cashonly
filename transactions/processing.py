@@ -125,6 +125,7 @@ class SimpleTransaction(object):
             self._calculate_commission() - self._calculate_stripe_fee(), 0
         ))
 
+    # TODO
     def _calculate_business_share(self, *args, **kwargs):
         """
         Calculate the amount of commission given to business after stripe fees.

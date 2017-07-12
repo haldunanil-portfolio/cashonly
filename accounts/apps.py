@@ -6,7 +6,7 @@ class AccountsConfig(AppConfig):
 
     def ready(self):
         """
-
+        Ensure that a basic subscription plan exists
         """
         from django.conf import settings
         import stripe
