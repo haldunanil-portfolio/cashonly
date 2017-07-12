@@ -28,6 +28,12 @@ def create_customer_stripe_account(user, commit=True, *args, **kwargs):
         }
     )
 
+    # add user to default subscription
+    stripe.Subscription.create(
+        customer=customer,
+        plan="basic"
+    )
+
     # record stripe id to backend
     if commit:
         user.profile.stripe_id = customer.id
