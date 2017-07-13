@@ -1,4 +1,4 @@
-Django==1.11
+Django==1.10
 django-storages
 django-phonenumber-field
 psycopg2
@@ -11,3 +11,4 @@ django-simple-history
 django-mathfilters
 django-tinymce
 django-anymail[mailgun]
+mezzanine

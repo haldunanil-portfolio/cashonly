@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import Businesses, Profile
+from accounts.models import Businesses
+from accounts.models import Profile
+from accounts.models import BusinessType
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
 from django.contrib.flatpages.admin import FlatpageForm, FlatPageAdmin
@@ -37,6 +39,9 @@ class BusinessesAdmin(admin.ModelAdmin):
         'name', 'website', 'city', 'state_province', 'country',
     )
 
+class BusinessTypeAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+
 
 class FlatPageForm(forms.ModelForm):
     content = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 30}))
@@ -54,5 +59,6 @@ class PageAdmin(FlatPageAdmin):
 
 
 admin.site.register(Businesses, BusinessesAdmin)
+admin.site.register(BusinessType, BusinessTypeAdmin)
 admin.site.unregister(FlatPage)
 admin.site.register(FlatPage, PageAdmin)

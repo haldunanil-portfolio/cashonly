@@ -21,6 +21,9 @@ from accounts.views import registration
 from accounts.views import registration_next_steps
 from accounts.views import signout
 from accounts.views import business_sign_up
+from accounts.views import ajax_business_sign_up
+from accounts.views import ajax_stripe_legal_details
+from accounts.views import ajax_stripe_tos_external_account
 from accounts.forms import LoginForm
 from accounts.forms import BusinessForm
 from django.views.generic import TemplateView
@@ -83,5 +86,8 @@ urlpatterns = [
     url(r'^bill/(\d+)/delete/$', delete_bill, name='delete_bill'),
     url(r'^bill/(\d+)/success/$', bill_paid, name='bill_paid'),
     url(r'^completed-transactions/$', transactions_biz, name='transactions_biz'),
+    url(r'^ajax/business-sign-up/$', ajax_business_sign_up, name='ajax_business_sign_up'),
+    url(r'^ajax/business-submit-legal/$', ajax_stripe_legal_details, name='ajax_stripe_legal_details'),
+    url(r'^ajax/tos-accept-add-ext-acct/$', ajax_stripe_tos_external_account, name='ajax_stripe_tos_external_account'),
     url(r'^tinymce/', include('tinymce.urls')),
 ]
