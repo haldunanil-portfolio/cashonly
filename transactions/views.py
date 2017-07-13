@@ -248,6 +248,11 @@ def tip_bill(request, bill_id):
         messages.info(request, "A bill with this code does not exist.")
         return redirect('/select-bill/')
 
+    # if business doesn't allow tips, then skip page
+    if not bill.business.tips_allowed:
+        url = '/select-bill/%s/pay/' % bill.id
+        return redirect(url)
+
     # if bill was alredy paid, then back to select bill
     if bill.paid:
         messages.info(request, "This bill has already been paid.")
@@ -288,6 +293,11 @@ def custom_tip_bill(request, bill_id):
     except ObjectDoesNotExist:
         messages.info(request, "A bill with this code does not exist.")
         return redirect('/select-bill/')
+
+    # if business doesn't allow tips, then skip page
+    if not bill.business.tips_allowed:
+        url = '/select-bill/%s/pay/' % bill.id
+        return redirect(url)
 
     # if bill was alredy paid, then back to select bill
     if bill.paid:

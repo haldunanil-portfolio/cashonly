@@ -41,6 +41,7 @@ class Businesses(models.Model):
         max_digits=10, decimal_places=2, verbose_name='Revenue Share %',
         default=0.5
     )
+    tips_allowed = models.BooleanField(default=True)
     stripe_id = models.CharField(max_length=30, blank=True, null=True)
 
     def __str__(self):
