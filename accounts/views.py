@@ -170,7 +170,7 @@ def ajax_business_sign_up(request):
 			address_1=request.POST.get('data[address_1]'),
 			address_2=request.POST.get('data[address_2]', None),
 			city=request.POST.get('data[city]'),
-			state=request.POST.get('data[state_province]'),
+			state_province=request.POST.get('data[state_province]'),
 			zipcode=request.POST.get('data[zipcode]'),
 			country='US',
 			rev_share_perc=0.5
