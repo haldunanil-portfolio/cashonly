@@ -38,7 +38,7 @@ class CustomTipForm(forms.Form):
                                         attrs={
                                             "type": "tel",
                                             "id": "number",
-                                            "placeholder": "Custom Tip Amount"                                          
+                                            "placeholder": "Custom Tip Amount"
                                         }
                                     ))
 
@@ -52,6 +52,9 @@ class CreateEditBillForm(forms.Form):
                                           attrs={
                                               "type": "tel",
                                               "id": "number",
-                                              "placeholder": "Enter Bill Amount"                                            
+                                              "placeholder": "Enter Bill Amount"
                                           }
                                       ))
+
+    large_party = forms.BooleanField(label='Party is larger than 6 people',
+                                     required=False)

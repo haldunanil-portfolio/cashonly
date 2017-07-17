@@ -248,6 +248,11 @@ def tip_bill(request, bill_id):
         messages.info(request, "A bill with this code does not exist.")
         return redirect('/select-bill/')
 
+    # if business doesn't allow tips, then skip page
+    if not bill.business.tips_allowed:
+        url = '/select-bill/%s/pay/' % bill.id
+        return redirect(url)
+
     # if bill was alredy paid, then back to select bill
     if bill.paid:
         messages.info(request, "This bill has already been paid.")
@@ -267,6 +272,9 @@ def tip_bill(request, bill_id):
             tip_amount = float(request.POST.get("tip-selector")) * bill.amount
             bill.tip = tip_amount
             bill.save()
+
+            url = '/select-bill/%s/pay/' % bill.id
+            return redirect(url)
         else:
             raise ValueError("An invalid value was entered.")
 
@@ -285,6 +293,11 @@ def custom_tip_bill(request, bill_id):
     except ObjectDoesNotExist:
         messages.info(request, "A bill with this code does not exist.")
         return redirect('/select-bill/')
+
+    # if business doesn't allow tips, then skip page
+    if not bill.business.tips_allowed:
+        url = '/select-bill/%s/pay/' % bill.id
+        return redirect(url)
 
     # if bill was alredy paid, then back to select bill
     if bill.paid:
@@ -486,6 +499,7 @@ def edit_bill(request, bill_id):
         form = CreateEditBillForm(request.POST)
         if form.is_valid():
             bill.amount = form.cleaned_data['human_amount'] * 100
+            bill.large_party = form.cleaned_data['large_party']
             bill.save()
             return redirect('/bill/%s/checkout/' % bill.id)
 

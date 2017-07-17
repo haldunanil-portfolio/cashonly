@@ -28,6 +28,12 @@ def create_customer_stripe_account(user, commit=True, *args, **kwargs):
         }
     )
 
+    # add user to default subscription
+    stripe.Subscription.create(
+        customer=customer,
+        plan="basic"
+    )
+
     # record stripe id to backend
     if commit:
         user.profile.stripe_id = customer.id
@@ -66,6 +72,30 @@ def create_managed_stripe_account(user, business, *args, **kwargs):
     business.save()
 
     return account
+
+
+def update_managed_stripe_account(user, *args, **kwargs):
+    """
+    """
+    # update managed account on stripe
+    stripe.api_key = settings.STRIPE_API_SECRET
+    account = stripe.Account.retrieve(user.profile.business.stripe_id)
+    account.business_name = business.name
+    account.legal_entity = {
+        "address": {
+            "city": business.city,
+            "country": business.country,
+            "line1": business.address_1,
+            "line2": business.address_2,
+            "postal_code": business.zipcode,
+            "state": business.state_province
+        },
+        "first_name": user.first_name,
+        "last_name": user.last_name,
+        "type": "company"
+    }
+    account.save()
+
 
 
 @receiver(pre_delete, sender=Profile)

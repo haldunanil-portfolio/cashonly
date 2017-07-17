@@ -125,6 +125,7 @@ class SimpleTransaction(object):
             self._calculate_commission() - self._calculate_stripe_fee(), 0
         ))
 
+    # TODO
     def _calculate_business_share(self, *args, **kwargs):
         """
         Calculate the amount of commission given to business after stripe fees.
@@ -142,6 +143,8 @@ class SimpleTransaction(object):
                 get_value("DEFAULT_REV_SHARE"), 0
             ))
 
+
+    ## TODO
     def _create_stripe_charge(self, comments=None, *args, **kwargs):
         """
         Creates a stripe charge for the user.
@@ -208,6 +211,7 @@ class SimpleTransaction(object):
 
         return stripe_charge
 
+    ## TODO
     def _create_stripe_transfer(self, comments=None, *args, **kwargs):
         """
         Makes a transfer from a user's account to a business.
@@ -256,6 +260,7 @@ class SimpleTransaction(object):
         raise NotImplementedError
 
 
+## TODO
 class PayAsYouGo(SimpleTransaction):
 
     def __init__(self, *args, **kwargs):
@@ -290,6 +295,7 @@ class PayAsYouGo(SimpleTransaction):
         return charge
 
 
+## TODO
 class AddToBalance(SimpleTransaction):
 
     def process(self, comments=None, *args, **kwargs):
@@ -313,6 +319,7 @@ class AddToBalance(SimpleTransaction):
         return charge
 
 
+## TODO
 class PurchaseFromBalance(SimpleTransaction):
 
     def __init__(self, *args, **kwargs):

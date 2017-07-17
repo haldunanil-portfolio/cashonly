@@ -9,8 +9,7 @@
 <h1>{{ bill.business.name }}</h1>
 
 <div>
-  Your total is <span class="balance-amount">${{ bill.amount|add:bill.tip|div:100|floatformat:2 }}</span>
-  {% if bill.tip > 0 %}including a <a class="submit-link" href="/select-bill/{{ bill.id }}/tip/">${{ bill.tip|div:100|floatformat:2 }} tip
+  Your total is <span class="balance-amount">${{ bill.amount|add:bill.tip|div:100|floatformat:2 }}</span>{% if bill.tip > 0 and bill.business.tips_allowed %}, including a <a class="submit-link" href="/select-bill/{{ bill.id }}/tip/">${{ bill.tip|div:100|floatformat:2 }} tip
     <svg class="edit-icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px" height="24px" viewBox="0 0 24 24"><g  transform="translate(0, 0)">
     <polygon fill="none" stroke="#64AC00" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" points="7,21 2,22 3,17
     15,5 19,9 " stroke-linejoin="miter"/>

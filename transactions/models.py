@@ -142,6 +142,7 @@ class Bill(models.Model):
     charge = models.ForeignKey(Charge, blank=True, null=True)
     amount = models.IntegerField(verbose_name='Purchase amount (in cents)',
                                  validators=[MinValueValidator(0)])
+    large_party = models.BooleanField(default=False)
     tip = models.IntegerField(verbose_name='Tip amount (in cents)',
                               validators=[MinValueValidator(0)],
                               default=0)

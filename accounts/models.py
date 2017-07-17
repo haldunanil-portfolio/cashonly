@@ -4,11 +4,27 @@ from django_countries.fields import CountryField
 from appconfig.functions import get_value
 
 
+class BusinessType(models.Model):
+    """
+    Contains information on business type (i.e. industry)
+    """
+    name = models.CharField(max_length=255)
+
+    class Meta:
+        verbose_name = 'Business Type'
+        verbose_name_plural = 'Business Types'
+
+    def __str__(self):
+        return u'%s' % (self.name)
+
+
 class Businesses(models.Model):
     """
     Contain information for individual businesses registered with Cash Only
     """
     name = models.CharField(max_length=100)
+    business_type = models.ForeignKey(BusinessType, on_delete=models.SET_NULL,
+                                      null=True)
     website = models.URLField(blank=True, null=True)
     yelp_page = models.URLField(blank=True, null=True)
     facebook_page = models.URLField(blank=True, null=True)
@@ -25,10 +41,12 @@ class Businesses(models.Model):
         max_digits=10, decimal_places=2, verbose_name='Revenue Share %',
         default=0.5
     )
+    tips_allowed = models.BooleanField(default=True)
     stripe_id = models.CharField(max_length=30, blank=True, null=True)
 
     def __str__(self):
         return u'%s' % (self.name)
+
 
 class Profile(models.Model):
     """
